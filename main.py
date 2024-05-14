@@ -17,6 +17,16 @@ def main():
         project_entry.delete(0, tkinter.END)
         price_entry.delete(0, tkinter.END)
         price_entry.insert(0, "0.0")
+        
+
+    def new_invoice():
+        invoice_num_spinbox.delete(0, tkinter.END)
+        order_num_spinbox.delete(0, tkinter.END)
+        issued_date_entry.delete(0, tkinter.END)
+        due_date_entry.delete(0, tkinter.END)
+        clear_item()
+        tree.delete(*tree.get_children())
+
 
 
 
@@ -37,9 +47,6 @@ def main():
     order_num_label.grid(row=0, column=1)
     order_num_spinbox = tkinter.Spinbox(frame, from_ =1, to=100)
     order_num_spinbox.grid(row=1, column=1)
-
-    rws_label = tkinter.Label(frame, text="RWS")
-    rws_label.grid(row=1, column=1)
 
     issued_date_label = tkinter.Label(frame, text="Issued on")
     issued_date_label.grid(row=0, column=2)
@@ -81,7 +88,7 @@ def main():
     generate_invoice_button = tkinter.Button(frame, text="Generate invoice")
     generate_invoice_button.grid(row=7, column=0, columnspan=4, sticky= "news", padx=20, pady=10)
 
-    new_invoice_button = tkinter.Button(frame, text="Generate Invoice")
+    new_invoice_button = tkinter.Button(frame, text="New Invoice", command = new_invoice)
     new_invoice_button.grid(row=8, column=0, columnspan=4, sticky="news", padx=20, pady=5)
 
 
