@@ -1,8 +1,11 @@
 import tkinter
 from tkinter import ttk
+from docxtpl import DocxTemplate
+import datetime
 
 def main():
 
+    invoice_list = []
     def add_item():
         po = int(po_entry.get())
         project = project_entry.get()
@@ -11,6 +14,7 @@ def main():
 
         tree.insert('', 0, values=invoice_item)
         clear_item()
+        invoice_list.append(invoice_item)
     
     def clear_item():
         po_entry.delete(0, tkinter.END)
@@ -26,6 +30,29 @@ def main():
         due_date_entry.delete(0, tkinter.END)
         clear_item()
         tree.delete(*tree.get_children())
+        invoice_list.clear()
+    
+    def generate_invoice():
+        doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/INVOICE_template_RWS.docx")
+        invoice_num = invoice_num_spinbox.get()
+        order_num = order_num_spinbox.get()
+        issued_date = issued_date_entry.get()
+        due_date = due_date_entry.get()
+        total_price = sum(item[2] for item in invoice_list) 
+
+        doc.render(
+            {
+                "invoice_num": invoice_num,
+                "order_num": order_num,
+                "date": issued_date,
+                "due_date": due_date,
+                "invoice_list": invoice_list,
+                "total_price": total_price
+            }
+        )
+
+        doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + order_num
+        doc.save(doc_name) 
 
 
 
@@ -85,7 +112,7 @@ def main():
     tree.heading("project", text="Project")
     tree.heading("price", text="Price")
 
-    generate_invoice_button = tkinter.Button(frame, text="Generate invoice")
+    generate_invoice_button = tkinter.Button(frame, text="Generate invoice", command=generate_invoice)
     generate_invoice_button.grid(row=7, column=0, columnspan=4, sticky= "news", padx=20, pady=10)
 
     new_invoice_button = tkinter.Button(frame, text="New Invoice", command = new_invoice)
