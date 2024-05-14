@@ -1,7 +1,7 @@
 import tkinter
 from tkinter import ttk
 from docxtpl import DocxTemplate
-import datetime
+from tkinter import messagebox
 
 def main():
 
@@ -50,9 +50,10 @@ def main():
                 "total_price": total_price
             }
         )
-
         doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + order_num
-        doc.save(doc_name) 
+        doc.save(doc_name)
+        messagebox.showinfo("Invoice Complete", "Invoice Complete") 
+        new_invoice()
 
 
 
