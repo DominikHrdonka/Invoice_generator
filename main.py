@@ -8,8 +8,6 @@ frame = tkinter.Frame(window)
 frame.pack(padx=20, pady=10)
 
 
-
-
 invoice_num_label = tkinter.Label(frame, text="Invoice number")
 invoice_num_label.grid(row=0, column=0)
 invoice_num_spinbox = tkinter.Spinbox(frame, from_=1, to=100)
@@ -30,7 +28,12 @@ due_date_label.grid(row=0, column=3)
 due_date_entry = tkinter.Entry(frame)
 due_date_entry.grid(row=1, column=3)
 
+add_item_button = tkinter.Button(frame, text="Add item")
+add_item_button.grid(row=2, column=3, pady=10)
 
+columns = ('PO', 'Project', 'Price')
+tree = ttk.Treeview(frame, columns=columns, show="headings")
+tree.grid(row=3, column=0, columnspan=4, padx=20, pady=10)
 
 
 
