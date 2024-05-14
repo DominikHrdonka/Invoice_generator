@@ -1,6 +1,14 @@
 import tkinter
 from tkinter import ttk
 
+
+def add_item():
+    po = int(po_entry.get())
+    project = project_entry.get()
+    price= float(project_entry.get())
+
+
+
 window = tkinter.Tk()
 window.title("Invoice generator form")
 
@@ -31,23 +39,38 @@ due_date_label.grid(row=0, column=3)
 due_date_entry = tkinter.Entry(frame)
 due_date_entry.grid(row=1, column=3)
 
+po_label = tkinter.Label(frame, text="PO")
+po_label.grid(row=3, column=0)
+po_entry = tkinter.Entry(frame)
+po_entry.grid(row=4, column=0)
+
+project_label = tkinter.Label(frame, text="Project")
+project_label.grid(row=3, column=1)
+project_entry = tkinter.Entry(frame)
+project_entry.grid(row=4, column=1)
+
+price_label = tkinter.Label(frame, text="Price")
+price_label.grid(row=3, column=2)
+price_entry = tkinter.Entry(frame)
+price_entry.grid(row=4, column=2)
+
 # Add item button
-add_item_button = tkinter.Button(frame, text="Add item")
-add_item_button.grid(row=3, column=0, columnspan=4, sticky="news", pady=10)
+add_item_button = tkinter.Button(frame, text="Add item", command= add_item)
+add_item_button.grid(row=5, column=0, columnspan=4, sticky="news", pady=10)
 
 # Tree
 columns = ('po', 'project', 'price')
 tree = ttk.Treeview(frame, columns=columns, show="headings")
-tree.grid(row=4, column=0, columnspan=4, padx=20, pady=10)
+tree.grid(row=6, column=0, columnspan=4, padx=20, pady=10)
 tree.heading("po", text="PO")
 tree.heading("project", text="Project")
 tree.heading("price", text="Price")
 
 generate_invoice_button = tkinter.Button(frame, text="Generate invoice")
-generate_invoice_button.grid(row=5, column=0, columnspan=4, sticky= "news", padx=20, pady=10)
+generate_invoice_button.grid(row=7, column=0, columnspan=4, sticky= "news", padx=20, pady=10)
 
 new_invoice_button = tkinter.Button(frame, text="Generate Invoice")
-new_invoice_button.grid(row=6, column=0, columnspan=4, sticky="news", padx=20, pady=5)
+new_invoice_button.grid(row=8, column=0, columnspan=4, sticky="news", padx=20, pady=5)
 
 
 
