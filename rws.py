@@ -60,7 +60,7 @@ def rws():
 
     # GUI
         window = tkinter.Tk()
-        window.title("Invoice generator form")
+        window.title("RWS invoice generator form")
 
         frame = tkinter.Frame(window)
         frame.pack(padx=20, pady=10)

@@ -60,7 +60,7 @@ def en():
 
     # GUI
         window = tkinter.Tk()
-        window.title("Invoice generator form")
+        window.title("English invoice generator form")
 
         frame = tkinter.Frame(window)
         frame.pack(padx=20, pady=10)
