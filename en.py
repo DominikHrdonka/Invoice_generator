@@ -2,7 +2,7 @@ import tkinter
 from tkinter import ttk
 from docxtpl import DocxTemplate
 from tkinter import messagebox
-def program1():
+def en():
     def main():
 
         invoice_list = []
@@ -33,7 +33,7 @@ def program1():
             invoice_list.clear()
         
         def generate_invoice():
-            doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/INVOICE_template_RWS.docx")
+            doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/INVOICE_template_en.docx")
             invoice_num = invoice_num_spinbox.get()
             order_num = order_num_spinbox.get()
             issued_date = issued_date_entry.get()

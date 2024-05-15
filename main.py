@@ -1,12 +1,13 @@
 import tkinter
 from tkinter import ttk
-from RWS import program1
+from rws import rws
+from en import en
 
 def rws_invoice():
-    program1()
+    rws()
 
 def en_invoice():
-    print("English invoice")
+    en()
         
 
 # GUI
