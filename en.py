@@ -32,7 +32,7 @@ def en():
             invoice_list.clear()
         
         def generate_invoice():
-            doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/INVOICE_template_en.docx")
+            doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_en.docx")
             invoice_num = invoice_num_spinbox.get()
             name = name_entry.get()
             issued_date = issued_date_entry.get()

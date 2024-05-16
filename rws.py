@@ -32,7 +32,7 @@ def rws():
             invoice_list.clear()
         
         def generate_invoice():
-            doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/INVOICE_template_RWS.docx")
+            doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_rws.docx")
             invoice_num = invoice_num_spinbox.get()
             order_num = order_num_spinbox.get()
             issued_date = issued_date_entry.get()
