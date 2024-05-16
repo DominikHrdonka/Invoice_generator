@@ -20,7 +20,6 @@ def rws():
             po_entry.delete(0, tkinter.END)
             project_entry.delete(0, tkinter.END)
             price_entry.delete(0, tkinter.END)
-            price_entry.insert(0, "0.0")
             
 
         def new_invoice():
@@ -50,7 +49,7 @@ def rws():
                     "total_price": total_price
                 }
             )
-            doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + order_num
+            doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + order_num + ".docx"
             doc.save(doc_name)
             messagebox.showinfo("Invoice Complete", "Invoice Complete") 
             new_invoice()

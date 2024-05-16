@@ -2,30 +2,29 @@ import tkinter
 from tkinter import ttk
 from docxtpl import DocxTemplate
 from tkinter import messagebox
+
+
 def en():
     def main():
 
         invoice_list = []
         def add_item():
-            po = int(po_entry.get())
-            project = project_entry.get()
+            lessons = lesson_num_entry.get()
             price= float(price_entry.get())
-            invoice_item = [po, project, price]
+            invoice_item = [lessons, price]
 
             tree.insert('', 0, values=invoice_item)
             clear_item()
             invoice_list.append(invoice_item)
         
         def clear_item():
-            po_entry.delete(0, tkinter.END)
-            project_entry.delete(0, tkinter.END)
+            lesson_num_entry.delete(0, tkinter.END)
             price_entry.delete(0, tkinter.END)
-            price_entry.insert(0, "0.0")
             
 
         def new_invoice():
             invoice_num_spinbox.delete(0, tkinter.END)
-            order_num_spinbox.delete(0, tkinter.END)
+            name_entry.delete(0, tkinter.END)
             issued_date_entry.delete(0, tkinter.END)
             due_date_entry.delete(0, tkinter.END)
             clear_item()
@@ -35,22 +34,23 @@ def en():
         def generate_invoice():
             doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/INVOICE_template_en.docx")
             invoice_num = invoice_num_spinbox.get()
-            order_num = order_num_spinbox.get()
+            name = name_entry.get()
             issued_date = issued_date_entry.get()
             due_date = due_date_entry.get()
-            total_price = sum(item[2] for item in invoice_list) 
+            total_price = sum(item[1] for item in invoice_list)
 
             doc.render(
                 {
                     "invoice_num": invoice_num,
-                    "order_num": order_num,
+                    "name": name,
                     "date": issued_date,
                     "due_date": due_date,
                     "invoice_list": invoice_list,
                     "total_price": total_price
                 }
             )
-            doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + order_num
+            doc_name = "new_invoice_" + name + " - " + invoice_num + "_" + "month.docx"
+        
             doc.save(doc_name)
             messagebox.showinfo("Invoice Complete", "Invoice Complete") 
             new_invoice()
@@ -71,10 +71,10 @@ def en():
         invoice_num_spinbox = tkinter.Spinbox(frame, from_=1, to=100)
         invoice_num_spinbox.grid(row=1, column=0)
 
-        order_num_label = tkinter.Label(frame, text= "Order number")
-        order_num_label.grid(row=0, column=1)
-        order_num_spinbox = tkinter.Spinbox(frame, from_ =1, to=100)
-        order_num_spinbox.grid(row=1, column=1)
+        name_label = tkinter.Label(frame, text= "Name")
+        name_label.grid(row=0, column=1)
+        name_entry = tkinter.Entry(frame)
+        name_entry.grid(row=1, column=1)
 
         issued_date_label = tkinter.Label(frame, text="Issued on")
         issued_date_label.grid(row=0, column=2)
@@ -86,15 +86,11 @@ def en():
         due_date_entry = tkinter.Entry(frame)
         due_date_entry.grid(row=1, column=3)
 
-        po_label = tkinter.Label(frame, text="PO")
-        po_label.grid(row=3, column=0)
-        po_entry = tkinter.Entry(frame)
-        po_entry.grid(row=4, column=0)
+        lesson_num_label = tkinter.Label(frame, text="Lessons")
+        lesson_num_label.grid(row=3, column=1)
+        lesson_num_entry = tkinter.Entry(frame)
+        lesson_num_entry.grid(row=4, column=1)
 
-        project_label = tkinter.Label(frame, text="Project")
-        project_label.grid(row=3, column=1)
-        project_entry = tkinter.Entry(frame)
-        project_entry.grid(row=4, column=1)
 
         price_label = tkinter.Label(frame, text="Price")
         price_label.grid(row=3, column=2)
@@ -106,11 +102,10 @@ def en():
         add_item_button.grid(row=5, column=0, columnspan=4, sticky="news", pady=10)
 
         # Tree
-        columns = ('po', 'project', 'price')
+        columns = ('lessons', 'price')
         tree = ttk.Treeview(frame, columns=columns, show="headings")
         tree.grid(row=6, column=0, columnspan=4, padx=20, pady=10)
-        tree.heading("po", text="PO")
-        tree.heading("project", text="Project")
+        tree.heading("lessons", text="Lessons")
         tree.heading("price", text="Price")
 
         generate_invoice_button = tkinter.Button(frame, text="Generate invoice", command=generate_invoice)
