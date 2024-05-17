@@ -2,7 +2,9 @@ import tkinter
 from tkinter import ttk
 from docxtpl import DocxTemplate
 from tkinter import messagebox
-from date_picker import open_calendar
+from date_picker import *
+import shared
+
 
 def en():
     def main():
@@ -55,6 +57,18 @@ def en():
             messagebox.showinfo("Invoice Complete", "Invoice Complete") 
             new_invoice()
 
+        def callback_get_issued_date():
+            issued_date_entry.insert(0, shared.selected_date)
+        
+        def callback_get_due_date():
+            due_date_entry.insert(0, shared.selected_date)
+
+        def open_calendar_issued_date():
+            open_calendar(callback_get_issued_date)
+        
+        def open_calendar_due_date():
+            open_calendar(callback_get_due_date)
+
 
 
 
@@ -81,13 +95,16 @@ def en():
         issued_date_entry = tkinter.Entry(frame)
         issued_date_entry.grid(row=1, column=2)
         
-        issued_date_button = tkinter.Button(frame, text="…", command=open_calendar)
+        issued_date_button = tkinter.Button(frame, text="…", command=open_calendar_issued_date)
         issued_date_button.grid(row=1, column=3)
 
         due_date_label = tkinter.Label(frame, text="Due date")
         due_date_label.grid(row=0, column=4)
         due_date_entry = tkinter.Entry(frame)
         due_date_entry.grid(row=1, column=4)
+
+        due_date_button = tkinter.Button(frame, text="…", command=open_calendar_due_date)
+        due_date_button.grid(row=1, column=5)
 
         lesson_num_label = tkinter.Label(frame, text="Lessons")
         lesson_num_label.grid(row=3, column=1)
