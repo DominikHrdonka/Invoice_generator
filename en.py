@@ -78,13 +78,16 @@ def en():
 
         issued_date_label = tkinter.Label(frame, text="Issued on")
         issued_date_label.grid(row=0, column=2)
-        issued_date_button = tkinter.Button(frame, text="Select date", command=open_calendar)
-        issued_date_button.grid(row=1, column=2)
+        issued_date_entry = tkinter.Entry(frame)
+        issued_date_entry.grid(row=1, column=2)
+        
+        issued_date_button = tkinter.Button(frame, text="…", command=open_calendar)
+        issued_date_button.grid(row=1, column=3)
 
         due_date_label = tkinter.Label(frame, text="Due date")
-        due_date_label.grid(row=0, column=3)
+        due_date_label.grid(row=0, column=4)
         due_date_entry = tkinter.Entry(frame)
-        due_date_entry.grid(row=1, column=3)
+        due_date_entry.grid(row=1, column=4)
 
         lesson_num_label = tkinter.Label(frame, text="Lessons")
         lesson_num_label.grid(row=3, column=1)

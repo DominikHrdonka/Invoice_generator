@@ -1,12 +1,12 @@
 import tkinter
 from tkinter import ttk
-from tkcalendar import Calendar
+from tkcalendar import *
 
 def open_calendar():
+    date_selected = None
     def main():
 
         #Functionality
-        date_selected = None
 
         def select_date():
             date_selected = cal.get_date()
@@ -21,7 +21,7 @@ def open_calendar():
         root.geometry("300x300")
 
         cal = Calendar(
-            root, selectmode = 'day',
+            root, selectmode = 'day', date_pattern="dd-mm-yyyy",
                     year = 2024, month = 5,
                     day = 17)
 
@@ -29,7 +29,7 @@ def open_calendar():
 
 
 
-        select_date_button = tkinter.Button(text="Select date", command= select_date)
+        select_date_button = tkinter.Button(root, text="Select date", command= select_date)
         select_date_button.pack(pady=10)
 
         root.mainloop()
