@@ -2,7 +2,7 @@ import tkinter
 from tkinter import ttk
 from docxtpl import DocxTemplate
 from tkinter import messagebox
-
+from date_picker import open_calendar
 
 def en():
     def main():
@@ -78,8 +78,8 @@ def en():
 
         issued_date_label = tkinter.Label(frame, text="Issued on")
         issued_date_label.grid(row=0, column=2)
-        issued_date_entry = tkinter.Entry(frame)
-        issued_date_entry.grid(row=1, column=2)
+        issued_date_button = tkinter.Button(frame, text="Select date", command=open_calendar)
+        issued_date_button.grid(row=1, column=2)
 
         due_date_label = tkinter.Label(frame, text="Due date")
         due_date_label.grid(row=0, column=3)
