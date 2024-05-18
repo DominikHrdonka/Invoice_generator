@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkcalendar import Calendar
 import shared
 
-date_selected = "n"
+
 def open_calendar(callback):
     #Functionality
 

@@ -2,6 +2,9 @@ import tkinter
 from tkinter import ttk
 from docxtpl import DocxTemplate
 from tkinter import messagebox
+import shared
+from date_picker import open_calendar
+
 def rws():
     def main():
 
@@ -53,6 +56,18 @@ def rws():
             doc.save(doc_name)
             messagebox.showinfo("Invoice Complete", "Invoice Complete") 
             new_invoice()
+        
+        def callback_get_issued_date():
+            issued_date_entry.insert(0, shared.selected_date)
+
+        def open_calendar_issued_date():
+            open_calendar(callback_get_issued_date)
+
+        def callback_get_due_date():
+            due_date_entry.insert(0, shared.selected_date)
+        
+        def open_calendar_due_date():
+            open_calendar(callback_get_due_date)
 
 
 
@@ -79,11 +94,15 @@ def rws():
         issued_date_label.grid(row=0, column=2)
         issued_date_entry = tkinter.Entry(frame)
         issued_date_entry.grid(row=1, column=2)
+        issued_date_button = tkinter.Button(frame, text="…", command= open_calendar_issued_date)
+        issued_date_button.grid(row=1, column=3)
 
         due_date_label = tkinter.Label(frame, text="Due date")
-        due_date_label.grid(row=0, column=3)
+        due_date_label.grid(row=0, column=4)
         due_date_entry = tkinter.Entry(frame)
-        due_date_entry.grid(row=1, column=3)
+        due_date_entry.grid(row=1, column=4)
+        due_date_button = tkinter.Button(frame, text="…", command= open_calendar_due_date)
+        due_date_button.grid(row=1, column=5)
 
         po_label = tkinter.Label(frame, text="PO")
         po_label.grid(row=3, column=0)
@@ -102,21 +121,21 @@ def rws():
 
         # Add item button
         add_item_button = tkinter.Button(frame, text="Add item", command= add_item)
-        add_item_button.grid(row=5, column=0, columnspan=4, sticky="news", pady=10)
+        add_item_button.grid(row=5, column=0, columnspan=6, sticky="news", pady=10)
 
         # Tree
         columns = ('po', 'project', 'price')
         tree = ttk.Treeview(frame, columns=columns, show="headings")
-        tree.grid(row=6, column=0, columnspan=4, padx=20, pady=10)
+        tree.grid(row=6, column=0, columnspan=6, padx=20, pady=10)
         tree.heading("po", text="PO")
         tree.heading("project", text="Project")
         tree.heading("price", text="Price")
 
         generate_invoice_button = tkinter.Button(frame, text="Generate invoice", command=generate_invoice)
-        generate_invoice_button.grid(row=7, column=0, columnspan=4, sticky= "news", padx=20, pady=10)
+        generate_invoice_button.grid(row=7, column=0, columnspan=6, sticky= "news", padx=20, pady=10)
 
         new_invoice_button = tkinter.Button(frame, text="New Invoice", command = new_invoice)
-        new_invoice_button.grid(row=8, column=0, columnspan=4, sticky="news", padx=20, pady=5)
+        new_invoice_button.grid(row=8, column=0, columnspan=6, sticky="news", padx=20, pady=5)
 
 
 

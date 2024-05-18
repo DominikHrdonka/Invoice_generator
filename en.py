@@ -119,20 +119,20 @@ def en():
 
         # Add item button
         add_item_button = tkinter.Button(frame, text="Add item", command= add_item)
-        add_item_button.grid(row=5, column=0, columnspan=4, sticky="news", pady=10)
+        add_item_button.grid(row=5, column=0, columnspan=6, sticky="news", pady=10)
 
         # Tree
         columns = ('lessons', 'price')
         tree = ttk.Treeview(frame, columns=columns, show="headings")
-        tree.grid(row=6, column=0, columnspan=4, padx=20, pady=10)
+        tree.grid(row=6, column=0, columnspan=6, padx=20, pady=10)
         tree.heading("lessons", text="Lessons")
         tree.heading("price", text="Price")
 
         generate_invoice_button = tkinter.Button(frame, text="Generate invoice", command=generate_invoice)
-        generate_invoice_button.grid(row=7, column=0, columnspan=4, sticky= "news", padx=20, pady=10)
+        generate_invoice_button.grid(row=7, column=0, columnspan=6, sticky= "news", padx=20, pady=10)
 
         new_invoice_button = tkinter.Button(frame, text="New Invoice", command = new_invoice)
-        new_invoice_button.grid(row=8, column=0, columnspan=4, sticky="news", padx=20, pady=5)
+        new_invoice_button.grid(row=8, column=0, columnspan=6, sticky="news", padx=20, pady=5)
 
 
 

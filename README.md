@@ -6,6 +6,6 @@
 # - add function to generate unique QR code
 # - place the QR code in the document
 # - monthly and yearly summary
-# - entering dates based on calendar
+# 
 # - make database for clients
 # - choose clients based on the database
