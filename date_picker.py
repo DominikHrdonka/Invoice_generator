@@ -30,4 +30,3 @@ def open_calendar(callback):
     select_date_button.pack(pady=10)
 
     root.mainloop()
-    get_date()
