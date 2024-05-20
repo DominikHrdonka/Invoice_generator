@@ -4,6 +4,7 @@ from rws import rws
 from en import en
 import shared
 
+
 def open_summary():
     root = tkinter.Tk()
     root.title("Summary")

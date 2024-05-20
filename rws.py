@@ -10,7 +10,7 @@ def rws():
 
         invoice_list = []
         def add_item():
-            po = int(po_entry.get())
+            po = po_entry.get()
             project = project_entry.get()
             price= float(price_entry.get())
             invoice_item = [po, project, price]
@@ -52,7 +52,7 @@ def rws():
                     "total_price": total_price
                 }
             )
-            doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + order_num + ".docx"
+            doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + "RWS" + order_num + ".docx"
             doc.save(doc_name)
             messagebox.showinfo("Invoice Complete", "Invoice Complete") 
             new_invoice()
