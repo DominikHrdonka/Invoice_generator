@@ -40,7 +40,8 @@ def rws():
             order_num = order_num_spinbox.get()
             issued_date = issued_date_entry.get()
             due_date = due_date_entry.get()
-            total_price = sum(item[2] for item in invoice_list) 
+            total_price = sum(item[2] for item in invoice_list)
+            print(total_price)
 
             doc.render(
                 {
