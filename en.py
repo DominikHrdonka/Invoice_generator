@@ -34,28 +34,30 @@ def en():
             invoice_list.clear()
         
         def generate_invoice():
-            doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_en.docx")
-            invoice_num = invoice_num_spinbox.get()
-            name = name_entry.get()
-            issued_date = issued_date_entry.get()
-            due_date = due_date_entry.get()
-            total_price = sum(item[1] for item in invoice_list)
+            confirmation = messagebox.askyesno("Generate invoice?", "Do you really want to generate the inovice?")
+            if confirmation is True:
+                doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_en.docx")
+                invoice_num = invoice_num_spinbox.get()
+                name = name_entry.get()
+                issued_date = issued_date_entry.get()
+                due_date = due_date_entry.get()
+                total_price = sum(item[1] for item in invoice_list)
 
-            doc.render(
-                {
-                    "invoice_num": invoice_num,
-                    "name": name,
-                    "date": issued_date,
-                    "due_date": due_date,
-                    "invoice_list": invoice_list,
-                    "total_price": total_price
-                }
-            )
-            doc_name = "new_invoice_" + name + " - " + invoice_num + "_" + "month.docx"
-        
-            doc.save(doc_name)
-            messagebox.showinfo("Invoice Complete", "Invoice Complete") 
-            new_invoice()
+                doc.render(
+                    {
+                        "invoice_num": invoice_num,
+                        "name": name,
+                        "date": issued_date,
+                        "due_date": due_date,
+                        "invoice_list": invoice_list,
+                        "total_price": total_price
+                    }
+                )
+                doc_name = "new_invoice_" + name + " - " + invoice_num + "_" + "month.docx"
+            
+                doc.save(doc_name)
+                messagebox.showinfo("Invoice Complete", "Invoice Complete") 
+                new_invoice()
 
         def callback_get_issued_date():
             issued_date_entry.insert(0, shared.selected_date)

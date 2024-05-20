@@ -35,28 +35,29 @@ def rws():
             invoice_list.clear()
         
         def generate_invoice():
-            doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_rws.docx")
-            invoice_num = invoice_num_spinbox.get()
-            order_num = order_num_spinbox.get()
-            issued_date = issued_date_entry.get()
-            due_date = due_date_entry.get()
-            total_price = sum(item[2] for item in invoice_list)
-            print(total_price)
+            confirmation = messagebox.askyesno("Generate inovice?", "Do you really want to generate the inovice?")
+            if confirmation is True:
+                doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_rws.docx")
+                invoice_num = invoice_num_spinbox.get()
+                order_num = order_num_spinbox.get()
+                issued_date = issued_date_entry.get()
+                due_date = due_date_entry.get()
+                total_price = sum(item[2] for item in invoice_list)
 
-            doc.render(
-                {
-                    "invoice_num": invoice_num,
-                    "order_num": order_num,
-                    "date": issued_date,
-                    "due_date": due_date,
-                    "invoice_list": invoice_list,
-                    "total_price": total_price
-                }
-            )
-            doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + "RWS" + order_num + ".docx"
-            doc.save(doc_name)
-            messagebox.showinfo("Invoice Complete", "Invoice Complete") 
-            new_invoice()
+                doc.render(
+                    {
+                        "invoice_num": invoice_num,
+                        "order_num": order_num,
+                        "date": issued_date,
+                        "due_date": due_date,
+                        "invoice_list": invoice_list,
+                        "total_price": total_price
+                    }
+                )
+                doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + "RWS" + order_num + ".docx"
+                doc.save(doc_name)
+                messagebox.showinfo("Invoice Complete", "Invoice Complete") 
+                new_invoice()
         
         def callback_get_issued_date():
             issued_date_entry.insert(0, shared.selected_date)
