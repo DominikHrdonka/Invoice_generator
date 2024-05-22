@@ -2,6 +2,7 @@ import tkinter
 from tkinter import ttk
 from tkcalendar import Calendar
 import shared
+from datetime import datetime
 
 
 def open_calendar(callback):
@@ -19,10 +20,12 @@ def open_calendar(callback):
     root.title("Calendar")
     root.geometry("300x300")
 
+    today = datetime.today()
+
     cal = Calendar(
         root, selectmode = 'day', date_pattern="dd-mm-yyyy",
-                year = 2024, month = 5,
-                day = 17)
+                year = today.year, month = today.month,
+                day = today.day)
 
     cal.pack(pady=5)
 
