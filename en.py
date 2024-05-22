@@ -4,6 +4,7 @@ from docxtpl import DocxTemplate
 from tkinter import messagebox
 from date_picker import *
 import shared
+import json_data
 
 
 def en():
@@ -42,6 +43,7 @@ def en():
                 issued_date = issued_date_entry.get()
                 due_date = due_date_entry.get()
                 total_price = sum(item[1] for item in invoice_list)
+                json_data.modify_stored_totals("total_curr_month", total_price)
 
                 doc.render(
                     {

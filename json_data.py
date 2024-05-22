@@ -1,16 +1,17 @@
 import json
+import os
 
-# Data to be written
+# Data to be written if json file doesn't exist yet
 dictionary = {
 	"total_curr_month": 120497.55
 }
 
-# Serializing json
-json_object = json.dumps(dictionary, indent=4)
-
-# Writing to sample.json
-with open("stored_totals.json", "w") as outfile:
-	outfile.write(json_object)
+if not os.path.exists("stored_totals.json"):
+	#creating json object
+	json_object = json.dumps(dictionary, indent=4)
+	# creating json file
+	with open("stored_totals.json", "w") as outfile:
+		outfile.write(json_object)
 	
 # Retrieving json data
 with open("stored_totals.json", "r") as infile:
@@ -22,7 +23,7 @@ def modify_stored_totals(key, value):
 	with open("stored_totals.json", "r") as infile:
 		stored_totals = json.load(infile)
 	#Modyfying file data
-	stored_totals[key] = value
+	stored_totals[key] += value
 	
     # Write the data
 	with open("stored_totals.json", "w") as outfile:
