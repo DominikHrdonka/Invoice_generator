@@ -13,14 +13,13 @@ def open_calendar(callback):
         root.destroy()
         callback()
         
-        
+    #Getting today's date
+    today = datetime.today()
 
     #GUI
     root = tkinter.Tk()
     root.title("Calendar")
     root.geometry("300x300")
-
-    today = datetime.today()
 
     cal = Calendar(
         root, selectmode = 'day', date_pattern="dd-mm-yyyy",
