@@ -2,15 +2,17 @@ import tkinter
 from tkinter import ttk
 from rws import rws
 from en import en
-import shared
-from summary import open_summary
+from summary import (
+    open_summary,
+)
+
 
 def rws_invoice():
     rws()
 
 def en_invoice():
     en()
-        
+
 
 # GUI
 window = tkinter.Tk()

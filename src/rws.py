@@ -8,7 +8,6 @@ from tkinter import (
 import shared
 from date_picker import open_calendar
 import json_data
-import json
 
 def rws():
     def main():
