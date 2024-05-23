@@ -1,3 +1,4 @@
+*.json
 myenv/
 *.docx
 __pycache__/
