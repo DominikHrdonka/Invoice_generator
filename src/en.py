@@ -43,8 +43,7 @@ def en():
                 issued_date = issued_date_entry.get()
                 due_date = due_date_entry.get()
                 total_price = sum(item[1] for item in invoice_list)
-                json_data.modify_stored_totals("total_curr_year", total_price)
-                json_data.save_total_per_month(total_price)
+                json_data.save_totals(total_price)
 
                 doc.render(
                     {

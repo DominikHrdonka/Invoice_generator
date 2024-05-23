@@ -7,54 +7,44 @@ dictionary = {
 	"total_curr_year": 120497.55
 }
 
-if not os.path.exists("stored_totals.json"):
-	#creating json object
-	json_object = json.dumps(dictionary, indent=4)
 
-	# creating json file
-	with open("stored_totals.json", "w") as outfile:
-		outfile.write(json_object)
-	
+def save_totals(value):
 
-# Modifying json data
-def modify_stored_totals(key, value):
-	
-	# Reading file data
-	with open("stored_totals.json", "r") as infile:
-		stored_totals = json.load(infile)
-	
-	#Modify data
-	stored_totals[key] += value
-	
-    # Write the data
-	with open("stored_totals.json", "w") as outfile:
-		json.dump(stored_totals, outfile, indent=4) 
-
-def save_total_per_month(value):
+	current_year = datetime.now().strftime("%Y")
 	current_month = datetime.now().strftime("%B")
-	monthly_totals_dictionary = {}
+
+	totals_dictionary = {}
 
 	#If not exist, create json file
-	if not os.path.exists("totals_per_month.json"):
+	if not os.path.exists("stored_totals.json"):
 		#creating json object
-		total_per_month_object = json.dumps(monthly_totals_dictionary, indent=4)
+		stored_totals_obj = json.dumps(totals_dictionary, indent=4)
 
 		# creating json file
-		with open("totals_per_month.json", "w") as outfile:
-			outfile.write(total_per_month_object)
+		with open("stored_totals.json", "w") as outfile:
+			outfile.write(stored_totals_obj)
 
 	#Open existing json file
-	with open("totals_per_month.json", "r") as infile:
-		stored_monthly_totals = json.load(infile)
+	with open("stored_totals.json", "r") as infile:
+		stored_totals_data = json.load(infile)
 
-	#Updating data based on the current month key existence
-	if current_month not in stored_monthly_totals:
-		stored_monthly_totals[current_month] = value
+	#Updating data based on the current year and month key existence
+	if current_year not in stored_totals_data:
+		stored_totals_data[current_year] = {}
+		stored_totals_data[current_year][current_month] = value
+		stored_totals_data[current_year]["total_per_year"] = value
+
 	else:
-		stored_monthly_totals[current_month] += value
+		if current_month in stored_totals_data[current_year]:
+			stored_totals_data[current_year][current_month] += value
+		else:
+			stored_totals_data[current_year][current_month] = value
+
+		stored_totals_data[current_year]["total_per_year"] += value
+
 
 	#Write back the updated data
-	with open("totals_per_month.json", "w") as outfile:
-		json.dump(stored_monthly_totals, outfile, indent=4)
+	with open("stored_totals.json", "w") as outfile:
+		json.dump(stored_totals_data, outfile, indent=4)
 
 	
