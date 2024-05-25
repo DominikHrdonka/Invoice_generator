@@ -37,6 +37,7 @@ def open_summary():
     january_label.grid(row=1, column=0)
     january_entry = tkinter.Entry(frame2)
     january_entry.grid(row=1, column=1)
+   
 
     february_label = tkinter.Label(frame2, text="February:")
     february_label.grid(row=2, column=0)
@@ -94,6 +95,32 @@ def open_summary():
     december_label.grid(row=6, column=2)
     december_entry = tkinter.Entry(frame2)
     december_entry.grid(row=6, column=3)
+
+    #Batch insert of relevant data in each month entry
+    months = ["January", "February", "March", "April", "May", "June", 
+          "July", "August", "September", "October", "November", "December"
+          ]
+    
+    entry_widgets = {
+        "january_entry": january_entry,
+        "february_entry": february_entry,
+        "march_entry": march_entry,
+        "april_entry": april_entry,
+        "may_entry": may_entry,
+        "june_entry": june_entry,
+        "july_entry": july_entry,
+        "august_entry": august_entry,
+        "september_entry": september_entry,
+        "october_entry": october_entry,
+        "november_entry": november_entry,
+        "december_entry": december_entry
+    }
+    for month in months:
+        data = json_data.stored_totals_data[current_year].get(month)
+        if data is not None:
+            entry_widget = entry_widgets.get(f"{month.lower()}_entry")
+            if entry_widget:
+                entry_widget.insert(0, data)
 
 
     root.mainloop()
