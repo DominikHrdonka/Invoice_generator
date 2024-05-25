@@ -5,6 +5,8 @@ from tkinter import messagebox
 from date_picker import *
 import shared
 import json_data
+from tkinter import filedialog
+from datetime import datetime
 
 
 def en():
@@ -55,8 +57,12 @@ def en():
                         "total_price": total_price
                     }
                 )
+                doc_path = "/mnt/c/Účetnictví/"
+                curr_year_folder = datetime.now().strftime("%Y") + "/"
                 doc_name = "new_invoice_" + name + " - " + invoice_num + "_" + "month.docx"
-                doc.save(doc_name)
+
+                doc.save(doc_path+curr_year_folder+doc_name)
+
                 messagebox.showinfo("Invoice Complete", "Invoice Complete") 
                 new_invoice()
 

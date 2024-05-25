@@ -8,6 +8,7 @@ from tkinter import (
 import shared
 from date_picker import open_calendar
 import json_data
+from datetime import datetime
 
 def rws():
     def main():
@@ -59,8 +60,12 @@ def rws():
                         "total_price": total_price
                     }
                 )
+
+                doc_path = "/mnt/c/Účetnictví/"
+                curr_year_folder = datetime.now().strftime("%Y") + "/"
                 doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + "RWS" + order_num + ".docx"
-                doc.save(doc_name)
+                doc.save(doc_path+curr_year_folder+doc_name)
+
                 messagebox.showinfo("Invoice Complete", "Invoice Complete") 
                 new_invoice()
         
