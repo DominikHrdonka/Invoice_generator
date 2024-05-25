@@ -17,7 +17,7 @@ def en_invoice():
 # GUI
 window = tkinter.Tk()
 window.title("Invoice generator form")
-window.geometry("400x400")
+window.geometry("400x200")
 
 frame = tkinter.Frame(window)
 frame.pack(padx=20, pady=10)
@@ -30,10 +30,10 @@ rws_invoice_button = tkinter.Button(frame, text= "RWS Invoice", command= rws_inv
 rws_invoice_button.grid(row=1, column=0, padx=5)
 
 en_invoice_button = tkinter.Button(frame, text= "English Invoice", command= en_invoice)
-en_invoice_button.grid(row=1, column=2)
+en_invoice_button.grid(row=1, column=1)
 
 open_summary_button = tkinter.Button(frame, text="Open summary", command= open_summary)
-open_summary_button.grid(row=2, column=0, pady=20, sticky="news")
+open_summary_button.grid(row=2, column=0, pady=20, sticky="news", columnspan=2)
 
 
 
