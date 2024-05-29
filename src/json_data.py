@@ -66,8 +66,6 @@ with open('shared_data.json', 'r') as infile:
 
 def update_next_invoice_num():
 	stored_shared_data['next_invoice_num'] += 1
-	print("Debugging update_next_invoice_num function")
-	print(stored_shared_data['next_invoice_num'])
 	
 	#Writing back the updated date
 	with open('shared_data.json', 'w') as outfile:

@@ -39,6 +39,10 @@ def rws():
             clear_item()
             tree.delete(*tree.get_children())
             invoice_list.clear()
+
+        def new_invoice_and_maintain_inv_num():
+            new_invoice()
+            invoice_num_insert()
         
         def generate_invoice(callback):
             confirmation = messagebox.askyesno("Generate inovice?", "Do you really want to generate the inovice?")
@@ -86,11 +90,7 @@ def rws():
             
         #Update calc_invoice_number asynchronously using callback function
         def invoice_num_insert():
-            print("Debugging calc_invoice_number variable update")
-
             calc_invoice_number = json_data.current_year + '-' + str(json_data.stored_shared_data["next_invoice_num"])
-            
-            print(calc_invoice_number)
             invoice_num_entry.insert(0, calc_invoice_number)
         
         def gen_invoice_and_update_invoice_number():
@@ -161,7 +161,7 @@ def rws():
         generate_invoice_button = tkinter.Button(frame, text="Generate invoice", command=gen_invoice_and_update_invoice_number)
         generate_invoice_button.grid(row=7, column=0, columnspan=6, sticky= "news", padx=20, pady=10)
 
-        new_invoice_button = tkinter.Button(frame, text="New Invoice", command = new_invoice)
+        new_invoice_button = tkinter.Button(frame, text="New Invoice", command = new_invoice_and_maintain_inv_num)
         new_invoice_button.grid(row=8, column=0, columnspan=6, sticky="news", padx=20, pady=5)
 
 
