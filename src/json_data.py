@@ -50,7 +50,7 @@ def save_totals(value):
 
 
 shared_data_dictionary = {
-	"last_invoice_num": 17,
+	"next_invoice_num": 18,
 }
 
 # If not exists, create json file
@@ -61,12 +61,14 @@ if not os.path.exists('shared_data.json'):
 		file.write(shared_data_obj)
 
 # Open existing json file
-with open('shared_data.json', 'r') as file:
-	shared_data = json.load(file)
+with open('shared_data.json', 'r') as infile:
+	stored_shared_data = json.load(infile)
 
 def update_next_invoice_num():
-	shared_data['last_invoice_num'] += 1
+	stored_shared_data['next_invoice_num'] += 1
+	print("Debugging update_next_invoice_num function")
+	print(stored_shared_data['next_invoice_num'])
 	
 	#Writing back the updated date
 	with open('shared_data.json', 'w') as outfile:
-		json.dump(shared_data, outfile, indent=4)
+		json.dump(stored_shared_data, outfile, indent=4)

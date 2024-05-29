@@ -14,6 +14,7 @@ def rws():
     def main():
 
         invoice_list = []
+
         def add_item():
             po = po_entry.get()
             project = project_entry.get()
@@ -39,7 +40,7 @@ def rws():
             tree.delete(*tree.get_children())
             invoice_list.clear()
         
-        def generate_invoice():
+        def generate_invoice(callback):
             confirmation = messagebox.askyesno("Generate inovice?", "Do you really want to generate the inovice?")
             if confirmation is True:
                 doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_rws.docx")
@@ -65,9 +66,10 @@ def rws():
                 curr_year_folder = datetime.now().strftime("%Y") + "/"
                 doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + "RWS" + order_num + ".docx"
                 doc.save(doc_path+curr_year_folder+doc_name)
-
                 messagebox.showinfo("Invoice Complete", "Invoice Complete") 
                 new_invoice()
+                json_data.update_next_invoice_num()
+                callback()
         
         def callback_get_issued_date():
             issued_date_entry.insert(0, shared.selected_date)
@@ -80,6 +82,19 @@ def rws():
         
         def open_calendar_due_date():
             open_calendar(callback_get_due_date)
+
+            
+        #Update calc_invoice_number asynchronously using callback function
+        def invoice_num_insert():
+            print("Debugging calc_invoice_number variable update")
+
+            calc_invoice_number = json_data.current_year + '-' + str(json_data.stored_shared_data["next_invoice_num"])
+            
+            print(calc_invoice_number)
+            invoice_num_entry.insert(0, calc_invoice_number)
+        
+        def gen_invoice_and_update_invoice_number():
+            generate_invoice(invoice_num_insert)
     
 
     # GUI
@@ -94,9 +109,7 @@ def rws():
         invoice_num_label.grid(row=0, column=0)
         invoice_num_entry = tkinter.Entry(frame)
         
-        calc_invoice_number = json_data.current_year + '-' + str(json_data.shared_data_dictionary["last_invoice_num"])
-        
-        invoice_num_entry.insert(0, calc_invoice_number)
+        invoice_num_insert()
         invoice_num_entry.grid(row=1, column=0)
 
         order_num_label = tkinter.Label(frame, text= "Order number")
@@ -145,7 +158,7 @@ def rws():
         tree.heading("project", text="Project")
         tree.heading("price", text="Price")
 
-        generate_invoice_button = tkinter.Button(frame, text="Generate invoice", command=generate_invoice)
+        generate_invoice_button = tkinter.Button(frame, text="Generate invoice", command=gen_invoice_and_update_invoice_number)
         generate_invoice_button.grid(row=7, column=0, columnspan=6, sticky= "news", padx=20, pady=10)
 
         new_invoice_button = tkinter.Button(frame, text="New Invoice", command = new_invoice)

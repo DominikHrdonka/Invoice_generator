@@ -28,7 +28,7 @@ def en():
             
 
         def new_invoice():
-            invoice_num_spinbox.delete(0, tkinter.END)
+            invoice_num_entry.delete(0, tkinter.END)
             name_entry.delete(0, tkinter.END)
             issued_date_entry.delete(0, tkinter.END)
             due_date_entry.delete(0, tkinter.END)
@@ -40,7 +40,7 @@ def en():
             confirmation = messagebox.askyesno("Generate invoice?", "Do you really want to generate the inovice?")
             if confirmation is True:
                 doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_en.docx")
-                invoice_num = invoice_num_spinbox.get()
+                invoice_num = invoice_num_entry.get()
                 name = name_entry.get()
                 issued_date = issued_date_entry.get()
                 due_date = due_date_entry.get()
