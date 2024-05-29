@@ -33,7 +33,7 @@ def rws():
 
         def new_invoice():
             invoice_num_entry.delete(0, tkinter.END)
-            order_num_spinbox.delete(0, tkinter.END)
+            order_num_entry.delete(0, tkinter.END)
             issued_date_entry.delete(0, tkinter.END)
             due_date_entry.delete(0, tkinter.END)
             clear_item()
@@ -42,14 +42,14 @@ def rws():
 
         def new_invoice_and_maintain_inv_num():
             new_invoice()
-            invoice_num_insert()
+            invoice_and_order_num_insert()
         
         def generate_invoice(callback):
             confirmation = messagebox.askyesno("Generate inovice?", "Do you really want to generate the inovice?")
             if confirmation is True:
                 doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_rws.docx")
                 invoice_num = invoice_num_entry.get()
-                order_num = order_num_spinbox.get()
+                order_num = order_num_entry.get()
                 issued_date = issued_date_entry.get()
                 due_date = due_date_entry.get()
                 total_price = sum(item[2] for item in invoice_list)
@@ -68,11 +68,12 @@ def rws():
 
                 doc_path = "/mnt/c/Účetnictví/"
                 curr_year_folder = datetime.now().strftime("%Y") + "/"
-                doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + "RWS" + order_num + ".docx"
+                doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + order_num + ".docx"
                 doc.save(doc_path+curr_year_folder+doc_name)
                 messagebox.showinfo("Invoice Complete", "Invoice Complete") 
                 new_invoice()
                 json_data.update_next_invoice_num()
+                json_data.update_next_order_num()
                 callback()
         
         def callback_get_issued_date():
@@ -88,13 +89,19 @@ def rws():
             open_calendar(callback_get_due_date)
 
             
-        #Update calc_invoice_number asynchronously using callback function
-        def invoice_num_insert():
+        #Update calc_invoice_number and calc_next_order_num asynchronously
+        def invoice_and_order_num_insert():
             calc_invoice_number = json_data.current_year + '-' + str(json_data.stored_shared_data["next_invoice_num"])
             invoice_num_entry.insert(0, calc_invoice_number)
-        
+            
+            calc_order_num = "RWS" + str(json_data.stored_shared_data["next_order_num"])
+            order_num_entry.insert(0, calc_order_num)
+
+        # Use callback function to update per above
         def gen_invoice_and_update_invoice_number():
-            generate_invoice(invoice_num_insert)
+            generate_invoice(invoice_and_order_num_insert)
+
+    
     
 
     # GUI
@@ -109,13 +116,15 @@ def rws():
         invoice_num_label.grid(row=0, column=0)
         invoice_num_entry = tkinter.Entry(frame)
         
-        invoice_num_insert()
         invoice_num_entry.grid(row=1, column=0)
 
         order_num_label = tkinter.Label(frame, text= "Order number")
         order_num_label.grid(row=0, column=1)
-        order_num_spinbox = tkinter.Spinbox(frame, from_ =1, to=100)
-        order_num_spinbox.grid(row=1, column=1)
+        order_num_entry = tkinter.Entry(frame)
+        order_num_entry.grid(row=1, column=1)
+
+        invoice_and_order_num_insert()
+
 
         issued_date_label = tkinter.Label(frame, text="Issued on")
         issued_date_label.grid(row=0, column=2)

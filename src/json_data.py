@@ -51,6 +51,7 @@ def save_totals(value):
 
 shared_data_dictionary = {
 	"next_invoice_num": 18,
+	"next_order_num": 19
 }
 
 # If not exists, create json file
@@ -67,6 +68,13 @@ with open('shared_data.json', 'r') as infile:
 def update_next_invoice_num():
 	stored_shared_data['next_invoice_num'] += 1
 	
+	#Writing back the updated date
+	with open('shared_data.json', 'w') as outfile:
+		json.dump(stored_shared_data, outfile, indent=4)
+
+def update_next_order_num():
+	stored_shared_data['next_order_num'] += 1
+
 	#Writing back the updated date
 	with open('shared_data.json', 'w') as outfile:
 		json.dump(stored_shared_data, outfile, indent=4)
