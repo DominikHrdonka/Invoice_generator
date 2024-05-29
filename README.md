@@ -13,9 +13,6 @@ SQLite is used to manage database of generated invoices with all the relevant da
 
 # Things to be done:
 
-# Final files
-- make it executible file
-- automate printing new invoice to PDF
 # QR
 - add function to generate unique QR code
 - place the QR code in the document
@@ -29,3 +26,8 @@ SQLite is used to manage database of generated invoices with all the relevant da
 # DB
 - make database for invoices (issued, paid/unpaid, etc)
 - choose clients based on database/json???
+
+# Final files
+- make it executible file
+- automate printing new invoice to PDF
+
