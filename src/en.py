@@ -91,8 +91,11 @@ def en():
         #Labels and entry fields
         invoice_num_label = tkinter.Label(frame, text="Invoice number")
         invoice_num_label.grid(row=0, column=0)
-        invoice_num_spinbox = tkinter.Spinbox(frame, from_=1, to=100)
-        invoice_num_spinbox.grid(row=1, column=0)
+        
+        invoice_num_entry = tkinter.Entry(frame)
+        calc_invoice_number = json_data.current_year + '-' + str(json_data.shared_data_dictionary["last_invoice_num"])
+        invoice_num_entry.insert(0, calc_invoice_number)
+        invoice_num_entry.grid(row=1, column=0)
 
         name_label = tkinter.Label(frame, text= "Name")
         name_label.grid(row=0, column=1)

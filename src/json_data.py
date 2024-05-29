@@ -48,3 +48,6 @@ def save_totals(value):
 		json.dump(stored_totals_data, outfile, indent=4)
 
 	
+shared_data_dictionary = {
+	"last_invoice_num": 17,
+}

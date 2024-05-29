@@ -31,7 +31,7 @@ def rws():
             
 
         def new_invoice():
-            invoice_num_spinbox.delete(0, tkinter.END)
+            invoice_num_entry.delete(0, tkinter.END)
             order_num_spinbox.delete(0, tkinter.END)
             issued_date_entry.delete(0, tkinter.END)
             due_date_entry.delete(0, tkinter.END)
@@ -43,7 +43,7 @@ def rws():
             confirmation = messagebox.askyesno("Generate inovice?", "Do you really want to generate the inovice?")
             if confirmation is True:
                 doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_rws.docx")
-                invoice_num = invoice_num_spinbox.get()
+                invoice_num = invoice_num_entry.get()
                 order_num = order_num_spinbox.get()
                 issued_date = issued_date_entry.get()
                 due_date = due_date_entry.get()
@@ -92,8 +92,12 @@ def rws():
         #Labels and entry fields
         invoice_num_label = tkinter.Label(frame, text="Invoice number")
         invoice_num_label.grid(row=0, column=0)
-        invoice_num_spinbox = tkinter.Spinbox(frame, from_=1, to=100)
-        invoice_num_spinbox.grid(row=1, column=0)
+        invoice_num_entry = tkinter.Entry(frame)
+        
+        calc_invoice_number = json_data.current_year + '-' + str(json_data.shared_data_dictionary["last_invoice_num"])
+        
+        invoice_num_entry.insert(0, calc_invoice_number)
+        invoice_num_entry.grid(row=1, column=0)
 
         order_num_label = tkinter.Label(frame, text= "Order number")
         order_num_label.grid(row=0, column=1)
