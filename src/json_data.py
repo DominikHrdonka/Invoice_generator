@@ -55,8 +55,8 @@ def save_totals(value):
 
 
 shared_data_dictionary = {
-	"next_invoice_num": 18,
-	"next_order_num": 19
+	"next_invoice_num": 19,
+	"next_order_num": 20
 }
 
 # If not exists, create json file
