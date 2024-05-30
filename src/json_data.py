@@ -5,7 +5,12 @@ from datetime import datetime
 # Data to be written if json file doesn't exist yet
 totals_dictionary = {
 	"2024": {
-		"total_per_year": 120497.55
+		"January": 38718.19,
+		"February": 24996.23,
+		"March": 18293.72,
+		"April": 18197.01,
+		"May": 46903.23,
+		"total_per_year": 147108.38
 	}
 }
 
