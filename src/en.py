@@ -14,10 +14,14 @@ def en():
     def main():
 
         invoice_list = []
+        prices = []
         def add_item():
             lessons = lesson_num_entry.get()
             price= float(price_entry.get())
-            invoice_item = [lessons, price]
+            prices.append(price)
+            formated_price = format_price(price)
+
+            invoice_item = [lessons, formated_price]
 
             tree.insert('', 0, values=invoice_item)
             clear_item()
@@ -49,7 +53,10 @@ def en():
                 name = name_entry.get()
                 issued_date = issued_date_entry.get()
                 due_date = due_date_entry.get()
-                total_price = sum(item[1] for item in invoice_list)
+
+
+                total_price = sum(prices)
+                formated_total_price = format_price(total_price)
                 json_data.save_totals(total_price)
 
                 doc.render(
@@ -59,7 +66,7 @@ def en():
                         "date": issued_date,
                         "due_date": due_date,
                         "invoice_list": invoice_list,
-                        "total_price": total_price
+                        "total_price": formated_total_price
                     }
                 )
                 doc_path = "/mnt/c/Účetnictví/"
@@ -93,6 +100,12 @@ def en():
         
         def gen_invoice_and_update_invoice_number():
             generate_invoice(invoice_num_insert)
+
+        #Modify number format for Czech locale
+        def format_price(num):
+            formated_number = f'{num:,.2f}'
+            formated_number = formated_number.replace(',', ' ').replace('.', ',')
+            return formated_number
 
 
     # GUI

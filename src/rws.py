@@ -9,11 +9,13 @@ import shared
 from date_picker import open_calendar
 import json_data
 from datetime import datetime
+import locale
 
 def rws():
     def main():
 
         invoice_list = []
+
 
         def add_item():
             po = po_entry.get()
@@ -68,7 +70,7 @@ def rws():
 
                 doc_path = "/mnt/c/Účetnictví/"
                 curr_year_folder = datetime.now().strftime("%Y") + "/"
-                doc_name = "new_invoice_" + "RWS - "+ invoice_num + "_" + order_num + ".docx"
+                doc_name = "new_invoice_" + invoice_num + "_" + order_num + ".docx"
                 doc.save(doc_path+curr_year_folder+doc_name)
                 messagebox.showinfo("Invoice Complete", "Invoice Complete") 
                 new_invoice()
@@ -101,8 +103,6 @@ def rws():
         def gen_invoice_and_update_invoice_number():
             generate_invoice(invoice_and_order_num_insert)
 
-    
-    
 
     # GUI
         window = tkinter.Tk()
