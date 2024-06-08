@@ -10,6 +10,7 @@ from date_picker import open_calendar
 import json_data
 from datetime import datetime
 import locale
+from databases import insert_into_db
 
 def rws():
     def main():
@@ -72,7 +73,8 @@ def rws():
                 curr_year_folder = datetime.now().strftime("%Y") + "/"
                 doc_name = "new_invoice_" + invoice_num + "_" + order_num + ".docx"
                 doc.save(doc_path+curr_year_folder+doc_name)
-                messagebox.showinfo("Invoice Complete", "Invoice Complete") 
+                messagebox.showinfo("Invoice Complete", "Invoice Complete")
+                insert_into_db(invoice_num, 'FALSE', issued_date, 'RWS', total_price)
                 new_invoice()
                 json_data.update_next_invoice_num()
                 json_data.update_next_order_num()
