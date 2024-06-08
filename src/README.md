@@ -23,9 +23,6 @@ SQLite is used to manage database of generated invoices with all the relevant da
 # Overview
 - add tree of invoices - issued, paid/unpaid etc... and connect it to invoices DB
 
-# Formats
-- change number formats to use , as a decimal separator instead of . as is suitable for Czech Republic
-
 # DB
 - make database for invoices (issued, paid/unpaid, etc)
 - choose clients based on database/json???
