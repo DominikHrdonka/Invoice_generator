@@ -10,7 +10,8 @@ totals_dictionary = {
 		"March": 18293.72,
 		"April": 18197.01,
 		"May": 46903.23,
-		"total_per_year": 147108.38
+		"June": 8773.35,
+		"total_per_year": 151891.73
 	}
 }
 
