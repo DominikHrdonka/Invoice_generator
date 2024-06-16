@@ -7,6 +7,7 @@ import shared
 import json_data
 from tkinter import filedialog
 from datetime import datetime
+from databases import insert_into_db
 
 
 
@@ -72,10 +73,9 @@ def en():
                 doc_path = "/mnt/c/Účetnictví/"
                 curr_year_folder = datetime.now().strftime("%Y") + "/"
                 doc_name = "new_invoice_" + name + " - " + invoice_num + "_" + "month.docx"
-
                 doc.save(doc_path+curr_year_folder+doc_name)
-
                 messagebox.showinfo("Invoice Complete", "Invoice Complete") 
+                insert_into_db(invoice_num, 'FALSE', issued_date, name, total_price)
                 new_invoice()
                 json_data.update_next_invoice_num()
                 callback()

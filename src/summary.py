@@ -2,10 +2,8 @@ import tkinter
 from tkinter import ttk
 from rws import rws
 from en import en
-import shared
 import json_data
 from json_data import current_year
-import sqlite3
 
 
 
@@ -26,16 +24,6 @@ def open_summary():
     czk_label = tkinter.Label(frame, text="CZK")
     czk_label.grid(row=0, column=2)
 
-
-    #Connecting to invoices DB
-    connection = sqlite3.connect('invoices.db')
-    #object of DB that handles all the communication with the DB
-    cursor = connection.cursor()
-    
-    cursor.execute("CREATE TABLE invoices (invoice_number TEXT, paid TEXT, issued_on TEXT, client TEXT, price TEXT)")
-
-    #Terminating connection to DB
-    connection.close()
 
 
     frame2 = tkinter.Frame(root)

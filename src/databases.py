@@ -9,8 +9,9 @@ def insert_into_db(invoice_number, paid, issued_on, client, price):
 
         #CREATING TABLE in the DB
         cursor.execute(
-            "CREATE TABLE IF NOT EXISTS invoices (invoice_number TEXT, paid TEXT, issued_on TEXT, client TEXT, price REAL);"
+            "CREATE TABLE IF NOT EXISTS invoices_list (invoice_number TEXT, paid TEXT, issued_on TEXT, client TEXT, price REAL);"
             )
 
-        cursor.execute("INSERT INTO invoices (invoice_number, paid, issued_on, client, price) VALUES (?, ?, ?, ?, ?);", (invoice_number, paid, issued_on, client, price))
+        cursor.execute("INSERT INTO invoices_list (invoice_number, paid, issued_on, client, price) VALUES (?, ?, ?, ?, ?);", (invoice_number, paid, issued_on, client, price))
         connection.commit()
+
