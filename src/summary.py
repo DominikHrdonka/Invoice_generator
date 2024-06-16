@@ -4,6 +4,7 @@ from rws import rws
 from en import en
 import json_data
 from json_data import current_year
+from databases import fetch_items_from_db
 
 
 
@@ -32,13 +33,21 @@ def open_summary():
 
     #Tree for displaying invoices in DB
     columns = ('invoice_number', 'paid', 'issued_on', 'client', 'price')
-    tree = ttk.Treeview(frame2, columns=columns, show= 'headings')
-    tree.grid(row=2, column=0, columnspan= 5, padx= 50, pady= 5)
-    tree.heading('invoice_number', text='Invoice number')
-    tree.heading('paid', text='Paid')
-    tree.heading('issued_on', text='Issued on')
-    tree.heading('client', text='Client')
-    tree.heading('price', text='Price')
+    invoice_tree = ttk.Treeview(frame2, columns=columns, show= 'headings')
+    invoice_tree.grid(row=2, column=0, columnspan= 5, padx= 50, pady= 5)
+    invoice_tree.heading('invoice_number', text='Invoice number')
+    invoice_tree.heading('paid', text='Paid')
+    invoice_tree.heading('issued_on', text='Issued on')
+    invoice_tree.heading('client', text='Client')
+    invoice_tree.heading('price', text='Price')
+    
+
+    def display_invoices(tree, invoices):
+        for invoice in invoices:
+            tree.insert('', 0, values=(invoice[0], invoice[1], invoice[2], invoice[3], invoice[4]))
+    
+    items = fetch_items_from_db('invoices_list')
+    display_invoices(invoice_tree, items)
 
 
 
