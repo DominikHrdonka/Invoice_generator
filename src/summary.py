@@ -41,11 +41,11 @@ def open_summary():
     invoice_tree.heading('client', text='Client')
     invoice_tree.heading('price', text='Price')
     
-
+    #Insert fetched data into DB
     def display_invoices(tree, invoices):
         for invoice in invoices:
             tree.insert('', 0, values=(invoice[0], invoice[1], invoice[2], invoice[3], invoice[4]))
-    
+     
     items = fetch_items_from_db('invoices_list')
     display_invoices(invoice_tree, items)
 

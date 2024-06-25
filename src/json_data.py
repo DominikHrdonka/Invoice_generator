@@ -10,8 +10,8 @@ totals_dictionary = {
 		"March": 18293.72,
 		"April": 18197.01,
 		"May": 46903.23,
-		"June": 8773.35,
-		"total_per_year": 151891.73
+		"June": 26942.61,
+		"total_per_year": 170060.99
 	}
 }
 
@@ -56,8 +56,8 @@ def save_totals(value):
 
 
 shared_data_dictionary = {
-	"next_invoice_num": 19,
-	"next_order_num": 20
+	"next_invoice_num": 22,
+	"next_order_num": 23
 }
 
 # If not exists, create json file

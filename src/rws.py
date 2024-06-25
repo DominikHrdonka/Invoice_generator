@@ -74,7 +74,7 @@ def rws():
                 doc_name = "new_invoice_" + invoice_num + "_" + order_num + ".docx"
                 doc.save(doc_path+curr_year_folder+doc_name)
                 messagebox.showinfo("Invoice Complete", "Invoice Complete")
-                insert_into_db(invoice_num, 'FALSE', issued_date, 'RWS', total_price)
+                insert_into_db(invoice_num, 'No', issued_date, 'RWS', total_price)
                 new_invoice()
                 json_data.update_next_invoice_num()
                 json_data.update_next_order_num()

@@ -24,7 +24,6 @@ SQLite is used to manage database of generated invoices with all the relevant da
 - add tree of invoices - issued, paid/unpaid etc... and connect it to invoices DB
 
 # DB
-- make database for invoices (issued, paid/unpaid, etc)
 - choose clients based on database/json???
 
 # Final files
