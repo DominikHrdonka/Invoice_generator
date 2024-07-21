@@ -5,6 +5,7 @@ from en import en
 import json_data
 from json_data import current_year
 from databases import fetch_items_from_db
+import sqlite3
 
 
 
@@ -52,6 +53,21 @@ def open_summary():
     items = fetch_items_from_db('invoices_list') 
     display_invoices(invoice_tree, items)
 
+    # Mark selected invoice as paid in DB
+    def mark_as_paid():
+        selected_invoice = invoice_tree.selection()
+        if selected_invoice:
+            with sqlite3.connect('invoices.db') as connection:
+                cursor = connection.cursor()
+
+            
+            cursor.execute(
+                f''
+            )
+            """
+            Need to call fetch_items_from_db again to update the invoices displayed
+            """
+            pass
 
 
     frame3 = tkinter.Frame(root)

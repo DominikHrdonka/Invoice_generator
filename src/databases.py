@@ -22,4 +22,13 @@ def fetch_items_from_db(table):
 
         items = cursor.fetchall()
         return items
+    
+def mark_as_paid():
+    with sqlite3.connect('invoices.db') as connection:
+        cursor = connection.cursor()
+    
+    cursor.execute(
+        f''
+    )
+    pass
 
