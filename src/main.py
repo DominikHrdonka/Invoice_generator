@@ -34,7 +34,7 @@ with sqlite3.connect('invoices.db') as connection:
 
     #CREATING TABLE in the DB
     cursor.execute(
-        "CREATE TABLE IF NOT EXISTS invoices_list (invoice_number TEXT, paid TEXT, issued_on TEXT, client TEXT, price REAL);"
+        "CREATE TABLE IF NOT EXISTS invoices_list (id INTEGER PRIMARY KEY, invoice_number TEXT, paid TEXT, issued_on TEXT, client TEXT, price REAL);"
         )
 
 window.mainloop()
