@@ -75,7 +75,7 @@ def en():
                 doc_name = "new_invoice_" + name + " - " + invoice_num + "_" + "month.docx"
                 doc.save(doc_path+curr_year_folder+doc_name)
                 messagebox.showinfo("Invoice Complete", "Invoice Complete") 
-                insert_into_db(invoice_num, 'FALSE', issued_date, name, total_price)
+                insert_into_db(invoice_num, '-', issued_date, name, total_price)
                 new_invoice()
                 json_data.update_next_invoice_num()
                 callback()

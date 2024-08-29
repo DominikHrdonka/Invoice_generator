@@ -55,13 +55,10 @@ def open_summary():
                 """
                 Need to call fetch_items_from_db again to update the invoices displayed
                 """
-        else:
-            """
-            Display message that an invoice must be selected
-            """
+                pass
 
 
-    mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid', command= mark_as_paid)
+    mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid')
     mark_as_paid_button.grid(row=3, column=0, padx= 50, pady= 5)
     
     #Insert fetched data into DB
