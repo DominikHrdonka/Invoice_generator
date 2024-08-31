@@ -1,5 +1,7 @@
 import sqlite3
 import os
+import tkinter
+from tkinter import ttk
 
 def insert_into_db(invoice_number, paid, issued_on, client, price):
     #Connect to DB
@@ -23,12 +25,4 @@ def fetch_items_from_db(table):
         items = cursor.fetchall()
         return items
     
-def mark_as_paid():
-    with sqlite3.connect('invoices.db') as connection:
-        cursor = connection.cursor()
-    
-    cursor.execute(
-        f''
-    )
-    pass
 
