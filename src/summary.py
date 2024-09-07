@@ -42,7 +42,14 @@ def open_summary():
     invoice_tree.heading('client', text='Client')
     invoice_tree.heading('price', text='Price')
 
-    # Mark selected invoice as paid in DB
+    # Function to mark selected invoice as paid in DB
+    """
+    The problem here is the way to denote the invoice we want to operate on.
+    Simply put, we need to bound to the selected (clicked) item in the tree with
+    an actually invoice in our database.
+
+    Could invoice ID work here somehow?
+    """
     def mark_as_paid():
         selected_invoice = invoice_tree.selection()
         if selected_invoice:
@@ -53,7 +60,11 @@ def open_summary():
                     f''
                 )
                 """
-                Need to call fetch_items_from_db again to update the invoices displayed
+                Need to call fetch_items_from_db again to update the invoices displayed.
+                Here we could use CALLBACK function.
+
+                We also need to open date_picker again to note the date of the payment
+                to be saved in our invoices DB.
                 """
                 pass
 
@@ -61,7 +72,7 @@ def open_summary():
     mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid')
     mark_as_paid_button.grid(row=3, column=0, padx= 50, pady= 5)
     
-    #Insert fetched data into DB
+    #Insert fetched data into the overview tree
     def display_invoices(tree, invoices):
         for invoice in invoices:
             tree.insert('', 0, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
