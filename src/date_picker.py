@@ -5,13 +5,14 @@ import shared
 from datetime import datetime
 
 
-def open_calendar(callback):
+def open_calendar(callback=None):
     #Functionality
 
     def select_date():
         shared.selected_date = cal.get_date()
         root.destroy()
-        callback()
+        if callback:
+            callback()
         
     #Getting today's date
     today = datetime.today()

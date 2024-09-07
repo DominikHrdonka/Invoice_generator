@@ -6,6 +6,7 @@ import json_data
 from json_data import current_year
 from databases import fetch_items_from_db
 import sqlite3
+from date_picker import open_calendar
 
 
 
@@ -52,6 +53,10 @@ def open_summary():
     """
     def mark_as_paid():
         selected_invoice = invoice_tree.selection()
+        payment_date = None
+        
+        open_calendar()
+
         if selected_invoice:
             with sqlite3.connect('invoices.db') as connection:
                 cursor = connection.cursor()
@@ -69,7 +74,7 @@ def open_summary():
                 pass
 
 
-    mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid')
+    mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid', command= mark_as_paid)
     mark_as_paid_button.grid(row=3, column=0, padx= 50, pady= 5)
     
     #Insert fetched data into the overview tree
