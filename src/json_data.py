@@ -11,8 +11,9 @@ totals_dictionary = {
 		"April": 18197.01,
 		"May": 46903.23,
 		"June": 26942.61,
-		"July": 68687.44,
-		"total_per_year": 252981.79
+		"July": 48254.14,
+		"August":67839.98,
+		"total_per_year": 286155.11
 	}
 }
 
