@@ -7,6 +7,7 @@ from json_data import current_year
 from databases import fetch_items_from_db
 import sqlite3
 from date_picker import open_calendar
+import shared
 
 
 
@@ -53,9 +54,11 @@ def open_summary():
     """
     def mark_as_paid():
         selected_invoice = invoice_tree.selection()
-        payment_date = None
-        
+
         open_calendar()
+        
+        #Print function below only for debugging
+        print(shared.selected_date)
 
         if selected_invoice:
             with sqlite3.connect('invoices.db') as connection:
