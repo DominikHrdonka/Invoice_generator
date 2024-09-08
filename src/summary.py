@@ -14,7 +14,7 @@ import shared
 def open_summary():
     root = tkinter.Tk()
     root.title("Summary")
-    root.geometry("1200x600")
+    root.geometry("1350x600")
 
     frame = tkinter.Frame(root)
     frame.pack(side= "top", padx=20, pady=10)
@@ -35,9 +35,10 @@ def open_summary():
     invoices_label.grid(row=1, column=0)
 
     #Tree for displaying invoices in DB
-    columns = ('invoice_number', 'paid', 'issued_on', 'client', 'price')
+    columns = ('id', 'invoice_number', 'paid', 'issued_on', 'client', 'price')
     invoice_tree = ttk.Treeview(frame2, columns=columns, show= 'headings')
-    invoice_tree.grid(row=2, column=0, columnspan= 5, padx= 50, pady= 5)
+    invoice_tree.grid(row=2, column=0, columnspan= 6, padx= 50, pady= 5)
+    invoice_tree.heading('id', text= 'ID')
     invoice_tree.heading('invoice_number', text='Invoice number')
     invoice_tree.heading('paid', text='Paid')
     invoice_tree.heading('issued_on', text='Issued on')
@@ -58,7 +59,7 @@ def open_summary():
         open_calendar()
         
         #Print function below only for debugging
-        print(shared.selected_date)
+        print(selected_invoice)
 
         if selected_invoice:
             with sqlite3.connect('invoices.db') as connection:
