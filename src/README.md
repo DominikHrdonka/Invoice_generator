@@ -21,8 +21,7 @@ SQLite is used to manage database of generated invoices with all the relevant da
 - make it able to create concepts (storing incomplete files??)
 
 # Overview
-- add button to mark invoices as paid
-
+- edit mark_as_paid to view an error message when hitting the button but not having selected an invoice
 # DB
 - choose clients based on database/json???
 
