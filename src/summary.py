@@ -6,18 +6,18 @@ import json_data
 from json_data import current_year
 from databases import fetch_items_from_db
 import sqlite3
-from date_picker import open_calendar
+from date_picker import *
 import shared
 
 
 
 def open_summary():
     def main():
-        root = tkinter.Tk()
-        root.title("Summary")
-        root.geometry("1200x600")
+        summary_root = tkinter.Tk()
+        summary_root.title("Summary")
+        summary_root.geometry("1200x600")
 
-        frame = tkinter.Frame(root)
+        frame = tkinter.Frame(summary_root)
         frame.pack(side= "top", padx=20, pady=10)
 
         this_year_total_invoiced_label = tkinter.Label(frame, text="Invoiced this year:", pady= 5)
@@ -29,7 +29,7 @@ def open_summary():
         czk_label = tkinter.Label(frame, text="CZK")
         czk_label.grid(row=0, column=2)
 
-        frame2 = tkinter.Frame(root)
+        frame2 = tkinter.Frame(summary_root)
         frame2.pack(side='top', fill='both', expand=True)
 
         invoices_label = tkinter.Label(frame2, text= "Invoices: ", pady= 5)
@@ -46,37 +46,6 @@ def open_summary():
         invoice_tree.heading('price', text='Price')
 
         
-        def mark_as_paid():
-            #Selecting invoice in the tree
-            selected_invoice = invoice_tree.selection()
-            #Logic to change "paid" field to the selected date
-            if selected_invoice:
-                open_calendar()
-                with sqlite3.connect('invoices.db') as connection:
-                    cursor = connection.cursor()
-            
-                    cursor.execute(
-                        f"UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, selected_invoice[0])
-                        )
-
-                    """
-                    Need to call fetch_items_from_db again to update the invoices displayed.
-                    Here we could use CALLBACK function.
-                    """
-            
-
-        def update_treeview(tree):
-            if tree:
-                print(f"Treeview valid: {tree}")
-                print(f"Children: {tree.get_children()}")
-            else:
-                print("Treeview not available")
-
-
-
-
-        mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid', command= mark_as_paid)
-        mark_as_paid_button.grid(row=3, column=0, padx= 50, pady= 5)
         
         #Insert fetched data into the overview tree
         def display_invoices(tree, invoices):
@@ -91,10 +60,46 @@ def open_summary():
         
         fetch_and_display(invoice_tree, 'invoices_list')
 
+        def mark_as_paid():
+            print("Starting mark_as_paid")
+            #Selecting invoice in the tree
+            selected_invoice = invoice_tree.selection()
+            #Logic to change "paid" field to the selected date
+            if selected_invoice:
+                print(f"Selected invoice: {selected_invoice}")
+
+                #The issue is in open_calendar
+                open_calendar()
+                
+                print(f"Date selected: {shared.selected_date}")
+
+                with sqlite3.connect('invoices.db') as connection:
+                    cursor = connection.cursor()
+            
+                    cursor.execute(
+                        f"UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, selected_invoice[0])
+                        )
+                    
+                print("Successfully updated")
+
+                    
+            
+        #Function to update treeview
+        def update_treeview(tree):
+            if tree:
+                print(f"Treeview valid: {tree}")
+                print(f"Children: {tree.get_children()}")
+            else:
+                print("Treeview not available")
+
+
+        mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid', command= mark_as_paid)
+        mark_as_paid_button.grid(row=3, column=0, padx= 50, pady= 5)
+
         
 
 
-        frame3 = tkinter.Frame(root)
+        frame3 = tkinter.Frame(summary_root)
         frame3.pack(side="bottom", padx=20, pady=10)
 
         invoiced_monthly_label = tkinter.Label(frame3, text='Invoiced per month:')
@@ -190,5 +195,5 @@ def open_summary():
                     entry_widget.insert(0, data)
 
 
-        root.mainloop()
+        summary_root.mainloop()
     main()
