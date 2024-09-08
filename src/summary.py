@@ -58,23 +58,24 @@ def open_summary():
         open_calendar()
         
         #Print function below only for debugging
-        print(selected_invoice)
+        print(selected_invoice[0])
+        print(shared.selected_date)
 
+        #Logic to change "paid" field to the selected date
         if selected_invoice:
             with sqlite3.connect('invoices.db') as connection:
                 cursor = connection.cursor()
         
                 cursor.execute(
-                    f''
-                )
+                    f"UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, selected_invoice[0])
+                    )
+
                 """
                 Need to call fetch_items_from_db again to update the invoices displayed.
                 Here we could use CALLBACK function.
-
-                We also need to open date_picker again to note the date of the payment
-                to be saved in our invoices DB.
                 """
-                pass
+            
+
 
 
     mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid', command= mark_as_paid)
@@ -83,6 +84,7 @@ def open_summary():
     #Insert fetched data into the overview tree
     def display_invoices(tree, invoices):
         for invoice in invoices:
+            #iid = invoice_id says to use this identifier with records instead of defafult id
             invoice_id = invoice[0]
             tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
      
