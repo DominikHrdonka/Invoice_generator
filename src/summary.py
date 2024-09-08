@@ -84,7 +84,8 @@ def open_summary():
     #Insert fetched data into the overview tree
     def display_invoices(tree, invoices):
         for invoice in invoices:
-            tree.insert('', 0, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
+            invoice_id = invoice[0]
+            tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
      
     items = fetch_items_from_db('invoices_list') 
     display_invoices(invoice_tree, items)
