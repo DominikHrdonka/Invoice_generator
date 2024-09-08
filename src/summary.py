@@ -69,28 +69,28 @@ def open_summary():
                 print(f"Selected invoice: {selected_invoice}")
 
                 #The issue is in open_calendar
-                open_calendar()
+                open_calendar(callback= lambda: mark_as_paid_callback(selected_invoice))
                 
-                print(f"Date selected: {shared.selected_date}")
-
-                with sqlite3.connect('invoices.db') as connection:
+        
+        def mark_as_paid_callback(invoice):
+            with sqlite3.connect('invoices.db') as connection:
                     cursor = connection.cursor()
             
                     cursor.execute(
-                        f"UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, selected_invoice[0])
+                        f"UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, invoice[0])
                         )
                     
-                print("Successfully updated")
+            print("Successfully updated")
+            update_treeview(invoice_tree)
 
-                    
-            
+        
+
         #Function to update treeview
         def update_treeview(tree):
             if tree:
-                print(f"Treeview valid: {tree}")
-                print(f"Children: {tree.get_children()}")
-            else:
-                print("Treeview not available")
+                for item in tree.get_children():
+                    tree.delete(item)
+                fetch_and_display(invoice_tree, 'invoices_list')
 
 
         mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid', command= mark_as_paid)
