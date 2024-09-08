@@ -45,8 +45,6 @@ def open_summary():
         invoice_tree.heading('client', text='Client')
         invoice_tree.heading('price', text='Price')
 
-        
-        
         #Insert fetched data into the overview tree
         def display_invoices(tree, invoices):
             for invoice in invoices:
@@ -60,30 +58,21 @@ def open_summary():
         
         fetch_and_display(invoice_tree, 'invoices_list')
 
+        #Top level function to mark selected invoice as paid in DB
         def mark_as_paid():
-            print("Starting mark_as_paid")
-            #Selecting invoice in the tree
-            selected_invoice = invoice_tree.selection()
-            #Logic to change "paid" field to the selected date
+            selected_invoice = invoice_tree.selection() #Selecting invoice in the tree
             if selected_invoice:
-                print(f"Selected invoice: {selected_invoice}")
-
-                #The issue is in open_calendar
-                open_calendar(callback= lambda: mark_as_paid_callback(selected_invoice))
+                open_calendar(callback= lambda: mark_as_paid_callback(selected_invoice)) #lambda here serves to call the mark_as_paid_callback later, not immediately
                 
-        
+        #Marking as paid in DB to be used as callback
         def mark_as_paid_callback(invoice):
             with sqlite3.connect('invoices.db') as connection:
                     cursor = connection.cursor()
-            
                     cursor.execute(
                         f"UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, invoice[0])
                         )
-                    
-            print("Successfully updated")
+            #Delete existing treeview items and then fetching and displaying the updated items.        
             update_treeview(invoice_tree)
-
-        
 
         #Function to update treeview
         def update_treeview(tree):

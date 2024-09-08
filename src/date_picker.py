@@ -6,17 +6,12 @@ from datetime import datetime
 
 
 def open_calendar(callback=None):
-    #Functionality
-
+    #Select date, save it in a variable, and kill calendar_root window
     def select_date():
         shared.selected_date = cal.get_date()
-        print("Date selected successfully")
         calendar_root.destroy()
-        print("TK window killed successfully")
         if callback:
             callback()
-        else:
-            print("No callback")
         
     #Getting today's date
     today = datetime.today()
