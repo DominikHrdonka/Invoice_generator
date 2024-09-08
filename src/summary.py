@@ -44,25 +44,13 @@ def open_summary():
     invoice_tree.heading('client', text='Client')
     invoice_tree.heading('price', text='Price')
 
-    # Function to mark selected invoice as paid in DB
-    """
-    The problem here is the way to denote the invoice we want to operate on.
-    Simply put, we need to bound to the selected (clicked) item in the tree with
-    an actually invoice in our database.
-
-    Could invoice ID work here somehow?
-    """
+    
     def mark_as_paid():
+        #Selecting invoice in the tree
         selected_invoice = invoice_tree.selection()
-
-        open_calendar()
-        
-        #Print function below only for debugging
-        print(selected_invoice[0])
-        print(shared.selected_date)
-
         #Logic to change "paid" field to the selected date
         if selected_invoice:
+            open_calendar()
             with sqlite3.connect('invoices.db') as connection:
                 cursor = connection.cursor()
         
@@ -74,7 +62,7 @@ def open_summary():
                 Need to call fetch_items_from_db again to update the invoices displayed.
                 Here we could use CALLBACK function.
                 """
-            
+    
 
 
 
@@ -87,7 +75,7 @@ def open_summary():
             #iid = invoice_id says to use this identifier with records instead of defafult id
             invoice_id = invoice[0]
             tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
-     
+    
     items = fetch_items_from_db('invoices_list') 
     display_invoices(invoice_tree, items)
 

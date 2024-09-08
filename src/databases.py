@@ -22,7 +22,7 @@ def fetch_items_from_db(table):
             f"SELECT * from {table} ORDER BY invoice_number DESC LIMIT 10;"
         )
 
-        items = cursor.fetchall()
-        return items
+    items = cursor.fetchall()
+    return items
     
 
