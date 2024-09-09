@@ -21,9 +21,16 @@ SQLite is used to manage database of generated invoices with all the relevant da
 - make it able to create concepts (storing incomplete files??)
 
 # Overview
-- edit mark_as_paid to view an error message when hitting the button but not having selected an invoice
+
 # DB
-- choose clients based on database/json???
+*Create clients DB*
+- create new DB table "clients"
+- create interface to add a new client, delete a client, edit a client etc.
+
+*Choose clients based on database*
+- create button to open the listbox (en tab, Client field) + assign function open_client_listbox
+- create function to fetch the data from DB (could we use existing fetch function from summary?? --> it could be moved to databases.py and made more reusable)
+- create button to pass the selected client into the Client field (en tab)
 
 # Final files
 - make it executible file
