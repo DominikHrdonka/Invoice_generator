@@ -1,5 +1,5 @@
 import tkinter
-from tkinter import ttk
+from tkinter import (ttk, messagebox)
 from rws import rws
 from en import en
 import json_data
@@ -63,6 +63,8 @@ def open_summary():
             selected_invoice = invoice_tree.selection() #Selecting invoice in the tree
             if selected_invoice:
                 open_calendar(callback= lambda: mark_as_paid_callback(selected_invoice)) #lambda here serves to call the mark_as_paid_callback later, not immediately
+            else:
+                messagebox.showinfo(message="You must select an invoice.", title="Note")
                 
         #Marking as paid in DB to be used as callback
         def mark_as_paid_callback(invoice):
