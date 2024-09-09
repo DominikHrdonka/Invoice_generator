@@ -123,7 +123,7 @@ def en():
         invoice_num_entry.grid(row=1, column=0)
         invoice_num_insert()
 
-        name_label = tkinter.Label(frame, text= "Name")
+        name_label = tkinter.Label(frame, text= "Client")
         name_label.grid(row=0, column=1)
         name_entry = tkinter.Entry(frame)
         name_entry.grid(row=1, column=1)
