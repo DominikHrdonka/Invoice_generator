@@ -8,6 +8,7 @@ import json_data
 from tkinter import filedialog
 from datetime import datetime
 from databases import insert_into_db
+from listbox import open_client_listbox
 
 
 
@@ -128,21 +129,24 @@ def en():
         name_entry = tkinter.Entry(frame)
         name_entry.grid(row=1, column=1)
 
+        client_button = tkinter.Button(frame, text="…", command=open_client_listbox)
+        client_button.grid(row=1, column=2)
+
         issued_date_label = tkinter.Label(frame, text="Issued on")
-        issued_date_label.grid(row=0, column=2)
+        issued_date_label.grid(row=0, column=3)
         issued_date_entry = tkinter.Entry(frame)
-        issued_date_entry.grid(row=1, column=2)
+        issued_date_entry.grid(row=1, column=3)
         
         issued_date_button = tkinter.Button(frame, text="…", command=open_calendar_issued_date)
-        issued_date_button.grid(row=1, column=3)
+        issued_date_button.grid(row=1, column=4)
 
         due_date_label = tkinter.Label(frame, text="Due date")
-        due_date_label.grid(row=0, column=4)
+        due_date_label.grid(row=0, column=5)
         due_date_entry = tkinter.Entry(frame)
-        due_date_entry.grid(row=1, column=4)
+        due_date_entry.grid(row=1, column=5)
 
         due_date_button = tkinter.Button(frame, text="…", command=open_calendar_due_date)
-        due_date_button.grid(row=1, column=5)
+        due_date_button.grid(row=1, column=6)
 
         lesson_num_label = tkinter.Label(frame, text="Lessons")
         lesson_num_label.grid(row=3, column=1)
@@ -151,9 +155,9 @@ def en():
 
 
         price_label = tkinter.Label(frame, text="Price")
-        price_label.grid(row=3, column=2)
+        price_label.grid(row=3, column=3)
         price_entry = tkinter.Entry(frame)
-        price_entry.grid(row=4, column=2)
+        price_entry.grid(row=4, column=3)
 
         # Add item button
         add_item_button = tkinter.Button(frame, text="Add item", command= add_item)

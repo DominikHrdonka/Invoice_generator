@@ -9,7 +9,7 @@ def open_client_listbox():
     frame = tkinter.Frame(window)
     frame.pack(padx=10, pady=10)
 
-    select_client_button = tkinter.Button(frame, text="Select Client")
+    select_client_button = tkinter.Button(frame, text="Select Client", command=None)
     select_client_button.grid(row=1, column=0)
 
     Lb1 = Listbox(frame)
@@ -27,5 +27,3 @@ def open_client_listbox():
         list_order+=1
 
     window.mainloop()
-
-open_client_listbox()
