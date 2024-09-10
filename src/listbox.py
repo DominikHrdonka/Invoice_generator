@@ -19,7 +19,7 @@ def open_client_listbox(callback):
     select_client_button = tkinter.Button(frame, text="Select Client", command=select_client)
     select_client_button.grid(row=1, column=0)
 
-    Lb1 = Listbox(frame)
+    Lb1 = Listbox(frame, selectmode=BROWSE)
     Lb1.grid(row=0, column=0)
 
 
