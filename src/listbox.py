@@ -1,11 +1,13 @@
 from tkinter import *
 import tkinter
 
-def open_client_listbox():
+def open_client_listbox(callback):
 
     def select_client():
         #Save clicked item as selected_client variable in shared.py
         client_listbox_root.destroy()
+        callback()
+
     
     #GUI
     client_listbox_root = tkinter.Tk()
@@ -33,5 +35,3 @@ def open_client_listbox():
 
     client_listbox_root.mainloop()
 
-#Temporary function to directly open listbox from bash.
-open_client_listbox() 

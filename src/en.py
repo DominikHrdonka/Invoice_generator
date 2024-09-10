@@ -93,6 +93,13 @@ def en():
         def open_calendar_due_date():
             open_calendar(callback_get_due_date)
 
+        #Insert client in Client field
+        def insert_client_callback():
+            name_entry.insert(0, shared.selected_client)
+
+        def insert_client():
+            open_client_listbox(insert_client_callback)
+
 
         #Update calc_invoice_number asynchronously using callback function
         def invoice_num_insert():
@@ -129,7 +136,7 @@ def en():
         name_entry = tkinter.Entry(frame)
         name_entry.grid(row=1, column=1)
 
-        client_button = tkinter.Button(frame, text="…", command=open_client_listbox)
+        client_button = tkinter.Button(frame, text="…", command=insert_client)
         client_button.grid(row=1, column=2)
 
         issued_date_label = tkinter.Label(frame, text="Issued on")
