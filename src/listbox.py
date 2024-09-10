@@ -2,14 +2,19 @@ from tkinter import *
 import tkinter
 
 def open_client_listbox():
-    window = tkinter.Tk()
-    window.title("Client list")
-    
 
-    frame = tkinter.Frame(window)
+    def select_client():
+        #Save clicked item as selected_client variable in shared.py
+        client_listbox_root.destroy()
+    
+    #GUI
+    client_listbox_root = tkinter.Tk()
+    client_listbox_root.title("Client list")
+    
+    frame = tkinter.Frame(client_listbox_root)
     frame.pack(padx=10, pady=10)
 
-    select_client_button = tkinter.Button(frame, text="Select Client", command=None)
+    select_client_button = tkinter.Button(frame, text="Select Client", command=select_client)
     select_client_button.grid(row=1, column=0)
 
     Lb1 = Listbox(frame)
@@ -26,4 +31,7 @@ def open_client_listbox():
         Lb1.insert(list_order, client)
         list_order+=1
 
-    window.mainloop()
+    client_listbox_root.mainloop()
+
+#Temporary function to directly open listbox from bash.
+open_client_listbox() 
