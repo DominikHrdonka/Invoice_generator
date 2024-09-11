@@ -5,6 +5,7 @@ from en import en
 from summary import (
     open_summary,
 )
+from clients import open_clients
 import sqlite3
 
 # GUI
@@ -28,7 +29,7 @@ en_invoice_button.grid(row=1, column=1)
 open_summary_button = tkinter.Button(frame, text="Open summary", command= open_summary)
 open_summary_button.grid(row=2, column=0, pady=10, sticky="news", columnspan=2)
 
-clients_button = tkinter.Button(frame, text="Clients", command=None)
+clients_button = tkinter.Button(frame, text="Clients", command=open_clients)
 clients_button.grid(row=3, column=0, pady=10, sticky= "news", columnspan=2)
 
 #Creating databases for invoices and clients
