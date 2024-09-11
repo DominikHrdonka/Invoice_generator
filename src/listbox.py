@@ -1,10 +1,13 @@
 from tkinter import (ttk)
 import tkinter
+import shared
 
 def open_client_listbox(callback):
 
     def select_client():
-        #Save clicked item as selected_client variable in shared.py
+        #Save clicked item as selected_client variable in shared.py -- it uses DB iid
+        shared.selected_client = client_treeview.selection()
+        print(shared.selected_client)
         client_listbox_root.destroy()
         callback()
 
