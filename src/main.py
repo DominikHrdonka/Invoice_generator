@@ -26,8 +26,12 @@ en_invoice_button = tkinter.Button(frame, text= "English Invoice", command= en)
 en_invoice_button.grid(row=1, column=1)
 
 open_summary_button = tkinter.Button(frame, text="Open summary", command= open_summary)
-open_summary_button.grid(row=2, column=0, pady=20, sticky="news", columnspan=2)
+open_summary_button.grid(row=2, column=0, pady=10, sticky="news", columnspan=2)
 
+clients_button = tkinter.Button(frame, text="Clients", command=None)
+clients_button.grid(row=3, column=0, pady=10, sticky= "news", columnspan=2)
+
+#Creating databases for invoices and clients
 with sqlite3.connect('invoices.db') as connection:
 #object of DB that handles all the communication with the DB
     cursor = connection.cursor()
