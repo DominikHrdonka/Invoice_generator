@@ -41,5 +41,12 @@ with sqlite3.connect('invoices.db') as connection:
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS invoices_list (id INTEGER PRIMARY KEY, invoice_number TEXT, paid TEXT, issued_on TEXT, client TEXT, price REAL);"
         )
+    
+with sqlite3.connect('clients.db') as connection:
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "CREATE TABLE IF NOT EXISTS client_list (id INTEGER PRIMARY KEY, name TEXT, email TEXT, hourly_rate INTEGER);"
+    )
 
 window.mainloop()
