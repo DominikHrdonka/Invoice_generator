@@ -28,8 +28,6 @@ SQLite is used to manage database of generated invoices with all the relevant da
 - create interface to add a new client, delete a client, edit a client etc.
 
 *Choose clients based on database*
-- create interface to add new clients to a DB
-- create button to open the listbox (en tab, Client field) + assign function open_client_listbox
 - create function to fetch the data from DB (could we use existing fetch function from summary?? --> it could be moved to databases.py and made more reusable)
 - create button to pass the selected client into the Client field (en tab)
 
