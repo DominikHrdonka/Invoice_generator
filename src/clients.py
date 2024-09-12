@@ -55,10 +55,7 @@ def open_clients():
             add_client_button.grid(row=3, column=0, columnspan=2, sticky='news', pady=15)
 
         
-
-        
-        
-        # GUI
+        # Main root GUI
         root = tkinter.Tk()
         root.title("Clients")
         root.geometry("600x300")
@@ -83,6 +80,7 @@ def open_clients():
                     client_id = client[0]
                     clients_treeview.insert('', 0, iid=client_id, values=(client[1], client[2], client[3]))
         
+        #Display clients in treeview upon opening the Clients window
         display_clients_in_treeview()
 
         root.mainloop()
