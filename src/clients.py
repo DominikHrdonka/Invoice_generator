@@ -8,45 +8,45 @@ def open_clients():
         #Functions
 
         def new_client():
-            add_client_root = tkinter.Tk()
-            add_client_root.title('New Client')
-            add_client_root.geometry('300x200')
 
-            add_client_frame = ttk.Frame(add_client_root)
-            add_client_frame.pack(padx=10, pady=10)
+            def add_client_in_DB():
+                name = name_entry.get()
+                email = email_entry.get()
+                hourly_rate = hourly_rate_entry.get()
 
-            name_label = tkinter.Label(add_client_frame, text=('Name:'))
+                with sqlite3.connect('clients.db') as connection:
+                    cursor = connection.cursor()
+                    cursor.execute(
+                        "INSERT INTO client_list (name, email, hourly_rate) VALUES (?, ?, ?);", (name, email, hourly_rate)
+                    )
+                new_client_root.destroy()
+
+            new_client_root = tkinter.Tk()
+            new_client_root.title('New Client')
+            new_client_root.geometry('300x200')
+
+            new_client_frame = ttk.Frame(new_client_root)
+            new_client_frame.pack(padx=10, pady=10)
+
+            name_label = tkinter.Label(new_client_frame, text='Name: ')
             name_label.grid(row=0, column=0)
-            name_entry = tkinter.Entry(add_client_frame)
+            name_entry = tkinter.Entry(new_client_frame)
             name_entry.grid(row=0, column=1)
 
-            email_label = tkinter.Label(add_client_frame, text='Email: ')
+            email_label = tkinter.Label(new_client_frame, text='Email: ')
             email_label.grid(row=1, column=0)
-            email_entry = tkinter.Entry(add_client_frame)
+            email_entry = tkinter.Entry(new_client_frame)
             email_entry.grid(row=1, column=1)
 
-            hourly_rate_label = tkinter.Label(add_client_frame, text='Hourly rate: ')
+            hourly_rate_label = tkinter.Label(new_client_frame, text='Hourly rate: ')
             hourly_rate_label.grid(row=2, column=0)
-            hourly_rate_entry = tkinter.Entry(add_client_frame)
+            hourly_rate_entry = tkinter.Entry(new_client_frame)
             hourly_rate_entry.grid(row=2, column=1)
 
-            add_client_button = tkinter.Button(add_client_frame, text='Add Client')
+            add_client_button = tkinter.Button(new_client_frame, text='Add Client', command= add_client_in_DB)
             add_client_button.grid(row=3, column=0, columnspan=2, sticky='news', pady=15)
 
-            
-
-
-
-            #Temporary variables
-            name = "John"
-            email = "John@gmail.com"
-            hourly_rate = 350
-
-            with sqlite3.connect('clients.db') as connection:
-                cursor = connection.cursor()
-                cursor.execute(
-                    "INSERT INTO client_list (name, email, hourly_rate) VALUES (?, ?, ?);", (name, email, hourly_rate)
-                )
+        
 
 
         # GUI

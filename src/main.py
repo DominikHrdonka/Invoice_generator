@@ -32,7 +32,7 @@ open_summary_button.grid(row=2, column=0, pady=10, sticky="news", columnspan=2)
 clients_button = tkinter.Button(frame, text="Clients", command=open_clients)
 clients_button.grid(row=3, column=0, pady=10, sticky= "news", columnspan=2)
 
-#Creating databases for invoices and clients
+#Creating database for invoices
 with sqlite3.connect('invoices.db') as connection:
 #object of DB that handles all the communication with the DB
     cursor = connection.cursor()
@@ -41,7 +41,7 @@ with sqlite3.connect('invoices.db') as connection:
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS invoices_list (id INTEGER PRIMARY KEY, invoice_number TEXT, paid TEXT, issued_on TEXT, client TEXT, price REAL);"
         )
-    
+#Creating database for clients    
 with sqlite3.connect('clients.db') as connection:
     cursor = connection.cursor()
 
