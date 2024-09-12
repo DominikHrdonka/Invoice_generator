@@ -1,5 +1,5 @@
 import tkinter
-from tkinter import (ttk)
+from tkinter import (ttk, messagebox)
 import sqlite3
 
 def open_clients():
@@ -19,6 +19,7 @@ def open_clients():
                     cursor.execute(
                         "INSERT INTO client_list (name, email, hourly_rate) VALUES (?, ?, ?);", (name, email, hourly_rate)
                     )
+                messagebox.showinfo(message='Client successfully added.')
                 new_client_root.destroy()
 
             new_client_root = tkinter.Tk()
