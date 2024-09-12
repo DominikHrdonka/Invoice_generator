@@ -24,12 +24,6 @@ def open_clients():
                 callback()
                 new_client_root.destroy()
             
-            def display_clients_in_treeview():
-                clients = fetch_items_from_db('client_list') 
-
-                for client in clients:
-                    client_id = client[0]
-                    clients_treeview.insert('', iid=client_id, values=(client[1], client[2], client[3]))
                 
             
             def fetch_and_display():
@@ -62,7 +56,8 @@ def open_clients():
 
         
 
-
+        
+        
         # GUI
         root = tkinter.Tk()
         root.title("Clients")
@@ -80,6 +75,15 @@ def open_clients():
 
         new_client_button = tkinter.Button(frame, text="New Client", command=new_client)
         new_client_button.grid(row=1, column=0, padx=5, pady=5, sticky='news')
+
+        def display_clients_in_treeview():
+                clients = fetch_items_from_db('clients.db', 'client_list')
+
+                for client in clients:
+                    client_id = client[0]
+                    clients_treeview.insert('', 0, iid=client_id, values=(client[1], client[2], client[3]))
+        
+        display_clients_in_treeview()
 
         root.mainloop()
     main()
