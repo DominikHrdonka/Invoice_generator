@@ -37,3 +37,6 @@ SQLite is used to manage database of generated invoices with all the relevant da
 - make it executible file
 - automate printing new invoice to PDF
 
+# Fine tuning
+- review functions across projects and get rid of redundancies (especially database related functions)
+

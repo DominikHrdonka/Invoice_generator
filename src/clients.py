@@ -1,6 +1,7 @@
 import tkinter
 from tkinter import (ttk, messagebox)
 import sqlite3
+from databases import (fetch_items_from_db)
 
 def open_clients():
     def main():
@@ -9,7 +10,7 @@ def open_clients():
 
         def new_client():
 
-            def add_client_in_DB():
+            def add_client_in_DB(callback):
                 name = name_entry.get()
                 email = email_entry.get()
                 hourly_rate = hourly_rate_entry.get()
@@ -20,7 +21,19 @@ def open_clients():
                         "INSERT INTO client_list (name, email, hourly_rate) VALUES (?, ?, ?);", (name, email, hourly_rate)
                     )
                 messagebox.showinfo(message='Client successfully added.')
+                callback()
                 new_client_root.destroy()
+            
+            def display_clients_in_treeview():
+                clients = fetch_items_from_db('client_list') 
+
+                for client in clients:
+                    client_id = client[0]
+                    clients_treeview.insert('', iid=client_id, values=(client[1], client[2], client[3]))
+                
+            
+            def fetch_and_display():
+                pass
 
             new_client_root = tkinter.Tk()
             new_client_root.title('New Client')

@@ -13,13 +13,13 @@ def insert_into_db(invoice_number, paid, issued_on, client, price):
         connection.commit()
 
 #Fetch items from db to use e.g. for display in trees
-def fetch_items_from_db(table):
-    with sqlite3.connect('invoices.db') as connection:
+def fetch_items_from_db(database, table):
+    with sqlite3.connect(database) as connection:
         cursor = connection.cursor()
 
         #Specify which invoices to display
         cursor.execute(
-            f"SELECT * from {table} ORDER BY invoice_number DESC LIMIT 10;"
+            f"SELECT * from {table} ORDER BY id DESC;"
         )
 
         items = cursor.fetchall()
