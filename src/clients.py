@@ -57,11 +57,11 @@ def open_clients():
             add_client_button = tkinter.Button(new_client_frame, text='Add Client', command= add_client_in_DB)
             add_client_button.grid(row=3, column=0, columnspan=2, sticky='news', pady=15)
 
-        
+
         # Main root GUI
         root = tkinter.Tk()
         root.title("Clients")
-        root.geometry("600x300")
+        root.geometry("650x370")
 
         frame = tkinter.Frame(root)
         frame.pack(padx=20, pady=10)
@@ -75,6 +75,12 @@ def open_clients():
 
         new_client_button = tkinter.Button(frame, text="New Client", command=new_client)
         new_client_button.grid(row=1, column=0, padx=5, pady=5, sticky='news')
+
+        remove_client_button = tkinter.Button(frame, text='Remove Client', command=None)
+        remove_client_button.grid(row=2, column=0, padx=5, pady=3, sticky='news')
+
+        edit_client_button = tkinter.Button(frame, text='Edit Client', command=None)
+        edit_client_button.grid(row=3, column=0, padx=5, pady=3, sticky='news')
 
         def display_clients_in_treeview():
                 clients = fetch_items_from_db('clients.db', 'client_list')
