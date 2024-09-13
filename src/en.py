@@ -102,7 +102,7 @@ def en():
                 cursor.execute('SELECT name FROM client_list WHERE id = ?;', (id))
                 clients = cursor.fetchall()
             for client in clients:
-                name_entry.insert(0, client)
+                name_entry.insert(0, client[0])
 
         def insert_client():
             open_client_listbox(insert_client_callback)
