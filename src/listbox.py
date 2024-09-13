@@ -1,6 +1,7 @@
 from tkinter import (ttk)
 import tkinter
 import shared
+from databases import fetch_items_from_db
 
 def open_client_listbox(callback):
 
@@ -31,10 +32,11 @@ def open_client_listbox(callback):
     Inserting clients to the treeview.
     clients list will be replaced by the actualy list of clients from DB
     """
-    clients = ["Petr", "Jana", "Vera", "Tom"]
+    clients = fetch_items_from_db('clients.db', 'client_list')
+
     for client in clients:
-        #When the database exists, we need to set the uniqude identifier to be reflected in treeviw
-        client_treeview.insert("", 0, values=client)
+        client_id = client[0]
+        client_treeview.insert("", 0, values=(client[1], client[2]))
 
     client_listbox_root.mainloop()
 
