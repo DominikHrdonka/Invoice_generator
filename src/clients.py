@@ -9,7 +9,14 @@ def open_clients():
 
         #Functions
 
+        def update_clients_in_treeview():
+                 clients = clients_treeview.get_children()
+                 for client in clients:
+                      clients_treeview.delete(client)
+                 display_clients_in_treeview()
+
         def new_client():
+            
 
             def add_client_in_DB():
                 name = name_entry.get()
@@ -25,11 +32,8 @@ def open_clients():
                 update_clients_in_treeview()
                 new_client_root.destroy()
             
-            def update_clients_in_treeview():
-                 clients = clients_treeview.get_children()
-                 for client in clients:
-                      clients_treeview.delete(client)
-                 display_clients_in_treeview()
+
+                 
         
 
             new_client_root = tkinter.Tk()
@@ -57,6 +61,22 @@ def open_clients():
             add_client_button = tkinter.Button(new_client_frame, text='Add Client', command= add_client_in_DB)
             add_client_button.grid(row=3, column=0, columnspan=2, sticky='news', pady=15)
 
+        """
+        Function to remove client from DB.
+        Client must be selected ---> if selected --> show dialog to confirm --> remove or drop --> update accordingly
+        
+        """
+        def remove_client_from_db():
+            client = clients_treeview.selection()
+            if client:
+                
+                with sqlite3.connect('clients.db') as connection:
+                    cursor = connection.cursor()
+                    cursor.execute('DELETE FROM client_list WHERE id = ?;', (client))
+                messagebox.showinfo(message='Client successfully removed')
+                update_clients_in_treeview()
+            else:
+                    messagebox.showinfo(message='You must select a client.')
 
         # Main root GUI
         root = tkinter.Tk()
@@ -76,7 +96,7 @@ def open_clients():
         new_client_button = tkinter.Button(frame, text="New Client", command=new_client)
         new_client_button.grid(row=1, column=0, padx=5, pady=5, sticky='news')
 
-        remove_client_button = tkinter.Button(frame, text='Remove Client', command=None)
+        remove_client_button = tkinter.Button(frame, text='Remove Client', command=remove_client_from_db)
         remove_client_button.grid(row=2, column=0, padx=5, pady=3, sticky='news')
 
         edit_client_button = tkinter.Button(frame, text='Edit Client', command=None)
