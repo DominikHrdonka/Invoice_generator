@@ -23,13 +23,7 @@ SQLite is used to manage database of generated invoices with all the relevant da
 # Overview
 
 # DB
-*Create clients DB*
-- create new DB table "clients"
-- create interface to add a new client, delete a client, edit a client etc.
-
-*Choose clients based on database*
-- create function to fetch the data from DB (could we use existing fetch function from summary?? --> it could be moved to databases.py and made more reusable)
-- create button to pass the selected client into the Client field (en tab)
+- create interface to delete a client, edit a client from DB
 
 # Final files
 - make it executible file
