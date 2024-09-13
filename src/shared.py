@@ -1,2 +1,2 @@
 selected_date = None
-selected_client = "Vera"
+selected_client = None
