@@ -21,11 +21,14 @@ SQLite is used to manage database of generated invoices with all the relevant da
 - make it able to create concepts (storing incomplete files??)
 
 # Overview
-- edit mark_as_paid to view an error message when hitting the button but not having selected an invoice
+
 # DB
-- choose clients based on database/json???
+- create interface to delete a client, edit a client from DB
 
 # Final files
 - make it executible file
 - automate printing new invoice to PDF
+
+# Fine tuning
+- review functions across projects and get rid of redundancies (especially database related functions)
 

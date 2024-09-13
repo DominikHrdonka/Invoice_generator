@@ -52,11 +52,11 @@ def open_summary():
                 invoice_id = invoice[0]
                 tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
         
-        def fetch_and_display(tree, database):
-            items = fetch_items_from_db(database) 
+        def fetch_and_display(tree, database, table):
+            items = fetch_items_from_db(database, table)
             display_invoices(tree, items)
         
-        fetch_and_display(invoice_tree, 'invoices_list')
+        fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
 
         #Top level function to mark selected invoice as paid in DB
         def mark_as_paid():
@@ -71,7 +71,7 @@ def open_summary():
             with sqlite3.connect('invoices.db') as connection:
                     cursor = connection.cursor()
                     cursor.execute(
-                        f"UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, invoice[0])
+                        "UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, invoice[0])
                         )
             #Delete existing treeview items and then fetching and displaying the updated items.        
             update_treeview(invoice_tree)

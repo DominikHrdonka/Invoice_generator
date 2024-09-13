@@ -8,6 +8,8 @@ import json_data
 from tkinter import filedialog
 from datetime import datetime
 from databases import insert_into_db
+from listbox import open_client_listbox
+import sqlite3
 
 
 
@@ -92,6 +94,19 @@ def en():
         def open_calendar_due_date():
             open_calendar(callback_get_due_date)
 
+        #Insert client in Client field
+        def insert_client_callback():
+            id = shared.selected_client
+            with sqlite3.connect('clients.db') as connection:
+                cursor = connection.cursor()
+                cursor.execute('SELECT name FROM client_list WHERE id = ?;', (id))
+                clients = cursor.fetchall()
+            for client in clients:
+                name_entry.insert(0, client[0])
+
+        def insert_client():
+            open_client_listbox(insert_client_callback)
+
 
         #Update calc_invoice_number asynchronously using callback function
         def invoice_num_insert():
@@ -128,21 +143,24 @@ def en():
         name_entry = tkinter.Entry(frame)
         name_entry.grid(row=1, column=1)
 
+        client_button = tkinter.Button(frame, text="…", command=insert_client)
+        client_button.grid(row=1, column=2)
+
         issued_date_label = tkinter.Label(frame, text="Issued on")
-        issued_date_label.grid(row=0, column=2)
+        issued_date_label.grid(row=0, column=3)
         issued_date_entry = tkinter.Entry(frame)
-        issued_date_entry.grid(row=1, column=2)
+        issued_date_entry.grid(row=1, column=3)
         
         issued_date_button = tkinter.Button(frame, text="…", command=open_calendar_issued_date)
-        issued_date_button.grid(row=1, column=3)
+        issued_date_button.grid(row=1, column=4)
 
         due_date_label = tkinter.Label(frame, text="Due date")
-        due_date_label.grid(row=0, column=4)
+        due_date_label.grid(row=0, column=5)
         due_date_entry = tkinter.Entry(frame)
-        due_date_entry.grid(row=1, column=4)
+        due_date_entry.grid(row=1, column=5)
 
         due_date_button = tkinter.Button(frame, text="…", command=open_calendar_due_date)
-        due_date_button.grid(row=1, column=5)
+        due_date_button.grid(row=1, column=6)
 
         lesson_num_label = tkinter.Label(frame, text="Lessons")
         lesson_num_label.grid(row=3, column=1)
@@ -151,9 +169,9 @@ def en():
 
 
         price_label = tkinter.Label(frame, text="Price")
-        price_label.grid(row=3, column=2)
+        price_label.grid(row=3, column=3)
         price_entry = tkinter.Entry(frame)
-        price_entry.grid(row=4, column=2)
+        price_entry.grid(row=4, column=3)
 
         # Add item button
         add_item_button = tkinter.Button(frame, text="Add item", command= add_item)
