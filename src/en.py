@@ -9,6 +9,7 @@ from tkinter import filedialog
 from datetime import datetime
 from databases import insert_into_db
 from listbox import open_client_listbox
+import sqlite3
 
 
 
@@ -95,7 +96,13 @@ def en():
 
         #Insert client in Client field
         def insert_client_callback():
-            name_entry.insert(0, shared.selected_client)
+            id = shared.selected_client
+            with sqlite3.connect('clients.db') as connection:
+                cursor = connection.cursor()
+                cursor.execute('SELECT name FROM client_list WHERE id = ?;', (id))
+                clients = cursor.fetchall()
+            for client in clients:
+                name_entry.insert(0, client)
 
         def insert_client():
             open_client_listbox(insert_client_callback)

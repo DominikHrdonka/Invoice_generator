@@ -18,9 +18,7 @@ def fetch_items_from_db(database, table):
         cursor = connection.cursor()
 
         #Specify which invoices to display
-        cursor.execute(
-            f"SELECT * from {table} ORDER BY id DESC;"
-        )
+        cursor.execute(f'SELECT * from {table} ORDER BY id DESC;')
 
         items = cursor.fetchall()
         return items

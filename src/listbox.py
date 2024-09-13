@@ -8,7 +8,6 @@ def open_client_listbox(callback):
     def select_client():
         #Save clicked item as selected_client variable in shared.py -- it uses DB iid
         shared.selected_client = client_treeview.selection()
-        print(shared.selected_client)
         client_listbox_root.destroy()
         callback()
 
@@ -29,14 +28,14 @@ def open_client_listbox(callback):
     client_treeview.heading('client', text="")
 
     """
-    Inserting clients to the treeview.
+    Displaying clients to the treeview.
     clients list will be replaced by the actualy list of clients from DB
     """
     clients = fetch_items_from_db('clients.db', 'client_list')
 
     for client in clients:
         client_id = client[0]
-        client_treeview.insert("", 0, values=(client[1], client[2]))
+        client_treeview.insert("", 0, iid=client_id, values=(client[1], client[2]))
 
     client_listbox_root.mainloop()
 

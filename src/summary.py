@@ -71,7 +71,7 @@ def open_summary():
             with sqlite3.connect('invoices.db') as connection:
                     cursor = connection.cursor()
                     cursor.execute(
-                        f"UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, invoice[0])
+                        "UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, invoice[0])
                         )
             #Delete existing treeview items and then fetching and displaying the updated items.        
             update_treeview(invoice_tree)
