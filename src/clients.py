@@ -69,12 +69,13 @@ def open_clients():
         def remove_client_from_db():
             client = clients_treeview.selection()
             if client:
-                
-                with sqlite3.connect('clients.db') as connection:
-                    cursor = connection.cursor()
-                    cursor.execute('DELETE FROM client_list WHERE id = ?;', (client))
-                messagebox.showinfo(message='Client successfully removed')
-                update_clients_in_treeview()
+                message = messagebox.askyesnocancel(message='Are you sure to remove the client?')
+                if message is True:
+                    with sqlite3.connect('clients.db') as connection:
+                        cursor = connection.cursor()
+                        cursor.execute('DELETE FROM client_list WHERE id = ?;', (client))
+                    messagebox.showinfo(message='Client successfully removed')
+                    update_clients_in_treeview()
             else:
                     messagebox.showinfo(message='You must select a client.')
 
