@@ -91,12 +91,16 @@ def open_clients():
                     changed_name = name_entry.get()
                     changed_email = email_entry.get()
                     changed_hourly_rate = hourly_rate_entry.get()
-                    
+
+                    """
+                    Actual change to the client in DB:
+                    """
                     with sqlite3.connect('clients.db') as connection:
                         cursor = connection.cursor()
                         cursor.execute('UPDATE client_list SET name = ?, email = ?, hourly_rate = ? WHERE id = ?;', (changed_name, changed_email, changed_hourly_rate, client))
+                    update_clients_in_treeview()
                     edit_client_root.destroy()
-                    
+
             if client:
                 with sqlite3.connect('clients.db') as connection:
                     cursor = connection.cursor()
