@@ -79,6 +79,53 @@ def open_clients():
             else:
                     messagebox.showinfo(message='You must select a client.')
 
+        """
+        if client is selected --> open windows with entries of the client --> change values and save 
+        """
+        def edit_client_in_DB():
+             client = clients_treeview.selection()
+
+             if client:
+                  with sqlite3.connect('clients.db') as connection:
+                       cursor = connection.cursor()
+                       cursor.execute('SELECT * FROM client_list WHERE id = ?;', (client))
+
+                  client_information = cursor.fetchone()
+                  
+                  #GUI
+                  edit_client_root = tkinter.Tk()
+                  edit_client_root.title('New Client')
+                  edit_client_root.geometry('300x200')
+
+                  edit_client_frame = ttk.Frame(edit_client_root)
+                  edit_client_frame.pack(padx=10, pady=10)
+
+                  name_label = tkinter.Label(edit_client_frame, text='Name: ')
+                  name_label.grid(row=0, column=0)
+                  name_entry = tkinter.Entry(edit_client_frame)
+                  name_entry.grid(row=0, column=1)
+                  name_entry.insert(0, client_information[1])
+
+
+                  email_label = tkinter.Label(edit_client_frame, text='Email: ')
+                  email_label.grid(row=1, column=0)
+                  email_entry = tkinter.Entry(edit_client_frame)
+                  email_entry.grid(row=1, column=1)
+                  email_entry.insert(0, client_information[2])
+
+                  hourly_rate_label = tkinter.Label(edit_client_frame, text='Hourly rate: ')
+                  hourly_rate_label.grid(row=2, column=0)
+                  hourly_rate_entry = tkinter.Entry(edit_client_frame)
+                  hourly_rate_entry.grid(row=2, column=1)
+                  hourly_rate_entry.insert(0, client_information[3])
+
+                  save_changes_button = tkinter.Button(edit_client_frame, text='Save changes', command= None)
+                  save_changes_button.grid(row=3, column=0, columnspan=2, sticky='news', pady=15)
+             else:
+                  messagebox.showinfo(message='You must select a client.')
+
+
+
         # Main root GUI
         root = tkinter.Tk()
         root.title("Clients")
@@ -100,7 +147,7 @@ def open_clients():
         remove_client_button = tkinter.Button(frame, text='Remove Client', command=remove_client_from_db)
         remove_client_button.grid(row=2, column=0, padx=5, pady=3, sticky='news')
 
-        edit_client_button = tkinter.Button(frame, text='Edit Client', command=None)
+        edit_client_button = tkinter.Button(frame, text='Edit Client', command=edit_client_in_DB)
         edit_client_button.grid(row=3, column=0, padx=5, pady=3, sticky='news')
 
         def display_clients_in_treeview():
