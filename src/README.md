@@ -23,7 +23,7 @@ SQLite is used to manage database of generated invoices with all the relevant da
 # Overview
 
 # DB
-- create interface to delete a client, edit a client from DB
+
 
 # Final files
 - make it executible file
