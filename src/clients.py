@@ -83,46 +83,58 @@ def open_clients():
         if client is selected --> open windows with entries of the client --> change values and save 
         """
         def edit_client_in_DB():
-             client = clients_treeview.selection()
+            client = clients_treeview.selection()[0]
+            
+            def save_changes():
+                message = messagebox.askyesnocancel(message='Are you sure to edit the client?')
+                if message is True:
+                    changed_name = name_entry.get()
+                    changed_email = email_entry.get()
+                    changed_hourly_rate = hourly_rate_entry.get()
+                    
+                    with sqlite3.connect('clients.db') as connection:
+                        cursor = connection.cursor()
+                        cursor.execute('UPDATE client_list SET name = ?, email = ?, hourly_rate = ? WHERE id = ?;', (changed_name, changed_email, changed_hourly_rate, client))
+                    edit_client_root.destroy()
+                    
+            if client:
+                with sqlite3.connect('clients.db') as connection:
+                    cursor = connection.cursor()
+                    cursor.execute('SELECT * FROM client_list WHERE id = ?;', (client))
 
-             if client:
-                  with sqlite3.connect('clients.db') as connection:
-                       cursor = connection.cursor()
-                       cursor.execute('SELECT * FROM client_list WHERE id = ?;', (client))
-
-                  client_information = cursor.fetchone()
+                client_information = cursor.fetchone()   
                   
-                  #GUI
-                  edit_client_root = tkinter.Tk()
-                  edit_client_root.title('New Client')
-                  edit_client_root.geometry('300x200')
+                #GUI
+                edit_client_root = tkinter.Tk()
+                edit_client_root.title('New Client')
+                edit_client_root.geometry('300x200')
 
-                  edit_client_frame = ttk.Frame(edit_client_root)
-                  edit_client_frame.pack(padx=10, pady=10)
+                edit_client_frame = ttk.Frame(edit_client_root)
+                edit_client_frame.pack(padx=10, pady=10)
 
-                  name_label = tkinter.Label(edit_client_frame, text='Name: ')
-                  name_label.grid(row=0, column=0)
-                  name_entry = tkinter.Entry(edit_client_frame)
-                  name_entry.grid(row=0, column=1)
-                  name_entry.insert(0, client_information[1])
+                name_label = tkinter.Label(edit_client_frame, text='Name: ')
+                name_label.grid(row=0, column=0)
+                name_entry = tkinter.Entry(edit_client_frame)
+                name_entry.grid(row=0, column=1)
+                name_entry.insert(0, client_information[1])
 
 
-                  email_label = tkinter.Label(edit_client_frame, text='Email: ')
-                  email_label.grid(row=1, column=0)
-                  email_entry = tkinter.Entry(edit_client_frame)
-                  email_entry.grid(row=1, column=1)
-                  email_entry.insert(0, client_information[2])
+                email_label = tkinter.Label(edit_client_frame, text='Email: ')
+                email_label.grid(row=1, column=0)
+                email_entry = tkinter.Entry(edit_client_frame)
+                email_entry.grid(row=1, column=1)
+                email_entry.insert(0, client_information[2])
 
-                  hourly_rate_label = tkinter.Label(edit_client_frame, text='Hourly rate: ')
-                  hourly_rate_label.grid(row=2, column=0)
-                  hourly_rate_entry = tkinter.Entry(edit_client_frame)
-                  hourly_rate_entry.grid(row=2, column=1)
-                  hourly_rate_entry.insert(0, client_information[3])
+                hourly_rate_label = tkinter.Label(edit_client_frame, text='Hourly rate: ')
+                hourly_rate_label.grid(row=2, column=0)
+                hourly_rate_entry = tkinter.Entry(edit_client_frame)
+                hourly_rate_entry.grid(row=2, column=1)
+                hourly_rate_entry.insert(0, client_information[3])
 
-                  save_changes_button = tkinter.Button(edit_client_frame, text='Save changes', command= None)
-                  save_changes_button.grid(row=3, column=0, columnspan=2, sticky='news', pady=15)
-             else:
-                  messagebox.showinfo(message='You must select a client.')
+                save_changes_button = tkinter.Button(edit_client_frame, text='Save changes', command= save_changes)
+                save_changes_button.grid(row=3, column=0, columnspan=2, sticky='news', pady=15)
+            else:
+                messagebox.showinfo(message='You must select a client.')
 
 
 
