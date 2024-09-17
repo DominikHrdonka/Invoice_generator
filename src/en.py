@@ -101,6 +101,7 @@ def en():
                 cursor = connection.cursor()
                 cursor.execute('SELECT name FROM client_list WHERE id = ?;', (id))
                 clients = cursor.fetchall()
+            name_entry.delete(0, tkinter.END)
             for client in clients:
                 name_entry.insert(0, client[0])
 
