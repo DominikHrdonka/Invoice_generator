@@ -22,8 +22,12 @@ SQLite is used to manage database of generated invoices with all the relevant da
 
 # Overview
 
-# DB
+# EN invoices
+- adjust Price entry to calculate given price based on the selected client's hourly rate and num of lessons
 
+# DB
+# Saving invoices
+- create dialog to save the generated invoice to a desired location
 
 # Final files
 - make it executible file
