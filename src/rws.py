@@ -70,10 +70,13 @@ def rws():
                     }
                 )
 
-                doc_path = "/mnt/c/Účetnictví/"
-                curr_year_folder = datetime.now().strftime("%Y") + "/"
+                #Dialog to enter the desired location for saving the file
+                doc_path = filedialog.askdirectory(
+                    parent= window, title='Where do you want to save the invoice?', initialdir= "/mnt/c/Účetnictví/", mustexist=True
+                )
+
                 doc_name = "new_invoice_" + invoice_num + "_" + order_num + ".docx"
-                doc.save(doc_path+curr_year_folder+doc_name)
+                doc.save(doc_path + '/' + doc_name)
 
                 messagebox.showinfo("Invoice Complete", "Invoice Complete")
                 insert_into_db(invoice_num, '-', issued_date, 'RWS', total_price)
