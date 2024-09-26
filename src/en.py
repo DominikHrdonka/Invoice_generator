@@ -134,8 +134,12 @@ def en():
         - it gets executed after clicking on a button to count (next to Price entry???)
         """
         def count_price():
+            if client_entry.get() == '' or lesson_num_entry.get() == '':
+                messagebox.showinfo(message='You need to enter a client and a number of lessons.')
+            
+
              
-             pass
+            
 
 
     # GUI
@@ -188,7 +192,7 @@ def en():
         price_entry = tkinter.Entry(frame)
         price_entry.grid(row=4, column=3)
 
-        count_price_button = tkinter.Button(frame, text='Count', command=None)
+        count_price_button = tkinter.Button(frame, text='Count', command=count_price)
         count_price_button.grid(row=4, column=4)
 
         # Add item button
