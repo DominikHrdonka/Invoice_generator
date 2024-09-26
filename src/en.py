@@ -128,6 +128,13 @@ def en():
             formated_number = f'{num:,.2f}'
             formated_number = formated_number.replace(',', ' ').replace('.', ',')
             return formated_number
+        
+        """
+        Function that counts total price based on the given client's hourly rate and number of lessons.
+        - it gets executed after clicking on a button to count (next to Price entry???)
+        """
+        def count_price():
+             pass
 
 
     # GUI
@@ -179,6 +186,9 @@ def en():
         price_label.grid(row=3, column=3)
         price_entry = tkinter.Entry(frame)
         price_entry.grid(row=4, column=3)
+
+        count_price_button = tkinter.Button(frame, text='Count', command=None)
+        count_price_button.grid(row=4, column=4)
 
         # Add item button
         add_item_button = tkinter.Button(frame, text="Add item", command= add_item)
