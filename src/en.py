@@ -38,7 +38,7 @@ def en():
 
         def new_invoice():
             invoice_num_entry.delete(0, tkinter.END)
-            name_entry.delete(0, tkinter.END)
+            client_entry.delete(0, tkinter.END)
             issued_date_entry.delete(0, tkinter.END)
             due_date_entry.delete(0, tkinter.END)
             clear_item()
@@ -54,7 +54,7 @@ def en():
             if confirmation is True:
                 doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_en.docx")
                 invoice_num = invoice_num_entry.get()
-                name = name_entry.get()
+                name = client_entry.get()
                 issued_date = issued_date_entry.get()
                 due_date = due_date_entry.get()
 
@@ -107,9 +107,9 @@ def en():
                 cursor = connection.cursor()
                 cursor.execute('SELECT name FROM client_list WHERE id = ?;', (id))
                 clients = cursor.fetchall()
-            name_entry.delete(0, tkinter.END)
+            client_entry.delete(0, tkinter.END)
             for client in clients:
-                name_entry.insert(0, client[0])
+                client_entry.insert(0, client[0])
 
         def insert_client():
             open_client_listbox(insert_client_callback)
@@ -134,6 +134,7 @@ def en():
         - it gets executed after clicking on a button to count (next to Price entry???)
         """
         def count_price():
+             
              pass
 
 
@@ -152,10 +153,10 @@ def en():
         invoice_num_entry.grid(row=1, column=0)
         invoice_num_insert()
 
-        name_label = tkinter.Label(frame, text= "Client")
-        name_label.grid(row=0, column=1)
-        name_entry = tkinter.Entry(frame)
-        name_entry.grid(row=1, column=1)
+        client_label = tkinter.Label(frame, text= "Client")
+        client_label.grid(row=0, column=1)
+        client_entry = tkinter.Entry(frame)
+        client_entry.grid(row=1, column=1)
 
         client_button = tkinter.Button(frame, text="…", command=insert_client)
         client_button.grid(row=1, column=2)
