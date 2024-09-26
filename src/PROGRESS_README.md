@@ -11,6 +11,8 @@
 
 # EN invoices
 - adjust Price entry to calculate given price based on the selected client's hourly rate and num of lessons
+    - add increment button to Lessons entry (to be able to select number of lessons)
+    - create function that counts client hourly rate * number of lessons and inserts the number in price entry
 
 # DB
 
