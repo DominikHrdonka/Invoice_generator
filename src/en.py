@@ -131,12 +131,21 @@ def en():
         
         """
         Function that counts total price based on the given client's hourly rate and number of lessons.
-        - it gets executed after clicking on a button to count (next to Price entry???)
+        - it gets executed after clicking on a button to count
+        - Client must be selected and number of lesson must be provided
         """
         def count_price():
             if client_entry.get() == '' or lesson_num_entry.get() == '':
                 messagebox.showinfo(message='You need to enter a client and a number of lessons.')
-            
+            else:
+                selected_client = client_entry.get()
+                with sqlite3.connect('clients.db') as Connection:
+                    cursor = Connection.cursor()
+                    cursor.execute('SELECT hourly_rate FROM client_list WHERE name = ?;', (selected_client,))
+                    hourly_rate = int(cursor.fetchone()[0])
+                total = int(lesson_num_entry.get()) * hourly_rate
+                price_entry.insert(0, total)
+                
 
              
             
