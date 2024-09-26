@@ -140,6 +140,9 @@ def open_clients():
             else:
                 messagebox.showinfo(message='You must select a client.')
 
+        def count_price():
+             pass
+
 
 
         # Main root GUI

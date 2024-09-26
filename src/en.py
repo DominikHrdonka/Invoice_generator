@@ -38,7 +38,7 @@ def en():
 
         def new_invoice():
             invoice_num_entry.delete(0, tkinter.END)
-            name_entry.delete(0, tkinter.END)
+            client_entry.delete(0, tkinter.END)
             issued_date_entry.delete(0, tkinter.END)
             due_date_entry.delete(0, tkinter.END)
             clear_item()
@@ -54,7 +54,7 @@ def en():
             if confirmation is True:
                 doc = DocxTemplate("/root/workspace/github.com/DominikHrdonka/Invoice_generator/templates/INVOICE_template_en.docx")
                 invoice_num = invoice_num_entry.get()
-                name = name_entry.get()
+                name = client_entry.get()
                 issued_date = issued_date_entry.get()
                 due_date = due_date_entry.get()
 
@@ -107,9 +107,9 @@ def en():
                 cursor = connection.cursor()
                 cursor.execute('SELECT name FROM client_list WHERE id = ?;', (id))
                 clients = cursor.fetchall()
-            name_entry.delete(0, tkinter.END)
+            client_entry.delete(0, tkinter.END)
             for client in clients:
-                name_entry.insert(0, client[0])
+                client_entry.insert(0, client[0])
 
         def insert_client():
             open_client_listbox(insert_client_callback)
@@ -128,6 +128,27 @@ def en():
             formated_number = f'{num:,.2f}'
             formated_number = formated_number.replace(',', ' ').replace('.', ',')
             return formated_number
+        
+        """
+        Function that counts total price based on the given client's hourly rate and number of lessons.
+        - it gets executed after clicking on a button to count
+        - Client must be selected and number of lesson must be provided
+        """
+        def count_price():
+            if client_entry.get() == '' or lesson_num_entry.get() == '':
+                messagebox.showinfo(message='You need to enter a client and a number of lessons.')
+            else:
+                selected_client = client_entry.get()
+                with sqlite3.connect('clients.db') as Connection:
+                    cursor = Connection.cursor()
+                    cursor.execute('SELECT hourly_rate FROM client_list WHERE name = ?;', (selected_client,))
+                    hourly_rate = int(cursor.fetchone()[0])
+                total = int(lesson_num_entry.get()) * hourly_rate
+                price_entry.insert(0, total)
+                
+
+             
+            
 
 
     # GUI
@@ -145,10 +166,10 @@ def en():
         invoice_num_entry.grid(row=1, column=0)
         invoice_num_insert()
 
-        name_label = tkinter.Label(frame, text= "Client")
-        name_label.grid(row=0, column=1)
-        name_entry = tkinter.Entry(frame)
-        name_entry.grid(row=1, column=1)
+        client_label = tkinter.Label(frame, text= "Client")
+        client_label.grid(row=0, column=1)
+        client_entry = tkinter.Entry(frame)
+        client_entry.grid(row=1, column=1)
 
         client_button = tkinter.Button(frame, text="…", command=insert_client)
         client_button.grid(row=1, column=2)
@@ -179,6 +200,9 @@ def en():
         price_label.grid(row=3, column=3)
         price_entry = tkinter.Entry(frame)
         price_entry.grid(row=4, column=3)
+
+        count_price_button = tkinter.Button(frame, text='Count', command=count_price)
+        count_price_button.grid(row=4, column=4)
 
         # Add item button
         add_item_button = tkinter.Button(frame, text="Add item", command= add_item)
