@@ -7,16 +7,28 @@
 # Concepts
 - make it able to create concepts (storing incomplete files??)
 
-# Overview
+# Clients
+- align displayed data in treeview to center
 
-# EN invoices
+# Summary
+- DISPLAYED INVOICES
+    - create buttons and functions to edit invoicec?? and delete invoices??
+        - update the data in the DB accordingly
+    - align displayed data in treeview to center
 
+- INVOICED PER MONTH --> use Czech format for displaying numbers
+- add interface to support monthly summary for different years (past and current)
+    - make the Invoiced per month a tree so that it can be easy to switch displayed data (the tree columns - months - stay the same)
+    - create buttons to switch the display according to the selected year
 
-# DB
+- INVOICED THIS YEAR
+    - use Czech format for displaying numbers
 
+# Web migration
+- transform the program to a web app?
+- create a fork -- one stayes dektip program, the other web app
 
 # Final files
-- make it executible file
 - automate printing new invoice to PDF
 
 # Fine tuning
