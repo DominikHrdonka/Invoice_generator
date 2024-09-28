@@ -83,19 +83,26 @@ def open_summary():
                     tree.delete(item)
                 fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
 
-
+        """
+        Frame and GUI for buttons regarding invoices displayed in the treeview 
+        """
         frame3 = tkinter.Frame(summary_root)
         frame3.pack(side='top', fill='both', expand=True)
 
         mark_as_paid_button = tkinter.Button(frame3, text = 'Mark as paid', command= mark_as_paid)
-        mark_as_paid_button.grid(row=3, column=3, padx= 50, pady= 5)
+        mark_as_paid_button.grid(row=0, column=0, padx= 5, pady= 5)
 
         delte_invoice_button = tkinter.Button(frame3, text = 'Delete', command=None)
-        delte_invoice_button.grid(row=3, column=4, padx= 50, pady= 5)
+        delte_invoice_button.grid(row=0, column=1, padx= 5, pady= 5)
+
+        edit_invoice_button = tkinter.Button(frame3, text='Edit', command=None)
+        edit_invoice_button.grid(row=0, column=2, padx=5, pady=5)
 
         
 
-
+        """
+        Frame and GUI for monthly summary of issued invoices in given years.
+        """
         frame4 = tkinter.Frame(summary_root)
         frame4.pack(side="bottom", padx=20, pady=10)
 
