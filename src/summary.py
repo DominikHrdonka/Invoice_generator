@@ -15,10 +15,10 @@ def open_summary():
     def main():
         summary_root = tkinter.Tk()
         summary_root.title("Summary")
-        summary_root.geometry("1200x600")
+        summary_root.geometry("1050x550")
 
         frame = tkinter.Frame(summary_root)
-        frame.pack(side= "top", padx=20, pady=10)
+        frame.pack(side= "top", fill="y", expand=False, padx=20, pady=5)
 
         this_year_total_invoiced_label = tkinter.Label(frame, text="Invoiced this year:", pady= 5)
         this_year_total_invoiced_label.grid(row=0, column=0)
@@ -38,7 +38,7 @@ def open_summary():
         #Tree for displaying invoices in DB
         columns = ('invoice_number', 'paid', 'issued_on', 'client', 'price')
         invoice_tree = ttk.Treeview(frame2, columns=columns, show= 'headings')
-        invoice_tree.grid(row=2, column=0, columnspan= 5, padx= 50, pady= 5)
+        invoice_tree.grid(row=2, column=0, columnspan= 5, padx= 20, pady= 5)
         invoice_tree.heading('invoice_number', text='Invoice number')
         invoice_tree.heading('paid', text='Paid')
         invoice_tree.heading('issued_on', text='Issued on')
@@ -87,7 +87,7 @@ def open_summary():
         Frame and GUI for buttons regarding invoices displayed in the treeview 
         """
         frame3 = tkinter.Frame(summary_root)
-        frame3.pack(side='top', fill='both', expand=True)
+        frame3.pack(side='top')
 
         mark_as_paid_button = tkinter.Button(frame3, text = 'Mark as paid', command= mark_as_paid)
         mark_as_paid_button.grid(row=0, column=0, padx= 5, pady= 5)
@@ -98,13 +98,11 @@ def open_summary():
         edit_invoice_button = tkinter.Button(frame3, text='Edit', command=None)
         edit_invoice_button.grid(row=0, column=2, padx=5, pady=5)
 
-        
-
         """
         Frame and GUI for monthly summary of issued invoices in given years.
         """
         frame4 = tkinter.Frame(summary_root)
-        frame4.pack(side="bottom", padx=20, pady=10)
+        frame4.pack(side="bottom", fill="y", expand=False, padx=20, pady=10)
 
         invoiced_monthly_label = tkinter.Label(frame4, text='Invoiced per month:')
         invoiced_monthly_label.grid(row=0, column=0, pady=10, columnspan=4)
