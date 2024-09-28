@@ -14,6 +14,7 @@
 - DISPLAYED INVOICES
     - create buttons and functions to edit invoicec?? and delete invoices??
         - update the data in the DB accordingly
+        - Create new frame for the buttons beneath the treeview for better display
     - align displayed data in treeview to center
 
 - INVOICED PER MONTH --> use Czech format for displaying numbers

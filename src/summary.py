@@ -84,79 +84,85 @@ def open_summary():
                 fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
 
 
-        mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid', command= mark_as_paid)
-        mark_as_paid_button.grid(row=3, column=4, padx= 50, pady= 5)
+        frame3 = tkinter.Frame(summary_root)
+        frame3.pack(side='top', fill='both', expand=True)
+
+        mark_as_paid_button = tkinter.Button(frame3, text = 'Mark as paid', command= mark_as_paid)
+        mark_as_paid_button.grid(row=3, column=3, padx= 50, pady= 5)
+
+        delte_invoice_button = tkinter.Button(frame3, text = 'Delete', command=None)
+        delte_invoice_button.grid(row=3, column=4, padx= 50, pady= 5)
 
         
 
 
-        frame3 = tkinter.Frame(summary_root)
-        frame3.pack(side="bottom", padx=20, pady=10)
+        frame4 = tkinter.Frame(summary_root)
+        frame4.pack(side="bottom", padx=20, pady=10)
 
-        invoiced_monthly_label = tkinter.Label(frame3, text='Invoiced per month:')
+        invoiced_monthly_label = tkinter.Label(frame4, text='Invoiced per month:')
         invoiced_monthly_label.grid(row=0, column=0, pady=10, columnspan=4)
 
-        january_label = tkinter.Label(frame3, text="January:")
+        january_label = tkinter.Label(frame4, text="January:")
         january_label.grid(row=1, column=0)
-        january_entry = tkinter.Entry(frame3)
+        january_entry = tkinter.Entry(frame4)
         january_entry.grid(row=1, column=1)
 
 
-        february_label = tkinter.Label(frame3, text="February:")
+        february_label = tkinter.Label(frame4, text="February:")
         february_label.grid(row=2, column=0)
-        february_entry = tkinter.Entry(frame3)
+        february_entry = tkinter.Entry(frame4)
         february_entry.grid(row=2, column=1)
 
-        march_label = tkinter.Label(frame3, text="March:")
+        march_label = tkinter.Label(frame4, text="March:")
         march_label.grid(row=3, column=0)
-        march_entry = tkinter.Entry(frame3)
+        march_entry = tkinter.Entry(frame4)
         march_entry.grid(row=3, column=1)
 
-        april_label = tkinter.Label(frame3, text="April:")
+        april_label = tkinter.Label(frame4, text="April:")
         april_label.grid(row=4, column=0)
-        april_entry = tkinter.Entry(frame3)
+        april_entry = tkinter.Entry(frame4)
         april_entry.grid(row=4, column=1)
 
-        may_label = tkinter.Label(frame3, text="May:")
+        may_label = tkinter.Label(frame4, text="May:")
         may_label.grid(row=5, column=0)
-        may_entry = tkinter.Entry(frame3)
+        may_entry = tkinter.Entry(frame4)
         may_entry.grid(row=5, column=1)
 
-        june_label = tkinter.Label(frame3, text="June:")
+        june_label = tkinter.Label(frame4, text="June:")
         june_label.grid(row=6, column=0)
-        june_entry = tkinter.Entry(frame3)
+        june_entry = tkinter.Entry(frame4)
         june_entry.grid(row=6, column=1)
 
 
 
-        july_label = tkinter.Label(frame3, text="July:", padx=10)
+        july_label = tkinter.Label(frame4, text="July:", padx=10)
         july_label.grid(row=1, column=2)
-        july_entry = tkinter.Entry(frame3)
+        july_entry = tkinter.Entry(frame4)
         july_entry.grid(row=1, column=3)
 
-        august_label = tkinter.Label(frame3, text="August:", padx=10)
+        august_label = tkinter.Label(frame4, text="August:", padx=10)
         august_label.grid(row=2, column=2)
-        august_entry = tkinter.Entry(frame3)
+        august_entry = tkinter.Entry(frame4)
         august_entry.grid(row=2, column=3)
 
-        september_label = tkinter.Label(frame3, text="September:", padx=10)
+        september_label = tkinter.Label(frame4, text="September:", padx=10)
         september_label.grid(row=3, column=2)
-        september_entry = tkinter.Entry(frame3)
+        september_entry = tkinter.Entry(frame4)
         september_entry.grid(row=3, column=3)
 
-        october_label = tkinter.Label(frame3, text="October:", padx=10)
+        october_label = tkinter.Label(frame4, text="October:", padx=10)
         october_label.grid(row=4, column=2)
-        october_entry = tkinter.Entry(frame3)
+        october_entry = tkinter.Entry(frame4)
         october_entry.grid(row=4, column=3)
 
-        november_label = tkinter.Label(frame3, text="November:", padx=10)
+        november_label = tkinter.Label(frame4, text="November:", padx=10)
         november_label.grid(row=5, column=2)
-        november_entry = tkinter.Entry(frame3)
+        november_entry = tkinter.Entry(frame4)
         november_entry.grid(row=5, column=3)
 
-        december_label = tkinter.Label(frame3, text="December:", padx=10)
+        december_label = tkinter.Label(frame4, text="December:", padx=10)
         december_label.grid(row=6, column=2)
-        december_entry = tkinter.Entry(frame3)
+        december_entry = tkinter.Entry(frame4)
         december_entry.grid(row=6, column=3)
 
         #Batch insert of relevant data in each month entry
