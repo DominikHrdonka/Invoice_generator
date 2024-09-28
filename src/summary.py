@@ -98,7 +98,7 @@ def open_summary():
                         
                         #Need to update better as callback?
                         
-                        update_treeview(invoice_tree)
+                    update_treeview(invoice_tree)
             else:
                 messagebox.showinfo(message='You must select an invoice')
 
