@@ -81,7 +81,7 @@ def open_summary():
             if tree:
                 for item in tree.get_children():
                     tree.delete(item)
-                fetch_and_display(invoice_tree, 'invoices_list')
+                fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
 
 
         mark_as_paid_button = tkinter.Button(frame2, text = 'Mark as paid', command= mark_as_paid)
