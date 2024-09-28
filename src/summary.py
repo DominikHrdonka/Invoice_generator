@@ -93,12 +93,44 @@ def open_summary():
                 if message is True:
                     with sqlite3.Connection('invoices.db') as connection:
                         cursor = connection.cursor()
+
+                        #Retrieving invoice's month of issue
+                        cursor.execute('SELECT issued_on, price WHERE id = ?;', (selected_invoice))
+                        issued_date = cursor.fetchone()[0]
+                        price = float(cursor.fetchone()[1])
+                        
+                        
+                        #Deleting invoice from DB
                         cursor.execute('DELETE FROM invoices_list WHERE id = ?;', (selected_invoice))
-                        messagebox.showinfo(message='Invoices deleted.')
-                        
-                        #Need to update better as callback?
-                        
+                    
                     update_treeview(invoice_tree)
+                    messagebox.showinfo(message='Invoices deleted.')
+
+                    match issued_date[3:5]:
+                        case "01":
+                            float(january_entry.get()) - price
+                        case "02":
+                            pass
+                        case "03":
+                            pass
+                        case "04":
+                            pass
+                        case "05":
+                            pass
+                        case "06":
+                            pass
+                        case "07":
+                            pass
+                        case "08":
+                            pass
+                        case "09":
+                            pass
+                        case "10":
+                            pass
+                        case "11":
+                            pass
+                        case "12":
+                            pass
             else:
                 messagebox.showinfo(message='You must select an invoice')
 
