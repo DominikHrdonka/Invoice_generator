@@ -95,20 +95,19 @@ def open_summary():
                         cursor = connection.cursor()
 
                         #Retrieving invoice's month of issue
-                        cursor.execute('SELECT issued_on, price WHERE id = ?;', (selected_invoice))
-                        issued_date = cursor.fetchone()[0]
-                        price = float(cursor.fetchone()[1])
-                        
+                        cursor.execute('SELECT issued_on, price FROM invoices_list WHERE id = ?;', (selected_invoice))
+                        issued_date, price = cursor.fetchone()
                         
                         #Deleting invoice from DB
                         cursor.execute('DELETE FROM invoices_list WHERE id = ?;', (selected_invoice))
                     
                     update_treeview(invoice_tree)
-                    messagebox.showinfo(message='Invoices deleted.')
 
                     match issued_date[3:5]:
                         case "01":
-                            float(january_entry.get()) - price
+                            total = float(january_entry.get()) - float(price)
+                            january_entry.delete(0, tkinter.END)
+                            january_entry.insert(0, total)
                         case "02":
                             pass
                         case "03":
@@ -124,13 +123,17 @@ def open_summary():
                         case "08":
                             pass
                         case "09":
-                            pass
+                            total = float(september_entry.get()) - float(price)
+                            september_entry.delete(0, tkinter.END)
+                            september_entry.insert(0, total)
                         case "10":
                             pass
                         case "11":
                             pass
                         case "12":
                             pass
+                    
+                    messagebox.showinfo(message='Invoices deleted.')
             else:
                 messagebox.showinfo(message='You must select an invoice')
 
