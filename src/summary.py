@@ -105,33 +105,35 @@ def open_summary():
 
                     match issued_date[3:5]:
                         case "01":
-                            total = float(january_entry.get()) - float(price)
-                            january_entry.delete(0, tkinter.END)
-                            january_entry.insert(0, total)
+                            month = 'january_entry'
                         case "02":
-                            pass
+                            month = 'february_entry'
                         case "03":
-                            pass
+                            month = 'march_entry'
                         case "04":
-                            pass
+                            month = 'april_entry'
                         case "05":
-                            pass
+                            month = 'may_entry'
                         case "06":
-                            pass
+                            month = 'june_entry'
                         case "07":
-                            pass
+                            month = 'july_entry'
                         case "08":
-                            pass
+                            month = 'august_entry'
                         case "09":
-                            total = float(september_entry.get()) - float(price)
-                            september_entry.delete(0, tkinter.END)
-                            september_entry.insert(0, total)
+                            month = 'september_entry'
                         case "10":
-                            pass
+                            month = 'october_entry'
                         case "11":
-                            pass
+                            month = 'november_entry'
                         case "12":
-                            pass
+                            month = 'december_entry'
+                    """
+                    We need to store the subtracted price to the JSON file as well (update it)
+                    """
+                    total = float(entry_widgets[month].get()) - float(price)
+                    entry_widgets[month].delete(0, tkinter.END)
+                    entry_widgets[month].insert(0, total)
                     
                     messagebox.showinfo(message='Invoices deleted.')
             else:
