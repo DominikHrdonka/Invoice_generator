@@ -8,7 +8,7 @@ from databases import fetch_items_from_db
 import sqlite3
 from date_picker import *
 import shared
-
+import json
 
 
 def open_summary():
@@ -105,35 +105,45 @@ def open_summary():
 
                     match issued_date[3:5]:
                         case "01":
-                            month = 'january_entry'
+                            month = 'january'
                         case "02":
-                            month = 'february_entry'
+                            month = 'february'
                         case "03":
-                            month = 'march_entry'
+                            month = 'march'
                         case "04":
-                            month = 'april_entry'
+                            month = 'april'
                         case "05":
-                            month = 'may_entry'
+                            month = 'may'
                         case "06":
-                            month = 'june_entry'
+                            month = 'june'
                         case "07":
-                            month = 'july_entry'
+                            month = 'july'
                         case "08":
-                            month = 'august_entry'
+                            month = 'august'
                         case "09":
-                            month = 'september_entry'
+                            month = 'september'
                         case "10":
-                            month = 'october_entry'
+                            month = 'october'
                         case "11":
-                            month = 'november_entry'
+                            month = 'november'
                         case "12":
-                            month = 'december_entry'
+                            month = 'december'
                     """
                     We need to store the subtracted price to the JSON file as well (update it)
+                    so that it is properly retrieved upon next opening of Summary
                     """
                     total = float(entry_widgets[month].get()) - float(price)
                     entry_widgets[month].delete(0, tkinter.END)
                     entry_widgets[month].insert(0, total)
+
+                    #Now, we need to open json file, update the data and write it back to json
+                    with open('stored_totals.json', 'r') as infile:
+                        stored_totals = json.load(infile)
+
+                    stored_totals[current_year][month.capitalize()] = total
+                    
+                    with open('stored_totals.json', 'w') as outfile:
+                        json.dump(stored_totals, outfile, indent=4)
                     
                     messagebox.showinfo(message='Invoices deleted.')
             else:
@@ -231,23 +241,23 @@ def open_summary():
             ]
         
         entry_widgets = {
-            "january_entry": january_entry,
-            "february_entry": february_entry,
-            "march_entry": march_entry,
-            "april_entry": april_entry,
-            "may_entry": may_entry,
-            "june_entry": june_entry,
-            "july_entry": july_entry,
-            "august_entry": august_entry,
-            "september_entry": september_entry,
-            "october_entry": october_entry,
-            "november_entry": november_entry,
-            "december_entry": december_entry
+            "january": january_entry,
+            "february": february_entry,
+            "march": march_entry,
+            "april": april_entry,
+            "may": may_entry,
+            "june": june_entry,
+            "july": july_entry,
+            "august": august_entry,
+            "september": september_entry,
+            "october": october_entry,
+            "november": november_entry,
+            "december": december_entry
         }
         for month in months:
             data = json_data.stored_totals_data[current_year].get(month)
             if data is not None:
-                entry_widget = entry_widgets.get(f"{month.lower()}_entry")
+                entry_widget = entry_widgets.get(month.lower())
                 if entry_widget:
                     entry_widget.insert(0, data)
 
