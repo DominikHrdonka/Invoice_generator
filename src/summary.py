@@ -24,7 +24,12 @@ def open_summary():
         this_year_total_invoiced_label.grid(row=0, column=0)
         this_year_total_invoiced_entry = tkinter.Entry(frame)
         this_year_total_invoiced_entry.grid(row=0, column=1, padx= 10)
-        this_year_total_invoiced_entry.insert(0, json_data.stored_totals_data[current_year]["total_per_year"])
+        
+        """Opening json file to insert required data"""
+        with open('stored_totals.json', 'r') as infile:
+            json_data = json.load(infile)
+
+        this_year_total_invoiced_entry.insert(0, json_data[current_year]["total_per_year"])
 
         czk_label = tkinter.Label(frame, text="CZK")
         czk_label.grid(row=0, column=2)
@@ -141,6 +146,7 @@ def open_summary():
 
                     #This is the update itself
                     stored_totals[current_year][month.capitalize()] = total
+                    stored_totals[current_year]['total_per_year'] -= price
                     
                     #Saving the udpate to the json
                     with open('stored_totals.json', 'w') as outfile:
@@ -148,9 +154,15 @@ def open_summary():
                     
                     #Here we are updating the value inserted in the given entry_widget
                     entry_widgets[month].delete(0, tkinter.END)
-                    changed_total = stored_totals[current_year].get(month.capitalize())
-                    if changed_total is not None:
-                        entry_widgets[month].insert(0, changed_total)
+                    changed_month_total = stored_totals[current_year].get(month.capitalize())
+                    if changed_month_total is not None:
+                        entry_widgets[month].insert(0, changed_month_total)
+                    
+                    #Update the value of this_year_total_invoiced entry
+                    this_year_total_invoiced_entry.delete(0, tkinter.END)
+                    changed_year_total = stored_totals[current_year].get('total_per_year')
+                    if changed_year_total is not None:
+                        this_year_total_invoiced_entry.insert(0, changed_year_total)
                     
                     messagebox.showinfo(message='Invoices deleted.')
             else:
