@@ -12,9 +12,9 @@
 
 # Summary
 - DISPLAYED INVOICES
-    - create buttons and functions to edit invoicec?? and delete invoices??
+    - create buttons and functions to edit invoicec??
         - update the data in the DB accordingly
-    - align displayed data in treeview to center
+        
 
 - INVOICED PER MONTH --> use Czech format for displaying numbers
 - add interface to support monthly summary for different years (past and current)
