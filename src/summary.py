@@ -133,17 +133,24 @@ def open_summary():
                     so that it is properly retrieved upon next opening of Summary
                     """
                     total = float(entry_widgets[month].get()) - float(price)
-                    entry_widgets[month].delete(0, tkinter.END)
-                    entry_widgets[month].insert(0, total)
+                    
 
                     #Now, we need to open json file, update the data and write it back to json
                     with open('stored_totals.json', 'r') as infile:
                         stored_totals = json.load(infile)
 
+                    #This is the update itself
                     stored_totals[current_year][month.capitalize()] = total
                     
+                    #Saving the udpate to the json
                     with open('stored_totals.json', 'w') as outfile:
                         json.dump(stored_totals, outfile, indent=4)
+                    
+                    #Here we are updating the value inserted in the given entry_widget
+                    entry_widgets[month].delete(0, tkinter.END)
+                    changed_total = stored_totals[current_year].get(month.capitalize())
+                    if changed_total is not None:
+                        entry_widgets[month].insert(0, changed_total)
                     
                     messagebox.showinfo(message='Invoices deleted.')
             else:
@@ -254,12 +261,14 @@ def open_summary():
             "november": november_entry,
             "december": december_entry
         }
+        with open('stored_totals.json', 'r') as infile:
+            data = json.load(infile)
+
         for month in months:
-            data = json_data.stored_totals_data[current_year].get(month)
-            if data is not None:
+            if data[current_year].get(month) is not None:
                 entry_widget = entry_widgets.get(month.lower())
                 if entry_widget:
-                    entry_widget.insert(0, data)
+                    entry_widget.insert(0, data[current_year][month])
 
 
         summary_root.mainloop()
