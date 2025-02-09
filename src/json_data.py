@@ -4,17 +4,23 @@ from datetime import datetime
 
 # Data to be written if json file doesn't exist yet
 totals_dictionary = {
-	"2024": {
-		"January": 38718.19,
-		"February": 24996.23,
-		"March": 18293.72,
-		"April": 18197.01,
-		"May": 46903.23,
-		"June": 26942.61,
-		"July": 48254.14,
-		"August":67839.98,
-		"total_per_year": 286155.11
-	}
+    "2024": {
+        "January": 38718.19,
+        "February": 24996.23,
+        "March": 18293.72,
+        "April": 18197.01,
+        "May": 46903.23,
+        "June": 26942.61,
+        "July": 48254.14,
+        "August": 67839.98,
+        "September": 20000.0,
+        "October": 40000.0,
+        "total_per_year": 560144.11
+    },
+    "2025": {
+        "January": 28148.88,
+        "February": 19150.40
+    }
 }
 
 current_year = datetime.now().strftime("%Y")
