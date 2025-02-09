@@ -20,7 +20,7 @@ def open_summary():
         frame = tkinter.Frame(summary_root)
         frame.pack(side= "top", fill="y", expand=False, padx=20, pady=5)
 
-        this_year_total_invoiced_label = tkinter.Label(frame, text="Invoiced this year:", pady= 5)
+        this_year_total_invoiced_label = tkinter.Label(frame, text=f"Invoiced in {current_year}:", pady= 5)
         this_year_total_invoiced_label.grid(row=0, column=0)
         this_year_total_invoiced_entry = tkinter.Entry(frame)
         this_year_total_invoiced_entry.grid(row=0, column=1, padx= 10)

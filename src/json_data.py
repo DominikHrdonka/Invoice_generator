@@ -3,6 +3,8 @@ import os
 from datetime import datetime
 
 # Data to be written if json file doesn't exist yet
+# This will be here only temporarily for the sake of testing the app.
+# This is important data, later on we will have to store it somewhere safe or in the cloud??
 totals_dictionary = {
     "2024": {
         "January": 38718.19,
