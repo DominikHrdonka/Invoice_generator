@@ -11,11 +11,14 @@
 - align displayed data in treeview to center
 
 # Summary
+- DISPLAY RELEVANT YEAR DATA
+    - need to make this more dynamic and able to change when the year changes
+    - need to create window to view previous years' summaries
 - DISPLAYED INVOICES
     - create buttons and functions to edit invoicec??
         - update the data in the DB accordingly
         
-
+- 
 - INVOICED PER MONTH --> use Czech format for displaying numbers
 - add interface to support monthly summary for different years (past and current)
     - make the Invoiced per month a tree so that it can be easy to switch displayed data (the tree columns - months - stay the same)
