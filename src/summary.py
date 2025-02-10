@@ -195,6 +195,18 @@ def open_summary():
         invoiced_monthly_label = tkinter.Label(frame4, text='Invoiced per month:')
         invoiced_monthly_label.grid(row=0, column=0, pady=10, columnspan=4)
 
+        """
+        Functions to update individual summary window parts according to the year selected
+        using the buttons at the top.
+        """
+        def update_this_year_total_invoiced(year):
+            this_year_total_invoiced_label.config(text=f"Invoiced in {year}")
+            
+            with open("stored_totals.json", "r") as infile:
+                stored_totals = json.load(infile)
+                
+            this_year_total_invoiced_entry.delete(0, tkinter.END)
+            this_year_total_invoiced_entry.insert(0, stored_totals[year]["total_per_year"])
 
         """
         Dynamic logic of creating buttons according to the previous years.
@@ -206,6 +218,7 @@ def open_summary():
         """
 
         def update_view_of_relevant_year_data(year):
+            update_this_year_total_invoiced(year)
             batch_delete_month_data()
             batch_insert_month_data(year)
 
