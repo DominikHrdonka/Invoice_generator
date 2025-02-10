@@ -11,9 +11,9 @@
 - align displayed data in treeview to center
 
 # Summary
-- DISPLAY RELEVANT YEAR DATA
-    - need to make this more dynamic and able to change when the year changes
+- DISPLAY PREVIOUS YEARS' DATA
     - need to create window to view previous years' summaries
+
 - DISPLAYED INVOICES
     - create buttons and functions to edit invoicec??
         - update the data in the DB accordingly
@@ -26,6 +26,9 @@
 
 - INVOICED THIS YEAR
     - use Czech format for displaying numbers
+
+# json_data
+- make shared_data_dictionary more dynamic, so that it resets the next_invoice_num and next_order_num when current_year changes
 
 # Web migration
 - transform the program to a web app?

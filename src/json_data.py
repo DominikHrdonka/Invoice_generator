@@ -3,18 +3,27 @@ import os
 from datetime import datetime
 
 # Data to be written if json file doesn't exist yet
+# This will be here only temporarily for the sake of testing the app.
+# This is important data, later on IT WILL NOT BE HARDCODED. It will read the data from a safely saved file (cloud??)
 totals_dictionary = {
-	"2024": {
-		"January": 38718.19,
-		"February": 24996.23,
-		"March": 18293.72,
-		"April": 18197.01,
-		"May": 46903.23,
-		"June": 26942.61,
-		"July": 48254.14,
-		"August":67839.98,
-		"total_per_year": 286155.11
-	}
+    "2024": {
+        "January": 38718.19,
+        "February": 24996.23,
+        "March": 18293.72,
+        "April": 18197.01,
+        "May": 46903.23,
+        "June": 26942.61,
+        "July": 48254.14,
+        "August": 67839.98,
+        "September": 20000.0,
+        "October": 40000.0,
+        "total_per_year": 560144.11
+    },
+    "2025": {
+        "January": 28148.88,
+        "February": 19150.40,
+		"total_per_year": 47299.28
+    }
 }
 
 current_year = datetime.now().strftime("%Y")
@@ -56,7 +65,8 @@ def save_totals(value):
 		json.dump(stored_totals_data, outfile, indent=4)
 
 
-
+#Keeping track of invoice and order numbers
+# could make this more dynamic. E.G. reset the number once current_year changes.
 shared_data_dictionary = {
 	"next_invoice_num": 31,
 	"next_order_num": 32

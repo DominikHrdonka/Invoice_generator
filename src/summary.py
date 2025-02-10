@@ -9,18 +9,19 @@ import sqlite3
 from date_picker import *
 import shared
 import json
+from functools import partial
 
 
 def open_summary():
     def main():
         summary_root = tkinter.Tk()
         summary_root.title("Summary")
-        summary_root.geometry("1050x550")
+        summary_root.geometry("1050x600")
 
         frame = tkinter.Frame(summary_root)
         frame.pack(side= "top", fill="y", expand=False, padx=20, pady=5)
 
-        this_year_total_invoiced_label = tkinter.Label(frame, text="Invoiced this year:", pady= 5)
+        this_year_total_invoiced_label = tkinter.Label(frame, text=f"Invoiced in {current_year}:", pady= 5)
         this_year_total_invoiced_label.grid(row=0, column=0)
         this_year_total_invoiced_entry = tkinter.Entry(frame)
         this_year_total_invoiced_entry.grid(row=0, column=1, padx= 10)
@@ -186,75 +187,113 @@ def open_summary():
         Frame and GUI for monthly summary of issued invoices in given years.
         """
         frame4 = tkinter.Frame(summary_root)
-        frame4.pack(side="bottom", fill="y", expand=False, padx=20, pady=10)
+        frame4.pack(side="top", fill="y", expand=False, padx=20, pady=10)
 
         invoiced_monthly_label = tkinter.Label(frame4, text='Invoiced per month:')
         invoiced_monthly_label.grid(row=0, column=0, pady=10, columnspan=4)
 
-        january_label = tkinter.Label(frame4, text="January:")
-        january_label.grid(row=1, column=0)
-        january_entry = tkinter.Entry(frame4)
-        january_entry.grid(row=1, column=1)
+
+        """
+        Dynamic logic of creating buttons according to the previous years.
+        - add function to the buttons to show relevant data - callback function to delete inputs
+        and insert data of the given year
+            - open json file and read the data
+            - delete already displayed data
+            - insert newly read data 
+        """
+
+        def update_view_of_relevant_year_data(year):
+            batch_delete_month_data()
+            batch_insert_month_data(year)
 
 
-        february_label = tkinter.Label(frame4, text="February:")
-        february_label.grid(row=2, column=0)
-        february_entry = tkinter.Entry(frame4)
-        february_entry.grid(row=2, column=1)
+        #Opening stored_totals.json from which we will be using stored years data
+        """
+        As for button position, we can come up with a logic that will position new buttons
+        on a new row so that they don't keep going horizontally
+        """
 
-        march_label = tkinter.Label(frame4, text="March:")
-        march_label.grid(row=3, column=0)
-        march_entry = tkinter.Entry(frame4)
-        march_entry.grid(row=3, column=1)
+        with open("stored_totals.json", "r") as infile:
+            previous_years = json.load(infile)
+            row_data = 1
+            column_data = 0
 
-        april_label = tkinter.Label(frame4, text="April:")
-        april_label.grid(row=4, column=0)
-        april_entry = tkinter.Entry(frame4)
-        april_entry.grid(row=4, column=1)
+            for year in previous_years:
+                previous_year_button = tkinter.Button(frame4, text= year, command= partial(update_view_of_relevant_year_data, year))
+                previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
+                column_data += 1
+                
 
-        may_label = tkinter.Label(frame4, text="May:")
-        may_label.grid(row=5, column=0)
-        may_entry = tkinter.Entry(frame4)
-        may_entry.grid(row=5, column=1)
+        """
+        Frame only for the months GUI and data
+        """
+        frame5 = tkinter.Frame(summary_root)
+        frame5.pack(side="top", fill="y", expand=False, padx=20, pady=5)
 
-        june_label = tkinter.Label(frame4, text="June:")
-        june_label.grid(row=6, column=0)
-        june_entry = tkinter.Entry(frame4)
-        june_entry.grid(row=6, column=1)
+        january_label = tkinter.Label(frame5, text="January:")
+        january_label.grid(row=2, column=0)
+        january_entry = tkinter.Entry(frame5)
+        january_entry.grid(row=2, column=1)
 
 
+        february_label = tkinter.Label(frame5, text="February:")
+        february_label.grid(row=3, column=0)
+        february_entry = tkinter.Entry(frame5)
+        february_entry.grid(row=3, column=1)
 
-        july_label = tkinter.Label(frame4, text="July:", padx=10)
-        july_label.grid(row=1, column=2)
-        july_entry = tkinter.Entry(frame4)
-        july_entry.grid(row=1, column=3)
+        march_label = tkinter.Label(frame5, text="March:")
+        march_label.grid(row=4, column=0)
+        march_entry = tkinter.Entry(frame5)
+        march_entry.grid(row=4, column=1)
 
-        august_label = tkinter.Label(frame4, text="August:", padx=10)
-        august_label.grid(row=2, column=2)
-        august_entry = tkinter.Entry(frame4)
-        august_entry.grid(row=2, column=3)
+        april_label = tkinter.Label(frame5, text="April:")
+        april_label.grid(row=5, column=0)
+        april_entry = tkinter.Entry(frame5)
+        april_entry.grid(row=5, column=1)
 
-        september_label = tkinter.Label(frame4, text="September:", padx=10)
-        september_label.grid(row=3, column=2)
-        september_entry = tkinter.Entry(frame4)
-        september_entry.grid(row=3, column=3)
+        may_label = tkinter.Label(frame5, text="May:")
+        may_label.grid(row=6, column=0)
+        may_entry = tkinter.Entry(frame5)
+        may_entry.grid(row=6, column=1)
 
-        october_label = tkinter.Label(frame4, text="October:", padx=10)
-        october_label.grid(row=4, column=2)
-        october_entry = tkinter.Entry(frame4)
-        october_entry.grid(row=4, column=3)
+        june_label = tkinter.Label(frame5, text="June:")
+        june_label.grid(row=7, column=0)
+        june_entry = tkinter.Entry(frame5)
+        june_entry.grid(row=7, column=1)
 
-        november_label = tkinter.Label(frame4, text="November:", padx=10)
-        november_label.grid(row=5, column=2)
-        november_entry = tkinter.Entry(frame4)
-        november_entry.grid(row=5, column=3)
 
-        december_label = tkinter.Label(frame4, text="December:", padx=10)
-        december_label.grid(row=6, column=2)
-        december_entry = tkinter.Entry(frame4)
-        december_entry.grid(row=6, column=3)
+        july_label = tkinter.Label(frame5, text="July:", padx=10)
+        july_label.grid(row=2, column=2)
+        july_entry = tkinter.Entry(frame5)
+        july_entry.grid(row=2, column=3)
+
+        august_label = tkinter.Label(frame5, text="August:", padx=10)
+        august_label.grid(row=3, column=2)
+        august_entry = tkinter.Entry(frame5)
+        august_entry.grid(row=3, column=3)
+
+        september_label = tkinter.Label(frame5, text="September:", padx=10)
+        september_label.grid(row=4, column=2)
+        september_entry = tkinter.Entry(frame5)
+        september_entry.grid(row=4, column=3)
+
+        october_label = tkinter.Label(frame5, text="October:", padx=10)
+        october_label.grid(row=5, column=2)
+        october_entry = tkinter.Entry(frame5)
+        october_entry.grid(row=5, column=3)
+
+        november_label = tkinter.Label(frame5, text="November:", padx=10)
+        november_label.grid(row=6, column=2)
+        november_entry = tkinter.Entry(frame5)
+        november_entry.grid(row=6, column=3)
+
+        december_label = tkinter.Label(frame5, text="December:", padx=10)
+        december_label.grid(row=7, column=2)
+        december_entry = tkinter.Entry(frame5)
+        december_entry.grid(row=7, column=3)
 
         #Batch insert of relevant data in each month entry
+        
         months = ["January", "February", "March", "April", "May", "June", 
             "July", "August", "September", "October", "November", "December"
             ]
@@ -273,14 +312,23 @@ def open_summary():
             "november": november_entry,
             "december": december_entry
         }
-        with open('stored_totals.json', 'r') as infile:
-            data = json.load(infile)
 
-        for month in months:
-            if data[current_year].get(month) is not None:
-                entry_widget = entry_widgets.get(month.lower())
-                if entry_widget:
-                    entry_widget.insert(0, data[current_year][month])
+        def batch_insert_month_data(year):
+
+            with open('stored_totals.json', 'r') as infile:
+                data = json.load(infile)
+
+            for month in months:
+                if data[year].get(month) is not None:
+                    entry_widget = entry_widgets.get(month.lower())
+                    if entry_widget:
+                        entry_widget.insert(0, data[year][month])
+        
+        def batch_delete_month_data():
+            for widget in entry_widgets:
+                entry_widgets[widget].delete(0, tkinter.END)
+            
+        batch_insert_month_data(current_year)
 
 
         summary_root.mainloop()
