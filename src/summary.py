@@ -15,7 +15,7 @@ def open_summary():
     def main():
         summary_root = tkinter.Tk()
         summary_root.title("Summary")
-        summary_root.geometry("1050x550")
+        summary_root.geometry("1050x600")
 
         frame = tkinter.Frame(summary_root)
         frame.pack(side= "top", fill="y", expand=False, padx=20, pady=5)
@@ -186,7 +186,7 @@ def open_summary():
         Frame and GUI for monthly summary of issued invoices in given years.
         """
         frame4 = tkinter.Frame(summary_root)
-        frame4.pack(side="bottom", fill="y", expand=False, padx=20, pady=10)
+        frame4.pack(side="top", fill="y", expand=False, padx=20, pady=10)
 
         invoiced_monthly_label = tkinter.Label(frame4, text='Invoiced per month:')
         invoiced_monthly_label.grid(row=0, column=0, pady=10, columnspan=4)
@@ -194,12 +194,24 @@ def open_summary():
 
         """
         Dynamic logic of creating buttons according to the previous years.
-        - create buttons GUI for the previous years
         - add function to the buttons to show relevant data - callback function to delete inputs
         and insert data of the given year
+            - open json file and read the data
+            - delete already displayed data
+            - insert newly read data 
         """
 
+        def show_relevant_year_data(year):
+            with open("stored_totals.json", "r") as infile:
+                stored_totals_data = json.load(infile)
+            
+
+
         #Opening stored_totals.json from which we will be using stored years data
+        """
+        As for button position, we can come up with a logic that will position new buttons
+        on a new row so that they don't keep going horizontally
+        """
 
         with open("stored_totals.json", "r") as infile:
             previous_years = json.load(infile)
@@ -208,16 +220,15 @@ def open_summary():
 
             for year in previous_years:
                 previous_year_button = tkinter.Button(frame4, text= year)
-                previous_year_button.grid(row=row_data, column=column_data, pady=10)
-                row_data += 1
-                row_data += 1
-                pass
+                previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
+                column_data += 1
+                
 
         """
-        We have to create another frame only for the months
+        Frame only for the months GUI and data
         """
         frame5 = tkinter.Frame(summary_root)
-        frame5.pack(side="bottom", fill="y", expand=False, padx=20, pady=10)
+        frame5.pack(side="top", fill="y", expand=False, padx=20, pady=5)
 
         january_label = tkinter.Label(frame5, text="January:")
         january_label.grid(row=2, column=0)
@@ -282,32 +293,35 @@ def open_summary():
         december_entry.grid(row=7, column=3)
 
         #Batch insert of relevant data in each month entry
-        months = ["January", "February", "March", "April", "May", "June", 
-            "July", "August", "September", "October", "November", "December"
-            ]
-        
-        entry_widgets = {
-            "january": january_entry,
-            "february": february_entry,
-            "march": march_entry,
-            "april": april_entry,
-            "may": may_entry,
-            "june": june_entry,
-            "july": july_entry,
-            "august": august_entry,
-            "september": september_entry,
-            "october": october_entry,
-            "november": november_entry,
-            "december": december_entry
-        }
-        with open('stored_totals.json', 'r') as infile:
-            data = json.load(infile)
+        def batch_insert_month_data():
+            months = ["January", "February", "March", "April", "May", "June", 
+                "July", "August", "September", "October", "November", "December"
+                ]
+            
+            entry_widgets = {
+                "january": january_entry,
+                "february": february_entry,
+                "march": march_entry,
+                "april": april_entry,
+                "may": may_entry,
+                "june": june_entry,
+                "july": july_entry,
+                "august": august_entry,
+                "september": september_entry,
+                "october": october_entry,
+                "november": november_entry,
+                "december": december_entry
+            }
+            with open('stored_totals.json', 'r') as infile:
+                data = json.load(infile)
 
-        for month in months:
-            if data[current_year].get(month) is not None:
-                entry_widget = entry_widgets.get(month.lower())
-                if entry_widget:
-                    entry_widget.insert(0, data[current_year][month])
+            for month in months:
+                if data[current_year].get(month) is not None:
+                    entry_widget = entry_widgets.get(month.lower())
+                    if entry_widget:
+                        entry_widget.insert(0, data[current_year][month])
+            
+        batch_insert_month_data()
 
 
         summary_root.mainloop()
