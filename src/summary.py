@@ -16,7 +16,10 @@ def open_summary():
     def main():
         summary_root = tkinter.Tk()
         summary_root.title("Summary")
-        summary_root.geometry("1050x600")
+        summary_root.geometry("1050x620")
+
+        frame0 = tkinter.Frame(summary_root)
+        frame0.pack(side="top")
 
         frame = tkinter.Frame(summary_root)
         frame.pack(side= "top", fill="y", expand=False, padx=20, pady=5)
@@ -219,7 +222,7 @@ def open_summary():
             column_data = 0
 
             for year in previous_years:
-                previous_year_button = tkinter.Button(frame4, text= year, command= partial(update_view_of_relevant_year_data, year))
+                previous_year_button = tkinter.Button(frame0, text= year, command= partial(update_view_of_relevant_year_data, year))
                 previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
                 column_data += 1
                 
