@@ -293,25 +293,28 @@ def open_summary():
         december_entry.grid(row=7, column=3)
 
         #Batch insert of relevant data in each month entry
+        
+        months = ["January", "February", "March", "April", "May", "June", 
+            "July", "August", "September", "October", "November", "December"
+            ]
+        
+        entry_widgets = {
+            "january": january_entry,
+            "february": february_entry,
+            "march": march_entry,
+            "april": april_entry,
+            "may": may_entry,
+            "june": june_entry,
+            "july": july_entry,
+            "august": august_entry,
+            "september": september_entry,
+            "october": october_entry,
+            "november": november_entry,
+            "december": december_entry
+        }
+
         def batch_insert_month_data():
-            months = ["January", "February", "March", "April", "May", "June", 
-                "July", "August", "September", "October", "November", "December"
-                ]
-            
-            entry_widgets = {
-                "january": january_entry,
-                "february": february_entry,
-                "march": march_entry,
-                "april": april_entry,
-                "may": may_entry,
-                "june": june_entry,
-                "july": july_entry,
-                "august": august_entry,
-                "september": september_entry,
-                "october": october_entry,
-                "november": november_entry,
-                "december": december_entry
-            }
+
             with open('stored_totals.json', 'r') as infile:
                 data = json.load(infile)
 
@@ -320,6 +323,10 @@ def open_summary():
                     entry_widget = entry_widgets.get(month.lower())
                     if entry_widget:
                         entry_widget.insert(0, data[current_year][month])
+        
+        def batch_delete_month_data():
+            for widget in entry_widgets:
+                entry_widgets[widget].delete(0, tkinter.END)
             
         batch_insert_month_data()
 
