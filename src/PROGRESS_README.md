@@ -19,10 +19,8 @@
         - update the data in the DB accordingly
         
 - 
-- INVOICED PER MONTH --> use Czech format for displaying numbers
-- add interface to support monthly summary for different years (past and current)
-    - make the Invoiced per month a tree so that it can be easy to switch displayed data (the tree columns - months - stay the same)
-    - create buttons to switch the display according to the selected year
+- SUMMARY ACCORDING TO THE SELECTED YEAR
+    - display relevant data (even invoices from the db)
 
 - INVOICED THIS YEAR
     - use Czech format for displaying numbers
