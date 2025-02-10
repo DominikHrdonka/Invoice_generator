@@ -4,7 +4,7 @@ from datetime import datetime
 
 # Data to be written if json file doesn't exist yet
 # This will be here only temporarily for the sake of testing the app.
-# This is important data, later on we will have to store it somewhere safe or in the cloud??
+# This is important data, later on IT WILL NOT BE HARDCODED. It will read the data from a safely saved file (cloud??)
 totals_dictionary = {
     "2024": {
         "January": 38718.19,
@@ -21,7 +21,8 @@ totals_dictionary = {
     },
     "2025": {
         "January": 28148.88,
-        "February": 19150.40
+        "February": 19150.40,
+		"total_per_year": 47299.28
     }
 }
 
@@ -64,7 +65,8 @@ def save_totals(value):
 		json.dump(stored_totals_data, outfile, indent=4)
 
 
-
+#Keeping track of invoice and order numbers
+# could make this more dynamic. E.G. reset the number once current_year changes.
 shared_data_dictionary = {
 	"next_invoice_num": 31,
 	"next_order_num": 32
