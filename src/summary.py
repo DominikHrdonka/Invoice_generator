@@ -9,6 +9,7 @@ import sqlite3
 from date_picker import *
 import shared
 import json
+from functools import partial
 
 
 def open_summary():
@@ -201,10 +202,9 @@ def open_summary():
             - insert newly read data 
         """
 
-        def show_relevant_year_data(year):
-            with open("stored_totals.json", "r") as infile:
-                stored_totals_data = json.load(infile)
-            
+        def update_view_of_relevant_year_data(year):
+            batch_delete_month_data()
+            batch_insert_month_data(year)
 
 
         #Opening stored_totals.json from which we will be using stored years data
@@ -219,7 +219,7 @@ def open_summary():
             column_data = 0
 
             for year in previous_years:
-                previous_year_button = tkinter.Button(frame4, text= year)
+                previous_year_button = tkinter.Button(frame4, text= year, command= partial(update_view_of_relevant_year_data, year))
                 previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
                 column_data += 1
                 
@@ -313,22 +313,22 @@ def open_summary():
             "december": december_entry
         }
 
-        def batch_insert_month_data():
+        def batch_insert_month_data(year):
 
             with open('stored_totals.json', 'r') as infile:
                 data = json.load(infile)
 
             for month in months:
-                if data[current_year].get(month) is not None:
+                if data[year].get(month) is not None:
                     entry_widget = entry_widgets.get(month.lower())
                     if entry_widget:
-                        entry_widget.insert(0, data[current_year][month])
+                        entry_widget.insert(0, data[year][month])
         
         def batch_delete_month_data():
             for widget in entry_widgets:
                 entry_widgets[widget].delete(0, tkinter.END)
             
-        batch_insert_month_data()
+        batch_insert_month_data(current_year)
 
 
         summary_root.mainloop()
