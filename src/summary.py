@@ -201,33 +201,27 @@ def open_summary():
         """
         def update_this_year_total_invoiced(year):
             this_year_total_invoiced_label.config(text=f"Invoiced in {year}")
-            
+
             with open("stored_totals.json", "r") as infile:
                 stored_totals = json.load(infile)
                 
             this_year_total_invoiced_entry.delete(0, tkinter.END)
             this_year_total_invoiced_entry.insert(0, stored_totals[year]["total_per_year"])
 
-        """
-        Dynamic logic of creating buttons according to the previous years.
-        - add function to the buttons to show relevant data - callback function to delete inputs
-        and insert data of the given year
-            - open json file and read the data
-            - delete already displayed data
-            - insert newly read data 
-        """
 
         def update_view_of_relevant_year_data(year):
             update_this_year_total_invoiced(year)
             batch_delete_month_data()
             batch_insert_month_data(year)
 
-
-        #Opening stored_totals.json from which we will be using stored years data
         """
+        Dynamic logic of creating buttons according to the previous years.
+
         As for button position, we can come up with a logic that will position new buttons
         on a new row so that they don't keep going horizontally
         """
+
+        #Opening stored_totals.json from which we will be using stored years data
 
         with open("stored_totals.json", "r") as infile:
             previous_years = json.load(infile)

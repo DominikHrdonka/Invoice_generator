@@ -21,6 +21,10 @@
 - 
 - SUMMARY ACCORDING TO THE SELECTED YEAR
     - display relevant data (even invoices from the db)
+    - DB
+        - we have to fetch and display only invoices FROM THE GIVEN YEAR
+        - also a possibility to display all invoices regardless the year??
+            - maybe make a filter or a search bar??? 
 
 - INVOICED THIS YEAR
     - use Czech format for displaying numbers
