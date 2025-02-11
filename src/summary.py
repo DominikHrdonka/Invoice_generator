@@ -67,6 +67,18 @@ def open_summary():
         
         fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
 
+        """
+        Function to fetch invocies based on the year selected.
+        """
+        def fetch_relevat_year_invoices(database, table, year):
+            with sqlite3.connect(database) as connection:
+                cursor = connection.cursor()
+                cursor.execute(
+                    'SELECT * FROM ? WHERE issued_on LIKE %?%;', (table, year)
+                )
+                items = cursor.fetchall()
+                return items
+
         #Top level function to mark selected invoice as paid in DB
         def mark_as_paid():
             selected_invoice = invoice_tree.selection() #Selecting invoice in the tree
