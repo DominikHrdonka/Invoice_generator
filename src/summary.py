@@ -70,14 +70,24 @@ def open_summary():
         """
         Function to fetch invocies based on the year selected.
         """
-        def fetch_relevat_year_invoices(database, table, year):
-            with sqlite3.connect(database) as connection:
+        def fetch_relevat_year_invoices(year):
+            with sqlite3.connect('invoices.db') as connection:
                 cursor = connection.cursor()
                 cursor.execute(
-                    'SELECT * FROM ? WHERE issued_on LIKE %?%;', (table, year)
+                    'SELECT * FROM invoices_list WHERE issued_on LIKE ?;', (f'%{year}%',)
                 )
                 items = cursor.fetchall()
                 return items
+            
+        def fetch_and_display_relevant_year_invoices(tree, year):
+            items = fetch_relevat_year_invoices(year)
+            display_invoices(tree, items)
+        
+        def update_treeview_relevant_year(tree, year):
+            if tree:
+                for item in tree.get_children():
+                    tree.delete(item)
+            fetch_and_display_relevant_year_invoices(invoice_tree, year)
 
         #Top level function to mark selected invoice as paid in DB
         def mark_as_paid():
@@ -223,6 +233,7 @@ def open_summary():
 
         def update_view_of_relevant_year_data(year):
             update_this_year_total_invoiced(year)
+            update_treeview_relevant_year(invoice_tree, year)
             batch_delete_month_data()
             batch_insert_month_data(year)
 

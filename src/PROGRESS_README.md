@@ -22,11 +22,6 @@
 - SUMMARY ACCORDING TO THE SELECTED YEAR
     - display relevant data (even invoices from the db)
     - DB
-        - we have to fetch and display only invoices FROM THE GIVEN YEAR
-            - 1. fetch the invoices using issued_on (specify the year)
-            - 2. delete the existing treeview content
-            - 3. insert the fetched data
-            - 4. include it under the button clicked function
         - also a possibility to display all invoices regardless the year??
             - maybe make a filter or a search bar??? 
 
