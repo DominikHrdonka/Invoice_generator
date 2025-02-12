@@ -54,13 +54,37 @@ def open_summary():
         invoice_tree.heading('client', text='Client')
         invoice_tree.heading('price', text='Price')
 
+        """
+        I need to make the functions below clearer:
+
+        - There is unnecesary repetition.
+        - also, some function takes argumetns unnecessarily - it's obvious they will be used only
+        for a particular job so there's no need to make it more scalable
+        - we need to unite the logic with the new function handling fetching, updating and displaying
+        invoices in invoices_tree
+        """
+
         #Insert fetched data into the overview tree
+
+        """
+        This function is probably only used here with invoices_tree, so there's no need for 'tree'
+        argument.
+        
+        TODO: Check whether this function is really ONLY USED here for invoices_tree,
+        and IF SO, remove 'tree' argument and adjust logic accordingly.
+        """
         def display_invoices(tree, invoices):
             for invoice in invoices:
                 #iid = invoice_id says to use this identifier with records instead of defafult id
                 invoice_id = invoice[0]
                 tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
         
+        """
+        This function is a bit different from the one used for fetching relevant year invoices.
+        TODO: can these 2 be somehow united/merged OR do we really need 2 similar yet seperate functions?
+        TODO: also think about fetch_items_from_db -> why is it in databases.py? Shouldn't it be here
+        so that it's less confusing?
+        """
         def fetch_and_display(tree, database, table):
             items = fetch_items_from_db(database, table)
             display_invoices(tree, items)

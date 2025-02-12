@@ -23,6 +23,7 @@
     - display relevant data (even invoices from the db)
     - DB
         - also a possibility to display all invoices regardless the year??
+            - make it a DEFAULT OPTION so when opening the summary, this function will be used
             - maybe make a filter or a search bar??? 
 
 - INVOICED THIS YEAR
