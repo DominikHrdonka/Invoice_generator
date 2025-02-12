@@ -265,10 +265,11 @@ def open_summary():
         """
         Dynamic logic of creating buttons according to the previous years.
 
-        As for button position, we can come up with a logic that will position new buttons
+        TODO:
+        - As for button position, we can come up with a logic that will position new buttons
         on a new row so that they don't keep going horizontally
+        - move the GUI up to frame0
         """
-
         #Opening stored_totals.json from which we will be using stored years data
 
         with open("stored_totals.json", "r") as infile:

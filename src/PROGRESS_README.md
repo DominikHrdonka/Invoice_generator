@@ -25,6 +25,8 @@
         - also a possibility to display all invoices regardless the year
             - make it a DEFAULT OPTION so when opening the summary, this function will be used
             - make it to change the 'Invoiced in' to 'Invoiced totally'
+                - need to add new key:value pair in stored_totals.json to reflect total price for
+                ALL THE YEARS
             - maybe make a filter or a search bar??? 
 
 - INVOICED THIS YEAR
