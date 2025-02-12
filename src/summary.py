@@ -55,12 +55,13 @@ def open_summary():
         invoice_tree.heading('price', text='Price')
 
         """
-        I need to make the functions below clearer:
+        NOTE: I need to make the functions below clearer:
 
         - There is unnecesary repetition.
         - also, some function takes argumetns unnecessarily - it's obvious they will be used only
         for a particular job so there's no need to make it more scalable
-        - we need to unite the logic with the new function handling fetching, updating and displaying
+
+        TODO: we need to unite the logic with the new function handling fetching, updating and displaying
         invoices in invoices_tree
         """
 
@@ -273,12 +274,15 @@ def open_summary():
         with open("stored_totals.json", "r") as infile:
             previous_years = json.load(infile)
             row_data = 1
-            column_data = 0
+            column_data = 1
 
             for year in previous_years:
                 previous_year_button = tkinter.Button(frame0, text= year, command= partial(update_view_of_relevant_year_data, year))
                 previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
                 column_data += 1
+        
+        all_invoices_button = tkinter.Button(frame0, text='All')
+        all_invoices_button.grid(row=1, column=0, padx=5, pady=10)
                 
 
         """
