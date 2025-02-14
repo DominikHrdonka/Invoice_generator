@@ -123,7 +123,7 @@ def open_summary():
             if tree:
                 for item in tree.get_children():
                     tree.delete(item)
-                fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
+                fetch_and_display('invoices.db', 'invoices_list')
 
         """
         Functions and GUI for buttons regarding invoices displayed in the treeview
@@ -264,12 +264,12 @@ def open_summary():
             column_data = 1
 
             for year in previous_years:
-                previous_year_button = tkinter.Button(frame0, text= year, command= partial(update_view_of_relevant_year_data, year))
+                previous_year_button = tkinter.Button(frame0, text= year, command= lambda: update_view_of_relevant_year_data(year))
                 previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
                 column_data += 1
         
-        all_invoices_button = tkinter.Button(frame0, text='All')
-        all_invoices_button.grid(row=1, column=0, padx=5, pady=10)   
+        all_invoices_button = tkinter.Button(frame0, text='All', command= lambda: update_treeview(invoice_tree))
+        all_invoices_button.grid(row=1, column=0, padx=5, pady=10)
 
         """
         Frame only for the months GUI and data
