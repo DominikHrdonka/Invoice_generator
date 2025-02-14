@@ -241,7 +241,7 @@ def open_summary():
         using the buttons at the top.
         """
         def update_this_year_total_invoiced(year):
-            this_year_total_invoiced_label.config(text=f"Invoiced in {year}")
+            this_year_total_invoiced_label.config(text=f"Invoiced in {year}:")
 
             with open("stored_totals.json", "r") as infile:
                 stored_totals = json.load(infile)
@@ -276,9 +276,24 @@ def open_summary():
                 previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
                 column_data += 1
         
-        all_invoices_button = tkinter.Button(frame0, text='All', command= lambda: update_treeview(invoice_tree))
+        """
+        Function to fetch and display all the invoices upon clicking all_invoices_button
+        
+        DESCR.:
+        - it updates the invoice_tree with ALL the invoices
+        - it changes this_year_total_invoiced_label to 'Invoiced in total: '
+        - it loads corresponding data from stored_totals.json
+        """
+        def fetch_and_display_all_invoices():
+            update_treeview(invoice_tree)
+            this_year_total_invoiced_label.config(text='Invoiced in total:')
+        
+        all_invoices_button = tkinter.Button(frame0, text='All', command= fetch_and_display_all_invoices)
         all_invoices_button.grid(row=1, column=0, padx=5, pady=10)
 
+        
+
+        
         """
         Frame only for the months GUI and data
         """
