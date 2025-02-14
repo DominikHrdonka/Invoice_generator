@@ -67,30 +67,21 @@ def open_summary():
 
         #Insert fetched data into the overview tree
 
-        """
-        This function is probably only used here with invoices_tree, so there's no need for 'tree'
-        argument.
-        
-        TODO: Check whether this function is really ONLY USED here for invoices_tree,
-        and IF SO, remove 'tree' argument and adjust logic accordingly.
-        """
-        def display_invoices(tree, invoices):
+        def display_invoices(invoices):
             for invoice in invoices:
                 #iid = invoice_id says to use this identifier with records instead of defafult id
                 invoice_id = invoice[0]
-                tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
+                invoice_tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
         
         """
         This function is a bit different from the one used for fetching relevant year invoices.
         TODO: can these 2 be somehow united/merged OR do we really need 2 similar yet seperate functions?
-        TODO: also think about fetch_items_from_db -> why is it in databases.py? Shouldn't it be here
-        so that it's less confusing?
         """
-        def fetch_and_display(tree, database, table):
+        def fetch_and_display(database, table):
             items = fetch_items_from_db(database, table)
-            display_invoices(tree, items)
+            display_invoices(items)
         
-        fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
+        fetch_and_display('invoices.db', 'invoices_list')
 
         """
         Function to fetch invocies based on the year selected.
@@ -104,15 +95,14 @@ def open_summary():
                 items = cursor.fetchall()
                 return items
             
-        def fetch_and_display_relevant_year_invoices(tree, year):
+        def fetch_and_display_relevant_year_invoices(year):
             items = fetch_relevat_year_invoices(year)
-            display_invoices(tree, items)
+            display_invoices(items)
         
-        def update_treeview_relevant_year(tree, year):
-            if tree:
-                for item in tree.get_children():
-                    tree.delete(item)
-            fetch_and_display_relevant_year_invoices(invoice_tree, year)
+        def update_treeview_relevant_year(year):
+            for item in invoice_tree.get_children():
+                invoice_tree.delete(item)
+            fetch_and_display_relevant_year_invoices(year)
 
         #Top level function to mark selected invoice as paid in DB
         def mark_as_paid():
@@ -258,7 +248,7 @@ def open_summary():
 
         def update_view_of_relevant_year_data(year):
             update_this_year_total_invoiced(year)
-            update_treeview_relevant_year(invoice_tree, year)
+            update_treeview_relevant_year(year)
             batch_delete_month_data()
             batch_insert_month_data(year)
 
