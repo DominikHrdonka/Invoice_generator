@@ -55,12 +55,6 @@ def open_summary():
         invoice_tree.heading('price', text='Price')
 
         """
-        NOTE: I need to make the functions below clearer:
-
-        - There is unnecesary repetition.
-        - also, some function takes argumetns unnecessarily - it's obvious they will be used only
-        for a particular job so there's no need to make it more scalable
-
         TODO: we need to unite the logic with the new function handling fetching, updating and displaying
         invoices in invoices_tree
         """
@@ -74,8 +68,10 @@ def open_summary():
                 invoice_tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
         
         """
-        This function is a bit different from the one used for fetching relevant year invoices.
-        TODO: can these 2 be somehow united/merged OR do we really need 2 similar yet seperate functions?
+        fetch_items_from_db function is a bit different from the one used for fetching
+        relevant year invoices since it is used to fetch data in clients.py as well.
+
+        fetch_relevant_year_invoices is ONLY used here for ONE purpose
         """
         def fetch_and_display(database, table):
             items = fetch_items_from_db(database, table)
@@ -130,7 +126,7 @@ def open_summary():
                 fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
 
         """
-        Functions and GUI for buttons regarding invoices displayed in the treeview 
+        Functions and GUI for buttons regarding invoices displayed in the treeview
         """
         def delete_invoice():
             selected_invoice = invoice_tree.selection()
@@ -273,8 +269,7 @@ def open_summary():
                 column_data += 1
         
         all_invoices_button = tkinter.Button(frame0, text='All')
-        all_invoices_button.grid(row=1, column=0, padx=5, pady=10)
-                
+        all_invoices_button.grid(row=1, column=0, padx=5, pady=10)   
 
         """
         Frame only for the months GUI and data
