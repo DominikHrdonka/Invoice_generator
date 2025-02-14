@@ -67,6 +67,8 @@ def open_summary():
                 invoice_id = invoice[0]
                 invoice_tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
         
+        
+
         """
         fetch_items_from_db function is a bit different from the one used for fetching
         relevant year invoices since it is used to fetch data in clients.py as well.
@@ -77,7 +79,7 @@ def open_summary():
             items = fetch_items_from_db(database, table)
             display_invoices(items)
         
-        fetch_and_display('invoices.db', 'invoices_list')
+        
 
         """
         Function to fetch invocies based on the year selected.
@@ -99,6 +101,12 @@ def open_summary():
             for item in invoice_tree.get_children():
                 invoice_tree.delete(item)
             fetch_and_display_relevant_year_invoices(year)
+
+        
+        fetch_and_display_relevant_year_invoices(current_year)
+        """
+        fetch_and_display_relevant_year_invoices
+        """
 
         #Top level function to mark selected invoice as paid in DB
         def mark_as_paid():
@@ -264,7 +272,7 @@ def open_summary():
             column_data = 1
 
             for year in previous_years:
-                previous_year_button = tkinter.Button(frame0, text= year, command= lambda: update_view_of_relevant_year_data(year))
+                previous_year_button = tkinter.Button(frame0, text= year, command= partial(update_view_of_relevant_year_data, year))
                 previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
                 column_data += 1
         
