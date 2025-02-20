@@ -11,12 +11,7 @@
 - align displayed data in treeview to center
 
 # Summary
-- DISPLAY PREVIOUS YEARS' DATA
-    - need to create window to view previous years' summaries
-
-- DISPLAYED INVOICES
-    - create buttons and functions to edit invoicec??
-        - update the data in the DB accordingly
+- display amounts in a Czech-friendly format (e.g. 1 000,50)
         
 - 
 - SUMMARY ACCORDING TO THE SELECTED YEAR
