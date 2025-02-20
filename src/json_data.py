@@ -23,7 +23,8 @@ totals_dictionary = {
         "January": 28148.88,
         "February": 19150.40,
 		"total_per_year": 47299.28
-    }
+    },
+	"total_for_all_years": 607443.39
 }
 
 current_year = datetime.now().strftime("%Y")
@@ -50,6 +51,7 @@ def save_totals(value):
 		stored_totals_data[current_year] = {}
 		stored_totals_data[current_year][current_month] = value
 		stored_totals_data[current_year]["total_per_year"] = value
+		stored_totals_data['total'] = value
 
 	else:
 		if current_month in stored_totals_data[current_year]:
@@ -58,6 +60,7 @@ def save_totals(value):
 			stored_totals_data[current_year][current_month] = value
 
 		stored_totals_data[current_year]["total_per_year"] += value
+		stored_totals_data['total'] += value
 
 
 	#Write back the updated data

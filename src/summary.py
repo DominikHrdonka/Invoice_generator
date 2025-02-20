@@ -16,7 +16,10 @@ def open_summary():
     def main():
         summary_root = tkinter.Tk()
         summary_root.title("Summary")
-        summary_root.geometry("1050x600")
+        summary_root.geometry("1050x620")
+
+        frame0 = tkinter.Frame(summary_root)
+        frame0.pack(side="top")
 
         frame = tkinter.Frame(summary_root)
         frame.pack(side= "top", fill="y", expand=False, padx=20, pady=5)
@@ -51,18 +54,59 @@ def open_summary():
         invoice_tree.heading('client', text='Client')
         invoice_tree.heading('price', text='Price')
 
+        """
+        TODO: we need to unite the logic with the new function handling fetching, updating and displaying
+        invoices in invoices_tree
+        """
+
         #Insert fetched data into the overview tree
-        def display_invoices(tree, invoices):
+
+        def display_invoices(invoices):
             for invoice in invoices:
                 #iid = invoice_id says to use this identifier with records instead of defafult id
                 invoice_id = invoice[0]
-                tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
+                invoice_tree.insert('', 0, iid = invoice_id, values=(invoice[1], invoice[2], invoice[3], invoice[4], invoice[5]))
         
-        def fetch_and_display(tree, database, table):
+        
+
+        """
+        fetch_items_from_db function is a bit different from the one used for fetching
+        relevant year invoices since it is used to fetch data in clients.py as well.
+
+        fetch_relevant_year_invoices is ONLY used here for ONE purpose
+        """
+        def fetch_and_display(database, table):
             items = fetch_items_from_db(database, table)
-            display_invoices(tree, items)
+            display_invoices(items)
         
-        fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
+        
+
+        """
+        Function to fetch invocies based on the year selected.
+        """
+        def fetch_relevat_year_invoices(year):
+            with sqlite3.connect('invoices.db') as connection:
+                cursor = connection.cursor()
+                cursor.execute(
+                    'SELECT * FROM invoices_list WHERE issued_on LIKE ?;', (f'%{year}%',)
+                )
+                items = cursor.fetchall()
+                return items
+            
+        def fetch_and_display_relevant_year_invoices(year):
+            items = fetch_relevat_year_invoices(year)
+            display_invoices(items)
+        
+        def update_treeview_relevant_year(year):
+            for item in invoice_tree.get_children():
+                invoice_tree.delete(item)
+            fetch_and_display_relevant_year_invoices(year)
+
+        
+        fetch_and_display_relevant_year_invoices(current_year)
+        """
+        fetch_and_display_relevant_year_invoices
+        """
 
         #Top level function to mark selected invoice as paid in DB
         def mark_as_paid():
@@ -87,10 +131,10 @@ def open_summary():
             if tree:
                 for item in tree.get_children():
                     tree.delete(item)
-                fetch_and_display(invoice_tree, 'invoices.db', 'invoices_list')
+                fetch_and_display('invoices.db', 'invoices_list')
 
         """
-        Functions and GUI for buttons regarding invoices displayed in the treeview 
+        Functions and GUI for buttons regarding invoices displayed in the treeview
         """
         def delete_invoice():
             selected_invoice = invoice_tree.selection()
@@ -192,38 +236,71 @@ def open_summary():
         invoiced_monthly_label = tkinter.Label(frame4, text='Invoiced per month:')
         invoiced_monthly_label.grid(row=0, column=0, pady=10, columnspan=4)
 
+        """
+        Functions to update individual summary window parts according to the year selected
+        using the buttons at the top.
+        """
+        def update_this_year_total_invoiced(year):
+            this_year_total_invoiced_label.config(text=f"Invoiced in {year}:")
 
-        """
-        Dynamic logic of creating buttons according to the previous years.
-        - add function to the buttons to show relevant data - callback function to delete inputs
-        and insert data of the given year
-            - open json file and read the data
-            - delete already displayed data
-            - insert newly read data 
-        """
+            with open("stored_totals.json", "r") as infile:
+                stored_totals = json.load(infile)
+                
+            this_year_total_invoiced_entry.delete(0, tkinter.END)
+            this_year_total_invoiced_entry.insert(0, stored_totals[year]["total_per_year"])
+
 
         def update_view_of_relevant_year_data(year):
+            update_this_year_total_invoiced(year)
+            update_treeview_relevant_year(year)
             batch_delete_month_data()
             batch_insert_month_data(year)
 
+        """
+        Dynamic logic of creating buttons according to the previous years.
 
-        #Opening stored_totals.json from which we will be using stored years data
-        """
-        As for button position, we can come up with a logic that will position new buttons
+        TODO:
+        - As for button position, we can come up with a logic that will position new buttons
         on a new row so that they don't keep going horizontally
+        - move the GUI up to frame0
         """
+        #Opening stored_totals.json from which we will be using stored years data
 
         with open("stored_totals.json", "r") as infile:
             previous_years = json.load(infile)
             row_data = 1
-            column_data = 0
+            column_data = 1
 
             for year in previous_years:
-                previous_year_button = tkinter.Button(frame4, text= year, command= partial(update_view_of_relevant_year_data, year))
-                previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
-                column_data += 1
-                
+                if year != 'total_for_all_years':
+                    previous_year_button = tkinter.Button(frame0, text= year, command= partial(update_view_of_relevant_year_data, year))
+                    previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
+                    column_data += 1
+        
+        """
+        Function to fetch and display all the invoices upon clicking all_invoices_button
+        
+        DESCR.:
+        - it updates the invoice_tree with ALL the invoices
+        - it changes this_year_total_invoiced_label to 'Invoiced in total: '
+        - it loads corresponding data from stored_totals.json
+        """
+        def fetch_and_display_all_invoices():
+            update_treeview(invoice_tree)
+            this_year_total_invoiced_label.config(text='Invoiced in total:')
 
+            with open('stored_totals.json', 'r') as infile:
+                stored_totals = json.load(infile)
+
+            this_year_total_invoiced_entry.delete(0, tkinter.END)
+            this_year_total_invoiced_entry.insert(0, stored_totals['total_for_all_years'])
+        
+        all_invoices_button = tkinter.Button(frame0, text='All', command= fetch_and_display_all_invoices)
+        all_invoices_button.grid(row=1, column=0, padx=5, pady=10)
+
+        
+
+        
         """
         Frame only for the months GUI and data
         """

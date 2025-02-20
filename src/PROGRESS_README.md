@@ -1,5 +1,8 @@
 # Things to be done:
 
+# JSON files
+- specify where the new stored_totals.json is created
+    - now, it is created wherever main.py is called (probably same as DBs)
 # QR
 - add function to generate unique QR code
 - place the QR code in the document
@@ -11,18 +14,15 @@
 - align displayed data in treeview to center
 
 # Summary
-- DISPLAY PREVIOUS YEARS' DATA
-    - need to create window to view previous years' summaries
-
-- DISPLAYED INVOICES
-    - create buttons and functions to edit invoicec??
-        - update the data in the DB accordingly
+- display amounts in a Czech-friendly format (e.g. 1 000,50)
         
 - 
-- INVOICED PER MONTH --> use Czech format for displaying numbers
-- add interface to support monthly summary for different years (past and current)
-    - make the Invoiced per month a tree so that it can be easy to switch displayed data (the tree columns - months - stay the same)
-    - create buttons to switch the display according to the selected year
+- SUMMARY ACCORDING TO THE SELECTED YEAR
+    - DB
+            -
+                - 15.2.2025: need to ADD new key:value pair in stored_totals.json to reflect total price for
+                ALL THE YEARS
+            - maybe make a filter or a search bar??? 
 
 - INVOICED THIS YEAR
     - use Czech format for displaying numbers
