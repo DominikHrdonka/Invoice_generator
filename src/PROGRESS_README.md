@@ -20,8 +20,6 @@
 - SUMMARY ACCORDING TO THE SELECTED YEAR
     - DB
             -
-                - 15.2.2025: need to ADD new key:value pair in stored_totals.json to reflect total price for
-                ALL THE YEARS
             - maybe make a filter or a search bar??? 
 
 - INVOICED THIS YEAR
