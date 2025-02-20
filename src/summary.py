@@ -272,9 +272,10 @@ def open_summary():
             column_data = 1
 
             for year in previous_years:
-                previous_year_button = tkinter.Button(frame0, text= year, command= partial(update_view_of_relevant_year_data, year))
-                previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
-                column_data += 1
+                if year != 'total_for_all_years':
+                    previous_year_button = tkinter.Button(frame0, text= year, command= partial(update_view_of_relevant_year_data, year))
+                    previous_year_button.grid(row=row_data, column=column_data, padx = 5, pady=10)
+                    column_data += 1
         
         """
         Function to fetch and display all the invoices upon clicking all_invoices_button
@@ -287,6 +288,12 @@ def open_summary():
         def fetch_and_display_all_invoices():
             update_treeview(invoice_tree)
             this_year_total_invoiced_label.config(text='Invoiced in total:')
+
+            with open('stored_totals.json', 'r') as infile:
+                stored_totals = json.load(infile)
+
+            this_year_total_invoiced_entry.delete(0, tkinter.END)
+            this_year_total_invoiced_entry.insert(0, stored_totals['total_for_all_years'])
         
         all_invoices_button = tkinter.Button(frame0, text='All', command= fetch_and_display_all_invoices)
         all_invoices_button.grid(row=1, column=0, padx=5, pady=10)

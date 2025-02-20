@@ -24,7 +24,7 @@ totals_dictionary = {
         "February": 19150.40,
 		"total_per_year": 47299.28
     },
-	"total": 607443.39,
+	"total_for_all_years": 607443.39
 }
 
 current_year = datetime.now().strftime("%Y")

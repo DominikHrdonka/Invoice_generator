@@ -1,5 +1,8 @@
 # Things to be done:
 
+# JSON files
+- specify where the new stored_totals.json is created
+    - now, it is created wherever main.py is called (probably same as DBs)
 # QR
 - add function to generate unique QR code
 - place the QR code in the document
