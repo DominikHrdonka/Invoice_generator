@@ -39,15 +39,35 @@ if not os.path.exists("stored_totals.json"):
 	with open("stored_totals.json", "w") as outfile:
 		outfile.write(stored_totals_obj)
 
+
+"""
+NOTE: Is it necessary to open this particular file right away?? 
+"""
 #Open existing json file
 with open("stored_totals.json", "r") as infile:
 	stored_totals_data = json.load(infile)
+
+"""
+Function to be called upon opening the program to create give json.files with given source dict.
+"""
+def create_json_file_if_not_exist(file, source_dictionary):
+	if not os.path.exists(file):
+		file_object = json.dumps(source_dictionary, indent=4)
+	
+	with open(file, 'w') as outfile:
+		outfile.write(file_object)
 
 # Read data from given file
 def read_json_file(file):
 	with open(file, 'r') as infile:
 		return json.load(infile)
-		
+	
+
+
+"""
+This function below must contain read_json_file function otherwise it would not be able to save data
+in it.
+"""
 
 def save_totals(value):
 
