@@ -1,8 +1,12 @@
 # Things to be done:
 
 # JSON files
+- create functions to read from and write to files so that we don't have to repeat code
 - specify where the new stored_totals.json is created
     - now, it is created wherever main.py is called (probably same as DBs)
+
+- invoice and order numbers
+    - could make these more dynamic. E.G. reset the number once current_year changes.
 # QR
 - add function to generate unique QR code
 - place the QR code in the document

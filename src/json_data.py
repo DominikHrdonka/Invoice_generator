@@ -43,6 +43,11 @@ if not os.path.exists("stored_totals.json"):
 with open("stored_totals.json", "r") as infile:
 	stored_totals_data = json.load(infile)
 
+# Read data from given file
+def read_json_file(file):
+	with open(file, 'r') as infile:
+		return json.load(infile)
+		
 
 def save_totals(value):
 
