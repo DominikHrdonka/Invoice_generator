@@ -2,10 +2,11 @@ import sqlite3
 import os
 import tkinter
 from tkinter import ttk
+import shared
 
 def insert_into_db(invoice_number, paid, issued_on, client, price):
     #Connect to DB
-    with sqlite3.connect('invoices.db') as connection:
+    with sqlite3.connect(shared.invoices_db_path) as connection:
     #object of DB that handles all the communication with the DB
         cursor = connection.cursor()
     #insert into DB table

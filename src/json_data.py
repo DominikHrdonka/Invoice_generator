@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+import shared
 
 # Data to be written if json file doesn't exist yet
 # This will be here only temporarily for the sake of testing the app.
@@ -30,21 +31,34 @@ totals_dictionary = {
 current_year = datetime.now().strftime("%Y")
 current_month = datetime.now().strftime("%B")
 
-#If not exist, create json file
-if not os.path.exists("stored_totals.json"):
-	#creating json object
-	stored_totals_obj = json.dumps(totals_dictionary, indent=4)
 
-	# creating json file
-	with open("stored_totals.json", "w") as outfile:
-		outfile.write(stored_totals_obj)
+"""
+Function to be called upon opening the program to create give json.files with given source dict.
+"""
+def create_json_file_if_not_exist(file, source_dictionary):
+	if not os.path.exists(file):
+		file_object = json.dumps(source_dictionary, indent=4)
+	
+		with open(file, 'w') as outfile:
+			outfile.write(file_object)
 
-#Open existing json file
-with open("stored_totals.json", "r") as infile:
-	stored_totals_data = json.load(infile)
+# Read data from given file
+def read_json_file(file):
+	with open(file, 'r') as infile:
+		return json.load(infile)
 
+#Creating stored_totals.json if not exist	
+create_json_file_if_not_exist(shared.stored_totals_json_path, totals_dictionary)
+	
+
+"""
+This function below must contain read_json_file function otherwise it would not be able to save data
+in it.
+"""
 
 def save_totals(value):
+
+	stored_totals_data = read_json_file(shared.stored_totals_json_path)
 
 	#Updating data based on the current year and month key existence
 	if current_year not in stored_totals_data:
@@ -60,11 +74,11 @@ def save_totals(value):
 			stored_totals_data[current_year][current_month] = value
 
 		stored_totals_data[current_year]["total_per_year"] += value
-		stored_totals_data['total'] += value
+		stored_totals_data['total_for_all_years'] += value
 
 
 	#Write back the updated data
-	with open("stored_totals.json", "w") as outfile:
+	with open(shared.stored_totals_json_path, "w") as outfile:
 		json.dump(stored_totals_data, outfile, indent=4)
 
 
@@ -75,27 +89,21 @@ shared_data_dictionary = {
 	"next_order_num": 32
 }
 
-# If not exists, create json file
-if not os.path.exists('shared_data.json'):
-	shared_data_obj = json.dumps(shared_data_dictionary, indent=4)
+create_json_file_if_not_exist(shared.shared_data_json_path, shared_data_dictionary)
 
-	with open('shared_data.json', 'w') as file:
-		file.write(shared_data_obj)
-
-# Open existing json file
-with open('shared_data.json', 'r') as infile:
-	stored_shared_data = json.load(infile)
 
 def update_next_invoice_num():
+	stored_shared_data = read_json_file(shared.shared_data_json_path)
 	stored_shared_data['next_invoice_num'] += 1
 	
 	#Writing back the updated date
-	with open('shared_data.json', 'w') as outfile:
+	with open(shared.shared_data_json_path, 'w') as outfile:
 		json.dump(stored_shared_data, outfile, indent=4)
 
 def update_next_order_num():
+	stored_shared_data = read_json_file(shared.shared_data_json_path)
 	stored_shared_data['next_order_num'] += 1
 
 	#Writing back the updated date
-	with open('shared_data.json', 'w') as outfile:
+	with open(shared.shared_data_json_path, 'w') as outfile:
 		json.dump(stored_shared_data, outfile, indent=4)

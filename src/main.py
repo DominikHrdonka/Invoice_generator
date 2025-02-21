@@ -7,6 +7,7 @@ from summary import (
 )
 from clients import open_clients
 import sqlite3
+import shared
 
 # GUI
 window = tkinter.Tk()
@@ -33,7 +34,7 @@ clients_button = tkinter.Button(frame, text="Clients", command=open_clients)
 clients_button.grid(row=3, column=0, pady=10, sticky= "news", columnspan=2)
 
 #Creating database for invoices
-with sqlite3.connect('invoices.db') as connection:
+with sqlite3.connect(shared.invoices_db_path) as connection:
 #object of DB that handles all the communication with the DB
     cursor = connection.cursor()
 
@@ -42,7 +43,7 @@ with sqlite3.connect('invoices.db') as connection:
         "CREATE TABLE IF NOT EXISTS invoices_list (id INTEGER PRIMARY KEY, invoice_number TEXT, paid TEXT, issued_on TEXT, client TEXT, price REAL);"
         )
 #Creating database for clients    
-with sqlite3.connect('clients.db') as connection:
+with sqlite3.connect(shared.clients_db_path) as connection:
     cursor = connection.cursor()
 
     cursor.execute(

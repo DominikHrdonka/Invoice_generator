@@ -100,10 +100,11 @@ def rws():
             
         #Update calc_invoice_number and calc_next_order_num asynchronously
         def invoice_and_order_num_insert():
-            calc_invoice_number = json_data.current_year + f'-{json_data.stored_shared_data["next_invoice_num"]:04}'
+            stored_shared_data = json_data.read_json_file(shared.shared_data_json_path)
+            calc_invoice_number = json_data.current_year + f'-{stored_shared_data["next_invoice_num"]:04}'
             invoice_num_entry.insert(0, calc_invoice_number)
             
-            calc_order_num = "RWS" + str(json_data.stored_shared_data["next_order_num"])
+            calc_order_num = "RWS" + str(stored_shared_data["next_order_num"])
             order_num_entry.insert(0, calc_order_num)
 
         # Use callback function to update per above

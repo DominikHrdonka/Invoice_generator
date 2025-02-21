@@ -3,6 +3,7 @@ from tkinter import (ttk, messagebox)
 import sqlite3
 from databases import (fetch_items_from_db)
 import summary
+import shared
 
 def open_clients():
     def main():
@@ -23,7 +24,7 @@ def open_clients():
                 email = email_entry.get()
                 hourly_rate = hourly_rate_entry.get()
 
-                with sqlite3.connect('clients.db') as connection:
+                with sqlite3.connect(shared.clients_db_path) as connection:
                     cursor = connection.cursor()
                     cursor.execute(
                         "INSERT INTO client_list (name, email, hourly_rate) VALUES (?, ?, ?);", (name, email, hourly_rate)
@@ -71,7 +72,7 @@ def open_clients():
             if client:
                 message = messagebox.askyesnocancel(message='Are you sure to remove the client?')
                 if message is True:
-                    with sqlite3.connect('clients.db') as connection:
+                    with sqlite3.connect(shared.clients_db_path) as connection:
                         cursor = connection.cursor()
                         cursor.execute('DELETE FROM client_list WHERE id = ?;', (client))
                     messagebox.showinfo(message='Client successfully removed')
@@ -95,14 +96,14 @@ def open_clients():
                     """
                     Actual change to the client in DB:
                     """
-                    with sqlite3.connect('clients.db') as connection:
+                    with sqlite3.connect(shared.clients_db_path) as connection:
                         cursor = connection.cursor()
                         cursor.execute('UPDATE client_list SET name = ?, email = ?, hourly_rate = ? WHERE id = ?;', (changed_name, changed_email, changed_hourly_rate, client))
                     update_clients_in_treeview()
                     edit_client_root.destroy()
 
             if client:
-                with sqlite3.connect('clients.db') as connection:
+                with sqlite3.connect(shared.clients_db_path) as connection:
                     cursor = connection.cursor()
                     cursor.execute('SELECT * FROM client_list WHERE id = ?;', (client))
 
@@ -167,7 +168,7 @@ def open_clients():
         edit_client_button.grid(row=3, column=0, padx=5, pady=3, sticky='news')
 
         def display_clients_in_treeview():
-                clients = fetch_items_from_db('clients.db', 'client_list')
+                clients = fetch_items_from_db(shared.clients_db_path, 'client_list')
 
                 for client in clients:
                     client_id = client[0]
