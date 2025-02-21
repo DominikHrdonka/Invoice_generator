@@ -14,7 +14,7 @@
 - make it able to create concepts (storing incomplete files??)
 
 # Clients
-- align displayed data in treeview to center
+- align displayed data in treeview to center (??)
 
 # Summary
 - display amounts in a Czech-friendly format (e.g. 1 000,50)
