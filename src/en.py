@@ -6,6 +6,7 @@ from tkinter import messagebox
 from date_picker import *
 import shared
 import json_data
+from json_data import read_json_file
 from tkinter import filedialog
 from datetime import datetime
 from databases import insert_into_db
@@ -117,7 +118,8 @@ def en():
 
         #Update calc_invoice_number asynchronously using callback function
         def invoice_num_insert():
-            calc_invoice_number = json_data.current_year + f'-{json_data.stored_shared_data["next_invoice_num"]:04}'
+            stored_shared_data = read_json_file('shared_data.json')
+            calc_invoice_number = json_data.current_year + f'-{stored_shared_data["next_invoice_num"]:04}'
             invoice_num_entry.insert(0, calc_invoice_number)
         
         def gen_invoice_and_update_invoice_number():

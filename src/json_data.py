@@ -38,8 +38,8 @@ def create_json_file_if_not_exist(file, source_dictionary):
 	if not os.path.exists(file):
 		file_object = json.dumps(source_dictionary, indent=4)
 	
-	with open(file, 'w') as outfile:
-		outfile.write(file_object)
+		with open(file, 'w') as outfile:
+			outfile.write(file_object)
 
 # Read data from given file
 def read_json_file(file):
@@ -49,8 +49,6 @@ def read_json_file(file):
 #Creating stored_totals.json if not exist	
 create_json_file_if_not_exist('stored_totals.json', totals_dictionary)
 	
-# Reading relevant data for usage in save_totals function
-stored_totals_data = read_json_file('stored_totals.json')
 
 """
 This function below must contain read_json_file function otherwise it would not be able to save data
@@ -58,6 +56,8 @@ in it.
 """
 
 def save_totals(value):
+
+	stored_totals_data = read_json_file('stored_totals.json')
 
 	#Updating data based on the current year and month key existence
 	if current_year not in stored_totals_data:
@@ -73,7 +73,7 @@ def save_totals(value):
 			stored_totals_data[current_year][current_month] = value
 
 		stored_totals_data[current_year]["total_per_year"] += value
-		stored_totals_data['total'] += value
+		stored_totals_data['total_for_all_years'] += value
 
 
 	#Write back the updated data
@@ -90,10 +90,9 @@ shared_data_dictionary = {
 
 create_json_file_if_not_exist('shared_data.json', shared_data_dictionary)
 
-# Reading relevant data for usage in update_next_invoice_num and update_next_order num functions
-stored_shared_data = read_json_file('shared_data.json')
 
 def update_next_invoice_num():
+	stored_shared_data = read_json_file('shared_data.json')
 	stored_shared_data['next_invoice_num'] += 1
 	
 	#Writing back the updated date
@@ -101,6 +100,7 @@ def update_next_invoice_num():
 		json.dump(stored_shared_data, outfile, indent=4)
 
 def update_next_order_num():
+	stored_shared_data = read_json_file('shared_data.json')
 	stored_shared_data['next_order_num'] += 1
 
 	#Writing back the updated date
