@@ -2,7 +2,6 @@ import tkinter
 from tkinter import (ttk, messagebox)
 from rws import rws
 from en import en
-import json_data
 from json_data import current_year, read_json_file
 from databases import fetch_items_from_db
 import sqlite3
@@ -30,7 +29,7 @@ def open_summary():
         this_year_total_invoiced_entry.grid(row=0, column=1, padx= 10)
         
         """Opening json file to insert required data"""
-        json_data = read_json_file('stored_totals.json')
+        json_data = read_json_file(shared.stored_totals_json_path)
 
         this_year_total_invoiced_entry.insert(0, json_data[current_year]["total_per_year"])
 
@@ -185,7 +184,7 @@ def open_summary():
                     
 
                     #Now, we need to open json file, update the data and write it back to json
-                    stored_totals = read_json_file('stored_totals.json')
+                    stored_totals = read_json_file(shared.stored_totals_json_path)
 
                     #This is the update itself
                     stored_totals[current_year][month.capitalize()] = total
@@ -240,7 +239,7 @@ def open_summary():
         """
         def update_this_year_total_invoiced(year):
             this_year_total_invoiced_label.config(text=f"Invoiced in {year}:")
-            stored_totals = read_json_file('stored_totals.json')
+            stored_totals = read_json_file(shared.stored_totals_json_path)
             this_year_total_invoiced_entry.delete(0, tkinter.END)
             this_year_total_invoiced_entry.insert(0, stored_totals[year]["total_per_year"])
 
@@ -262,7 +261,7 @@ def open_summary():
         #Opening stored_totals.json from which we will be using stored years data
 
         
-        previous_years = read_json_file('stored_totals.json')
+        previous_years = read_json_file(shared.stored_totals_json_path)
         row_data = 1
         column_data = 1
 
@@ -284,7 +283,7 @@ def open_summary():
             update_treeview(invoice_tree)
             this_year_total_invoiced_label.config(text='Invoiced in total:')
 
-            stored_totals = read_json_file('stored_totals.json')
+            stored_totals = read_json_file(shared.stored_totals_json_path)
 
             this_year_total_invoiced_entry.delete(0, tkinter.END)
             this_year_total_invoiced_entry.insert(0, stored_totals['total_for_all_years'])
@@ -386,7 +385,7 @@ def open_summary():
 
         def batch_insert_month_data(year):
 
-            data = read_json_file('stored_totals.json')
+            data = read_json_file(shared.stored_totals_json_path)
 
             for month in months:
                 if data[year].get(month) is not None:

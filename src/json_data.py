@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+import shared
 
 # Data to be written if json file doesn't exist yet
 # This will be here only temporarily for the sake of testing the app.
@@ -47,7 +48,7 @@ def read_json_file(file):
 		return json.load(infile)
 
 #Creating stored_totals.json if not exist	
-create_json_file_if_not_exist('stored_totals.json', totals_dictionary)
+create_json_file_if_not_exist(shared.stored_totals_json_path, totals_dictionary)
 	
 
 """
@@ -57,7 +58,7 @@ in it.
 
 def save_totals(value):
 
-	stored_totals_data = read_json_file('stored_totals.json')
+	stored_totals_data = read_json_file(shared.stored_totals_json_path)
 
 	#Updating data based on the current year and month key existence
 	if current_year not in stored_totals_data:
@@ -77,7 +78,7 @@ def save_totals(value):
 
 
 	#Write back the updated data
-	with open("stored_totals.json", "w") as outfile:
+	with open(shared.stored_totals_json_path, "w") as outfile:
 		json.dump(stored_totals_data, outfile, indent=4)
 
 
@@ -88,21 +89,21 @@ shared_data_dictionary = {
 	"next_order_num": 32
 }
 
-create_json_file_if_not_exist('shared_data.json', shared_data_dictionary)
+create_json_file_if_not_exist(shared.shared_data_json_path, shared_data_dictionary)
 
 
 def update_next_invoice_num():
-	stored_shared_data = read_json_file('shared_data.json')
+	stored_shared_data = read_json_file(shared.shared_data_json_path)
 	stored_shared_data['next_invoice_num'] += 1
 	
 	#Writing back the updated date
-	with open('shared_data.json', 'w') as outfile:
+	with open(shared.shared_data_json_path, 'w') as outfile:
 		json.dump(stored_shared_data, outfile, indent=4)
 
 def update_next_order_num():
-	stored_shared_data = read_json_file('shared_data.json')
+	stored_shared_data = read_json_file(shared.shared_data_json_path)
 	stored_shared_data['next_order_num'] += 1
 
 	#Writing back the updated date
-	with open('shared_data.json', 'w') as outfile:
+	with open(shared.shared_data_json_path, 'w') as outfile:
 		json.dump(stored_shared_data, outfile, indent=4)

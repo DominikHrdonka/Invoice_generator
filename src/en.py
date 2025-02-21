@@ -117,7 +117,7 @@ def en():
 
         #Update calc_invoice_number asynchronously using callback function
         def invoice_num_insert():
-            stored_shared_data = json_data.read_json_file('shared_data.json')
+            stored_shared_data = json_data.read_json_file(shared.shared_data_json_path)
             calc_invoice_number = json_data.current_year + f'-{stored_shared_data["next_invoice_num"]:04}'
             invoice_num_entry.insert(0, calc_invoice_number)
         
