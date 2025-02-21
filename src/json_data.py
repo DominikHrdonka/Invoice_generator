@@ -30,22 +30,6 @@ totals_dictionary = {
 current_year = datetime.now().strftime("%Y")
 current_month = datetime.now().strftime("%B")
 
-#If not exist, create json file
-if not os.path.exists("stored_totals.json"):
-	#creating json object
-	stored_totals_obj = json.dumps(totals_dictionary, indent=4)
-
-	# creating json file
-	with open("stored_totals.json", "w") as outfile:
-		outfile.write(stored_totals_obj)
-
-
-"""
-NOTE: Is it necessary to open this particular file right away?? 
-"""
-#Open existing json file
-with open("stored_totals.json", "r") as infile:
-	stored_totals_data = json.load(infile)
 
 """
 Function to be called upon opening the program to create give json.files with given source dict.
@@ -61,8 +45,12 @@ def create_json_file_if_not_exist(file, source_dictionary):
 def read_json_file(file):
 	with open(file, 'r') as infile:
 		return json.load(infile)
-	
 
+#Creating stored_totals.json if not exist	
+create_json_file_if_not_exist('stored_totals.json', totals_dictionary)
+	
+# Reading relevant data for usage in save_totals function
+stored_totals_data = read_json_file('stored_totals.json')
 
 """
 This function below must contain read_json_file function otherwise it would not be able to save data
@@ -100,16 +88,10 @@ shared_data_dictionary = {
 	"next_order_num": 32
 }
 
-# If not exists, create json file
-if not os.path.exists('shared_data.json'):
-	shared_data_obj = json.dumps(shared_data_dictionary, indent=4)
+create_json_file_if_not_exist('shared_data.json', shared_data_dictionary)
 
-	with open('shared_data.json', 'w') as file:
-		file.write(shared_data_obj)
-
-# Open existing json file
-with open('shared_data.json', 'r') as infile:
-	stored_shared_data = json.load(infile)
+# Reading relevant data for usage in update_next_invoice_num and update_next_order num functions
+stored_shared_data = read_json_file('shared_data.json')
 
 def update_next_invoice_num():
 	stored_shared_data['next_invoice_num'] += 1
