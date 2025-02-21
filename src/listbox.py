@@ -31,7 +31,7 @@ def open_client_listbox(callback):
     Displaying clients to the treeview.
     clients list will be replaced by the actualy list of clients from DB
     """
-    clients = fetch_items_from_db('clients.db', 'client_list')
+    clients = fetch_items_from_db(shared.clients_db_path, 'client_list')
 
     for client in clients:
         client_id = client[0]

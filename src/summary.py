@@ -83,7 +83,7 @@ def open_summary():
         Function to fetch invocies based on the year selected.
         """
         def fetch_relevat_year_invoices(year):
-            with sqlite3.connect('invoices.db') as connection:
+            with sqlite3.connect(shared.invoices_db_path) as connection:
                 cursor = connection.cursor()
                 cursor.execute(
                     'SELECT * FROM invoices_list WHERE issued_on LIKE ?;', (f'%{year}%',)
@@ -116,7 +116,7 @@ def open_summary():
                 
         #Marking as paid in DB to be used as callback
         def mark_as_paid_callback(invoice):
-            with sqlite3.connect('invoices.db') as connection:
+            with sqlite3.connect(shared.invoices_db_path) as connection:
                     cursor = connection.cursor()
                     cursor.execute(
                         "UPDATE invoices_list SET paid = ? WHERE id = ?", (shared.selected_date, invoice[0])
@@ -129,7 +129,7 @@ def open_summary():
             if tree:
                 for item in tree.get_children():
                     tree.delete(item)
-                fetch_and_display('invoices.db', 'invoices_list')
+                fetch_and_display(shared.invoices_db_path, 'invoices_list')
 
         """
         Functions and GUI for buttons regarding invoices displayed in the treeview
@@ -139,7 +139,7 @@ def open_summary():
             if selected_invoice:
                 message = messagebox.askyesnocancel(message="Delete invoice?")
                 if message is True:
-                    with sqlite3.Connection('invoices.db') as connection:
+                    with sqlite3.Connection(shared.invoices_db_path) as connection:
                         cursor = connection.cursor()
 
                         #Retrieving invoice's month of issue

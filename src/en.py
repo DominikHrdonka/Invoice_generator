@@ -103,7 +103,7 @@ def en():
         #Insert client in Client field
         def insert_client_callback():
             id = shared.selected_client
-            with sqlite3.connect('clients.db') as connection:
+            with sqlite3.connect(shared.clients_db_path) as connection:
                 cursor = connection.cursor()
                 cursor.execute('SELECT name FROM client_list WHERE id = ?;', (id))
                 clients = cursor.fetchall()
@@ -140,7 +140,7 @@ def en():
                 messagebox.showinfo(message='You need to enter a client and a number of lessons.')
             else:
                 selected_client = client_entry.get()
-                with sqlite3.connect('clients.db') as Connection:
+                with sqlite3.connect(shared.clients_db_path) as Connection:
                     cursor = Connection.cursor()
                     cursor.execute('SELECT hourly_rate FROM client_list WHERE name = ?;', (selected_client,))
                     hourly_rate = int(cursor.fetchone()[0])
