@@ -83,13 +83,13 @@ def open_summary():
         Function to fetch invocies based on the year selected.
         """
         def fetch_relevat_year_invoices(year):
-            with sqlite3.connect(shared.invoices_db_path) as connection:
-                cursor = connection.cursor()
-                cursor.execute(
-                    'SELECT * FROM invoices_list WHERE issued_on LIKE ?;', (f'%{year}%',)
-                )
-                items = cursor.fetchall()
-                return items
+            connection, cursor = open_database_and_create_cursor(shared.invoices_db_path)
+            cursor.execute(
+                'SELECT * FROM invoices_list WHERE issued_on LIKE ?;', (f'%{year}%',)
+            )
+            items = cursor.fetchall()
+            connection.close()
+            return items
             
         def fetch_and_display_relevant_year_invoices(year):
             items = fetch_relevat_year_invoices(year)
