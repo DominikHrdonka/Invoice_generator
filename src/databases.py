@@ -4,6 +4,12 @@ import tkinter
 from tkinter import ttk
 import shared
 
+# Function to open DB and create cursor to be used in manipulating with
+def open_database_and_create_cursor(database):
+    with sqlite3.connect(database) as connection:
+        return connection.cursor()
+    pass
+
 def insert_into_db(invoice_number, paid, issued_on, client, price):
     #Connect to DB
     with sqlite3.connect(shared.invoices_db_path) as connection:
