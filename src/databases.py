@@ -6,9 +6,9 @@ import shared
 
 # Function to open DB and create cursor to be used in manipulating with
 def open_database_and_create_cursor(database):
-    with sqlite3.connect(database) as connection:
-        return connection.cursor()
-    pass
+    connection = sqlite3.connect(database)
+    cursor = connection.cursor()
+    return connection, cursor
 
 def insert_into_db(invoice_number, paid, issued_on, client, price):
     #Connect to DB
@@ -21,13 +21,12 @@ def insert_into_db(invoice_number, paid, issued_on, client, price):
 
 #Fetch items from db to use e.g. for display in trees
 def fetch_items_from_db(database, table):
-    with sqlite3.connect(database) as connection:
-        cursor = connection.cursor()
+    #Open database and create cursor
+    connection, cursor = open_database_and_create_cursor(database)
+    #Specify which invoices to display
+    cursor.execute(f'SELECT * from {table} ORDER BY id DESC;')
+    items = cursor.fetchall()
+    connection.close()
+    return items
 
-        #Specify which invoices to display
-        cursor.execute(f'SELECT * from {table} ORDER BY id DESC;')
-
-        items = cursor.fetchall()
-        return items
-    
 

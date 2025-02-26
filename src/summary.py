@@ -3,7 +3,7 @@ from tkinter import (ttk, messagebox)
 from rws import rws
 from en import en
 from json_data import current_year, read_json_file
-from databases import fetch_items_from_db
+from databases import fetch_items_from_db, open_database_and_create_cursor
 import sqlite3
 from date_picker import *
 import shared
